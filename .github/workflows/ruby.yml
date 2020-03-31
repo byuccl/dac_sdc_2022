@@ -20,7 +20,6 @@ jobs:
 
     - name: Building website
       run: |
-        gem update --system
         bundle install
         bundle exec jekyll build
 
