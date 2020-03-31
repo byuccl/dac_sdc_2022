@@ -30,7 +30,7 @@ markdown: kramdown
 plugins:
 
 github:
-  url: https://github.com/NET-BYU/NET-BYU.github.io
+  url: https://github.com/NET-BYU/networking-course
   branch: master
 
 
