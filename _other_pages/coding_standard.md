@@ -2,6 +2,7 @@
 title: Coding Standard
 layout: page
 toc: true
+icon: fas fa-terminal
 ---
 
 ### 1. General

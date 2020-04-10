@@ -1,6 +1,10 @@
 ::selection {
-    // background-color: rgba(216, 224, 34, .5);
-    background-color: rgba(237, 63, 149, .2);
+    // background-color: rgba(237, 63, 149, .2);
+    background-color: $selection-color;
+}
+
+.badge-dark-grey {
+    border: solid 1.5px #495057;
 }
 
 h1 {
@@ -27,6 +31,10 @@ h3 {
         background-color: $brand-color;
         color: white !important;
     }
+}
+
+.page-title i {
+    font-size: 1.8rem;
 }
 
 .lab-toc {

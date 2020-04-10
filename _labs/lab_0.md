@@ -1,7 +1,8 @@
 ---
 layout: page
 toc: true
-title:  "Lab 0: Linux Refresher"
+title: Linux Refresher
+lab: 0
 ---
 
 ### Overview

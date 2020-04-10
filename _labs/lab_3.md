@@ -1,7 +1,8 @@
 ---
 layout: page
 toc: true
-title:  "Lab 3: HTTP Server"
+title: HTTP Server
+lab: 3
 ---
 
 ### Overview

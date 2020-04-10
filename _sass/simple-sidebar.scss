@@ -27,6 +27,10 @@ body {
   font-size: 1.2rem;
 }
 
+.sidebar-heading-big img {
+  max-width: 50px;
+}
+
 .sidebar-heading-big a {
   color: #111;
 }
@@ -34,6 +38,10 @@ body {
 .sidebar-heading-big a:hover {
   text-decoration: none;
   color: #111;
+}
+
+a.sidebar-item:focus, a.sidebar-item:hover {
+  background-color: rgba($sidebar-hover-color, .7) !important;
 }
 
 #sidebar-wrapper .sidebar-heading {

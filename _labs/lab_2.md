@@ -1,7 +1,8 @@
 ---
 layout: page
 toc: true
-title:  "Lab 2: TCP Server"
+title: TCP Server
+lab: 2
 ---
 
 ### Overview

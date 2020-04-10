@@ -20,7 +20,6 @@
   <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.1.3/css/bootstrap.min.css" integrity="sha384-MCw98/SFnGE8fJT3GXwEOngsV7Zt27NXFoaoApmYm81iuXoPkFOJwJ8ERdknLPMO" crossorigin="anonymous">
 
   <!-- Custom styles for this template -->
-  <link href="/css/simple-sidebar.css" rel="stylesheet">
   <link rel="stylesheet" href="/css/main.css">
 
   <link href="https://fonts.googleapis.com/css?family=Ubuntu&display=swap" rel="stylesheet">
@@ -39,19 +38,30 @@
     <!-- Sidebar -->
     <div class="bg-light border-right" id="sidebar-wrapper">
       <div class="sidebar-sticky">
-        <div class="sidebar-heading-big"><a href="/">{{ site.class_number }}</a></div>
+        <div class="sidebar-heading-big">
+          <a href="/"><img src="/icon/favicon-96x96.png"> {{ site.class_number }}</a>
+        </div>
         <!-- <div class="sidebar-heading">Pages</div> -->
         <div class="list-group list-group-flush">
           {% for item in site.other_pages %}
-            <a href="{{ item.url }}" class="list-group-item list-group-item-action bg-light">{{ item.title }}</a>
+            <a href="{{ item.url }}" class="list-group-item list-group-item-action bg-light sidebar-item">
+              {% if item.icon %}
+              <i class="{{ item.icon }}"></i>
+              {% endif %}
+              {{ item.title }}
+            </a>
           {% endfor %}
-          <a class="list-group-item list-group-item-action bg-light" href="https://learningsuite.byu.edu/.FMTq/cid-ZZ2Y6x14MbNy/calendar">Schedule</a>
+
+          <a class="list-group-item list-group-item-action bg-light sidebar-item" href="https://learningsuite.byu.edu/.FMTq/cid-ZZ2Y6x14MbNy/calendar"><i class="far fa-calendar"></i> Schedule</a>
         </div>
 
         <div class="sidebar-heading">Labs</div>
         <div class="list-group list-group-flush">
           {% for item in site.labs %}
-            <a href="{{ item.url }}" class="list-group-item list-group-item-action bg-light">{{ item.title }}</a>
+            <a href="{{ item.url }}" class="list-group-item list-group-item-action bg-light sidebar-item">
+              <span class="badge badge-pill badge-dark-grey">{{ item.lab }}</span>
+              {{ item.title }}
+            </a>
           {% endfor %}
         </div>
       </div>

@@ -1,7 +1,8 @@
 ---
 layout: page
 toc: true
-title:  "Lab 4: Concurrent HTTP Server"
+title: Concurrent HTTP Server
+lab: 4
 ---
 
 ### Overview

@@ -16,7 +16,10 @@ $spacing-unit:     30px;
 
 $text-color:       #111;
 $background-color: #fdfdfd;
-$brand-color:      #76C044; // #00AEEF;
+$brand-color:      #ED3D96;
+
+$selection-color: #FFDE16;
+$sidebar-hover-color: #FAA220;
 
 $grey-color:       #424242;
 $grey-color-light: lighten($grey-color, 40%);
@@ -48,5 +51,6 @@ $on-laptop:        800px;
         "base",
         "fonts",
         "syntax-highlighting",
+        "simple-sidebar",
         "pages"
 ;

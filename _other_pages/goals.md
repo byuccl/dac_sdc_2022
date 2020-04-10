@@ -1,6 +1,7 @@
 ---
 title: Goals
 layout: page
+icon: fas fa-bullseye
 ---
 
 - Understand networking

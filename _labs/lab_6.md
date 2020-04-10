@@ -1,7 +1,8 @@
 ---
 layout: page
 toc: true
-title:  "Lab 6: HTTP to MQTT Bridge"
+title: HTTP to MQTT Bridge
+lab: 6
 ---
 
 ### Overview

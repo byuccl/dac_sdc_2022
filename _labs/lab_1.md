@@ -1,7 +1,8 @@
 ---
 layout: page
 toc: true
-title:  "Lab 1: TCP Client"
+title: TCP Client
+lab: 1
 ---
 
 ### Overview

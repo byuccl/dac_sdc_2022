@@ -1,7 +1,8 @@
 ---
 layout: page
 toc: true
-title:  "Lab 5: MQTT Client"
+title: MQTT Client
+lab: 5
 ---
 
 ### Overview
