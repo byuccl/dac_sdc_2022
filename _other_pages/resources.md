@@ -24,6 +24,10 @@ Here are some other resources that might help you:
 
 - [Introduction to Computer Networks](https://csedu4all.org/course_networks/)
 
+- The YouTube channel Computerphile has some good videos on networking:
+    - [TCP Meltdown](https://youtu.be/AAssk2N_oPk)
+    - [VPN & Remote Working](https://www.youtube.com/watch?v=1mtSNVdC7tM)
+
 
 ### Debugging Resources
 

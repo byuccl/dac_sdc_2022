@@ -23,6 +23,7 @@
   <link rel="stylesheet" href="/css/main.css">
 
   <link href="https://fonts.googleapis.com/css?family=Ubuntu&display=swap" rel="stylesheet">
+  <link href="https://fonts.googleapis.com/css2?family=Ubuntu+Mono&display=swap" rel="stylesheet">
 
   <link rel="icon" type="image/png" sizes="96x96" href="/icon/favicon-96x96.png">
   <link rel="icon" type="image/png" sizes="32x32" href="/icon/favicon-32x32.png">
@@ -80,12 +81,12 @@
 
         <ul class="navbar-nav">
           <li class="nav-item">
-            <a class="nav-link btn btn-brand" href="{{site.github.url}}/blob/{{site.github.branch}}/{{page.path}}"><i class="fas fa-edit"></i> Suggest Edits</a>
+            <a class="nav-link btn btn-brand suggest-edits" href="{{site.github.url}}/blob/{{site.github.branch}}/{{page.path}}"><i class="fab fa-github"></i> Suggest Edits</a>
           </li>
         </ul>
       </nav>
 
-      <div class="container-fluid">
+      <div class="container">
         {{ content }}
       </div>
     </div>

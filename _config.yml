@@ -40,7 +40,7 @@ collections:
     permalink: /:collection/:name/
   other_pages:
     output: true
-    permalink: /pages/:name/
+    permalink: /:name/
 
 
 # Exclude from processing.

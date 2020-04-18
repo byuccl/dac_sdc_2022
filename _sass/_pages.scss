@@ -33,6 +33,10 @@ h3 {
     }
 }
 
+.suggest-edits {
+    // font-size: .8rem;
+}
+
 .page-title i {
     font-size: 1.8rem;
 }
@@ -72,3 +76,26 @@ h3 {
     }
 }
 
+.home-card {
+    margin-bottom: 30px;
+
+    i {
+        margin-top: 20px;
+        font-size: 40px;
+    }
+
+    .card-body {
+        height: 150px;
+    }
+}
+
+.firstcharacter {
+    color: $brand-color;
+    float: left;
+    font-family: 'Ubuntu Mono', monospace;
+    font-size: 75px;
+    line-height: 60px;
+    padding-top: 4px;
+    padding-right: 8px;
+    padding-left: 3px;
+}
