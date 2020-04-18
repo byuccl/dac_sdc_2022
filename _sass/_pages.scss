@@ -34,6 +34,8 @@ h3 {
 }
 
 .suggest-edits {
+    padding-left: .5rem !important;
+    padding-right: .5rem !important;
     // font-size: .8rem;
 }
 
@@ -73,6 +75,14 @@ h3 {
 
     a {
         text-decoration: none;
+    }
+}
+
+.test {
+    display: none;
+
+    @media (max-width: 1170px) {
+        display: block;
     }
 }
 
