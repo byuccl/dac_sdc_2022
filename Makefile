@@ -1,7 +1,8 @@
-develop:
-	docker run --rm --volume="$$PWD:/srv/jekyll" -p 4000:4000 -it ecen330_website
+develop: build-image
+	docker run --rm --volume="$$PWD:/srv/jekyll" -p 4000:4000 -it website
 
-build:
-	docker run --rm --volume="$$PWD:/srv/jekyll" -it ecen330_website bundle exec jekyll build
+build: build-image
+	docker run --rm --volume="$$PWD:/srv/jekyll" -it website bundle exec jekyll build
 
-upload:
+build-image:
+	docker build -t website .
