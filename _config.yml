@@ -38,7 +38,7 @@ collections:
   labs:
     output: true
     permalink: /:collection/:name/
-  other_pages:
+  pages:
     output: true
     permalink: /:name/
 

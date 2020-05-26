@@ -34,7 +34,6 @@
 </head>
 
 <body>
-
   <div class="d-flex" id="wrapper">
     <!-- Sidebar -->
     <div class="bg-light border-right" id="sidebar-wrapper">
@@ -44,7 +43,7 @@
         </div>
         <!-- <div class="sidebar-heading">Pages</div> -->
         <div class="list-group list-group-flush">
-          {% for item in site.other_pages %}
+          {% for item in site.pages %}
             <a href="{{ item.url }}" class="list-group-item list-group-item-action bg-light sidebar-item">
               {% if item.icon %}
               <i class="{{ item.icon }}"></i>
