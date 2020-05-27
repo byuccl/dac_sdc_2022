@@ -1,0 +1,31 @@
+---
+layout: page
+toc: false
+title: Schedule
+icon: far fa-calendar
+---
+
+
+<table>
+    <tr>
+        <th>Date</th>
+        <th>Topic</th>
+        <th>Reading</th>
+        <th>Assignment</th>
+        <th>Slides</th>
+    </tr>
+    {% for section in site.data.schedule %}
+    <tr>
+        <td colspan="5" class="section {{section.name | downcase}}">{{ section.name }}</td>
+    </tr>
+    {% for class in section.classes %}
+    <tr class="{{ section.name | downcase }}" style="color: {{ section.color }}">
+        <td class="date">{{ class.date }}</td>
+        <td class="topic">{{ class.topic }}</td>
+        <td class="reading">{{ class.reading }}</td>
+        <td class="assignment">{{ class.assignment }}</td>
+        <td class="slides">{{ class.slides }}</td>
+    </tr>
+    {% endfor %}
+    {% endfor %}
+</table>

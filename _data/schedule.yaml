@@ -1,0 +1,139 @@
+- name: Introduction
+  color:
+  classes:
+    - date: Aug 31 (Mon)
+      topic: Course Overview
+      reading:
+      assignment:
+      slides:
+
+    - date:
+      topic: Computer Networks and the Internet
+      reading:
+      assignment:
+
+- name: Application Layer
+  color:
+  classes:
+    - date:
+      topic: Principles of Network Applications
+      reading:
+      assignment:
+
+    - date:
+      topic: The Web and HTTP
+      reading:
+      assignment:
+
+    - date:
+      topic: Email
+      reading:
+      assignment:
+
+    - date:
+      topic: DNS
+      reading:
+      assignment:
+
+    - date:
+      topic: SSH
+      reading:
+      assignment:
+
+    - date:
+      topic: Peer-to-Peer Applications
+      reading:
+      assignment:
+
+    - date:
+      topic: Video Streaming and Content Distribution Networks
+      reading:
+      assignment:
+
+    - date:
+      topic: Socket Programming
+      reading:
+      assignment:
+
+- name: Transport Layer
+  color:
+  classes:
+    - date:
+      topic: Introduction and Transport Layer Services
+      reading:
+      assignment:
+
+    - date:
+      topic: Multiplexing and Demultiplexing
+      reading:
+      assignment:
+
+    - date:
+      topic: UDP
+      reading:
+      assignment:
+
+    - date:
+      topic: Principles of Reliable Data Transfer
+      reading:
+      assignment:
+
+    - date:
+      topic: TCP
+      reading:
+      assignment:
+
+    - date:
+      topic: Principles of Congestion Control
+      reading:
+      assignment:
+
+    - date:
+      topic: TCP Congestion Control
+      reading:
+      assignment:
+# - date: Aug 31 (Mon)
+# - date: Sep 02 (Wed)
+# - date: Sep 04 (Fri)
+# - date: Sep 07 (Mon)
+# - date: Sep 09 (Wed)
+# - date: Sep 11 (Fri)
+# - date: Sep 14 (Mon)
+# - date: Sep 16 (Wed)
+# - date: Sep 18 (Fri)
+# - date: Sep 21 (Mon)
+# - date: Sep 23 (Wed)
+# - date: Sep 25 (Fri)
+# - date: Sep 28 (Mon)
+# - date: Sep 30 (Wed)
+# - date: Oct 02 (Fri)
+# - date: Oct 05 (Mon)
+# - date: Oct 07 (Wed)
+# - date: Oct 09 (Fri)
+# - date: Oct 12 (Mon)
+# - date: Oct 14 (Wed)
+# - date: Oct 16 (Fri)
+# - date: Oct 19 (Mon)
+# - date: Oct 21 (Wed)
+# - date: Oct 23 (Fri)
+# - date: Oct 26 (Mon)
+# - date: Oct 28 (Wed)
+# - date: Oct 30 (Fri)
+# - date: Nov 02 (Mon)
+# - date: Nov 04 (Wed)
+# - date: Nov 06 (Fri)
+# - date: Nov 09 (Mon)
+# - date: Nov 11 (Wed)
+# - date: Nov 13 (Fri)
+# - date: Nov 16 (Mon)
+# - date: Nov 18 (Wed)
+# - date: Nov 20 (Fri)
+# - date: Nov 23 (Mon)
+# - date: Nov 24 (Tue)
+# - date: Nov 25 (Wed)
+# - date: Nov 27 (Fri)
+# - date: Nov 30 (Mon)
+# - date: Dec 02 (Wed)
+# - date: Dec 04 (Fri)
+# - date: Dec 07 (Mon)
+# - date: Dec 09 (Wed)
