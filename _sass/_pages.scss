@@ -109,3 +109,37 @@ h3 {
     padding-right: 8px;
     padding-left: 3px;
 }
+.home-image {
+    background-image: url("../images/background.svg");
+    background-repeat: no-repeat;
+    background-size: cover;
+    background-position: 20% 0%;
+}
+
+.home-icon {
+    // background-size: contain;
+    margin: 0 auto;
+    margin-top: 20px;
+    width: 70px;
+    height: 70px;
+}
+
+.cloud-icon {
+    background: url("../images/cloud-icon.svg") no-repeat center center;
+}
+
+.socket-icon {
+    background: url("../images/socket-icon.svg") no-repeat center center;
+}
+
+.concurrency-icon {
+    background: url("../images/concurrency-icon.svg") no-repeat center center;
+}
+
+.nodes-icon {
+    background: url("../images/nodes-icon.svg") no-repeat center center;
+}
+
+.wireless-icon {
+    background: url("../images/wireless-icon.svg") no-repeat center center;
+}
