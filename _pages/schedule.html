@@ -4,7 +4,15 @@ toc: false
 title: Schedule
 icon: far fa-calendar
 ---
+<!-- 
+{% assign classes = site.data.schedule.classes %}
 
+{% for class in classes %}
+{{ class.date }}
+{% endfor %} -->
+
+{% assign classes = site.data.schedule.classes %}
+{% assign count = 0 %}
 
 <table>
     <tr>
@@ -12,20 +20,44 @@ icon: far fa-calendar
         <th>Topic</th>
         <th>Reading</th>
         <th>Assignment</th>
-        <th>Slides</th>
     </tr>
-    {% for section in site.data.schedule %}
+    {% for unit in site.data.schedule.units %}
     <tr>
-        <td colspan="5" class="section {{section.name | downcase}}">{{ section.name }}</td>
+        <td colspan="5" class="section {{unit.name | downcase}}">{{ unit.name }}</td>
     </tr>
-    {% for class in section.classes %}
-    <tr class="{{ section.name | downcase }}" style="color: {{ section.color }}">
-        <td class="date">{{ class.date }}</td>
-        <td class="topic">{{ class.topic }}</td>
-        <td class="reading">{{ class.reading }}</td>
-        <td class="assignment">{{ class.assignment }}</td>
-        <td class="slides">{{ class.slides }}</td>
+    {% for lecture in unit.lectures %}
+    <tr class="{{ unit.name | downcase }}" style="color: {{ section.color }}">
+        {% if classes[count].text %}
+        <td class="date">{{ classes[count].date | date: '%b %d (%a)' }}</td>
+        <td class="topic">{{ classes[count].text | markdownify }}</td>
+        <td class="reading"></td>
+        <td class="assignment"></td>
+        {% else %}
+        <td class="date">{{ classes[count].date | date: '%b %d (%a)' }}</td>
+        {%if lecture.slides %}
+        <td class="topic"><a href="{{ lecture.slides }}">{{ lecture.topic | markdownify }}</a></td>
+        {% else %}
+        <td class="topic">{{ lecture.topic | markdownify }}</td>
+        {% endif %}
+        <td class="reading">{{ lecture.reading | markdownify }}</td>
+        <td class="assignment">{{ lecture.assignment | markdownify }}</td>
+        {% endif %}
     </tr>
+
+    {% assign count = count | plus: 1 %}
     {% endfor %}
+    {% endfor %}
+
+    {% for class in classes offset: count %}
+    <tr class="{{ unit.name | downcase }}" style="color: {{ section.color }}">
+        <td class="date">{{ class.date | date: '%b %d (%a)' }}</td>
+        {% if class.text %}
+        <td class="topic">{{ class.text | markdownify }}</td>
+        {% else %}
+        <td class="topic"></td>
+        {% endif %}
+        <td class="reading"></td>
+        <td class="assignment"></td>
+    </tr>
     {% endfor %}
 </table>
