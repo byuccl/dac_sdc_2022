@@ -1,37 +1,39 @@
 ---
 # Only the main Sass file needs front matter (the dashes are enough)
 ---
+
 @charset "utf-8";
 
-
-
 // Our variables
-$base-font-family: 'Ubuntu', "Helvetica Neue", Helvetica, Arial, sans-serif;
-$base-font-size:   16px;
+$base-font-family: "Ubuntu", "Helvetica Neue", Helvetica, Arial, sans-serif;
+$base-font-size: 16px;
 $base-font-weight: 400;
-$small-font-size:  $base-font-size * 0.875;
+$small-font-size: $base-font-size * 0.875;
 $base-line-height: 1.5;
 
-$spacing-unit:     30px;
+$spacing-unit: 30px;
 
-$text-color:       #111;
+$text-color: #111;
 $background-color: #fdfdfd;
-$brand-color:      #ED3D96;
+$brand-color: #ed3d96;
+$secondary-color: #c3e6ef;
 
-$selection-color: #FFDE16;
-$sidebar-hover-color: #FAA220;
+$selection-color: #ffde16;
+$sidebar-hover-color: #faa220;
 
-$grey-color:       #424242;
+$grey-color: #424242;
 $grey-color-light: lighten($grey-color, 40%);
-$grey-color-dark:  darken($grey-color, 25%);
+$grey-color-dark: darken($grey-color, 25%);
 
 // Width of the content area
-$content-width:    800px;
+$content-width: 800px;
 
-$on-palm:          600px;
-$on-laptop:        800px;
-
-
+$on-palm: 600px;
+$on-laptop: 800px;
+$on-xs: 575.98px;
+$on-sm: 767.98px;
+$on-md: 991.98px;
+$on-lg: 1199.98px;
 
 // Use media queries like this:
 // @include media-query($on-palm) {
@@ -47,10 +49,4 @@ $on-laptop:        800px;
 }
 
 // Import partials from `sass_dir` (defaults to `_sass`)
-@import
-        "base",
-        "fonts",
-        "syntax-highlighting",
-        "simple-sidebar",
-        "pages"
-;
+@import "base", "fonts", "syntax-highlighting", "simple-sidebar", "pages";

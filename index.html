@@ -1,74 +1,188 @@
 ---
 title: Home
-layout: default
-wrapper_class: home-image
-sidebar_closed: true
 ---
 
-<article class="page home-page">
-    <h1 class="page-title" id="page-title">ECEn 493R: Computer Networks</h1>
-    <div class="page-content">
-        <p><span class="firstcharacter">C</span>omputer networks have become an indispensable part of our daily lives.
-            Our devices are constantly using the Internet for communication and data retrieval. It is essential to
-            understand the principles of networking that make this possible. In this course, we will cover the
-            principles of computer networks, including the design and implementation of the Internet, its protocols and
-            applications. The following topics will be covered:</p>
+<!DOCTYPE html>
+<html lang="en">
 
-        <div class="row">
-            <div class="col text-center">
-                <div class="card home-card">
-                    <div class="home-icon cloud-icon"></div>
-                    <div class="card-body">
-                        <p class="card-text">Internet networking stack</p>
-                    </div>
+<head>
+
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
+    <meta name="description" content="">
+    <meta name="author" content="">
+
+    <title>
+        {% if page.title %}
+        {{ page.title | escape | append: " • " | append: site.title }}
+        {% else %}
+        {{ site.title | escape }}
+        {% endif %}
+    </title>
+
+    <!-- Bootstrap core CSS -->
+    <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.1.3/css/bootstrap.min.css"
+        integrity="sha384-MCw98/SFnGE8fJT3GXwEOngsV7Zt27NXFoaoApmYm81iuXoPkFOJwJ8ERdknLPMO" crossorigin="anonymous">
+
+    <!-- Custom styles for this template -->
+    <link rel="stylesheet" href="/css/main.css">
+
+    <link href="https://fonts.googleapis.com/css?family=Ubuntu&display=swap" rel="stylesheet">
+    <link href="https://fonts.googleapis.com/css2?family=Ubuntu+Mono&display=swap" rel="stylesheet">
+
+    <link rel="icon" type="image/png" sizes="96x96" href="/icon/favicon-96x96.png">
+    <link rel="icon" type="image/png" sizes="32x32" href="/icon/favicon-32x32.png">
+    <link rel="icon" type="image/png" sizes="16x16" href="/icon/favicon-16x16.png">
+
+    <script src="https://kit.fontawesome.com/624d595ebf.js" crossorigin="anonymous"></script>
+
+</head>
+
+<body>
+    <div class="d-flex toggled" id="wrapper">
+        <!-- Sidebar -->
+        <div class="bg-light border-right" id="sidebar-wrapper">
+            <div class="sidebar-sticky">
+                <div class="sidebar-heading-big">
+                    <a href="/"><img src="/icon/favicon-96x96.png"> {{ site.class_number }}</a>
                 </div>
-            </div>
-
-            <div class="col text-center">
-                <div class="card home-card">
-                    <div class="home-icon socket-icon"></div>
-                    <div class="card-body">
-                        <p class="card-text">Network programming using sockets</p>
-                    </div>
+                <!-- <div class="sidebar-heading">Pages</div> -->
+                <div class="list-group list-group-flush">
+                    {% for item in site.pages %}
+                    <a href="{{ item.url }}" class="list-group-item list-group-item-action bg-light sidebar-item">
+                        {% if item.icon %}
+                        <i class="{{ item.icon }}"></i>
+                        {% endif %}
+                        {{ item.title }}
+                    </a>
+                    {% endfor %}
                 </div>
-            </div>
 
-            <div class="col text-center">
-                <div class="card home-card">
-                    <div class="home-icon concurrency-icon"></div>
-                    <div class="card-body">
-                        <p class="card-text">Concurrent programming</p>
-                    </div>
-                </div>
-            </div>
-
-            <div class="w-100 test"></div>
-
-            <div class="col text-center">
-                <div class="card home-card">
-                    <div class="home-icon nodes-icon"></div>
-                    <div class="card-body">
-                        <p class="card-text">Reliability, congestion control, and routing</p>
-                    </div>
-                </div>
-            </div>
-
-            <div class="col text-center">
-                <div class="card home-card">
-                    <div class="home-icon wireless-icon"></div>
-                    <div class="card-body">
-                        <p class="card-text">Selected topics on network security and wireless networking</p>
-                    </div>
+                <div class="sidebar-heading">Labs</div>
+                <div class="list-group list-group-flush">
+                    {% for item in site.labs %}
+                    <a href="{{ item.url }}" class="list-group-item list-group-item-action bg-light sidebar-item">
+                        <span class="badge badge-pill badge-dark-grey">{{ item.lab }}</span>
+                        {{ item.title }}
+                    </a>
+                    {% endfor %}
                 </div>
             </div>
         </div>
+        <!-- /#sidebar-wrapper -->
 
-        <div class="row">
-            <div class="col">
-                <div class="text-center">
-                    <!-- <img src="https://via.placeholder.com/750x600.png?text=Some+cool+and+inspiring+image"> -->
-                </div>
+        <!-- Page Content -->
+        <div id="page-content-wrapper" class="home-image">
+
+            <nav class="navbar sticky-top navbar-expand-lg home-nav-bg border-bottom">
+                <button class="btn btn-brand" id="menu-toggle">
+                    <i class="fas fa-bars"></i>
+                </button>
+
+                <a href="#" class="navbar-brand mb-0 h1 page-title-bar text-center mx-auto" id="page-title-bar"></a>
+            </nav>
+
+            <div class="container">
+
+                <article class="page home-page">
+                    <h1 class="page-title" id="page-title">ECEn 493R: Computer Networks</h1>
+                    <div class="page-content">
+                        <p><span class="firstcharacter">C</span>omputer networks have become an indispensable part of
+                            our daily lives.
+                            Our devices are constantly using the Internet for communication and data retrieval. It is
+                            essential to
+                            understand the principles of networking that make this possible. In this course, we will
+                            cover the
+                            principles of computer networks, including the design and implementation of the Internet,
+                            its protocols and
+                            applications. The following topics will be covered:</p>
+
+                        <div class="row home-cards">
+                            <div class="col text-center">
+                                <div class="card home-card">
+                                    <div class="home-icon cloud-icon"></div>
+                                    <div class="card-body">
+                                        <p class="card-text">Internet networking stack</p>
+                                    </div>
+                                </div>
+                            </div>
+
+                            <div class="col text-center">
+                                <div class="card home-card">
+                                    <div class="home-icon socket-icon"></div>
+                                    <div class="card-body">
+                                        <p class="card-text">Network programming using sockets</p>
+                                    </div>
+                                </div>
+                            </div>
+
+                            <div class="col text-center">
+                                <div class="card home-card">
+                                    <div class="home-icon concurrency-icon"></div>
+                                    <div class="card-body">
+                                        <p class="card-text">Concurrent programming</p>
+                                    </div>
+                                </div>
+                            </div>
+
+                            <div class="w-100 card-seperator"></div>
+
+                            <div class="col text-center">
+                                <div class="card home-card">
+                                    <div class="home-icon nodes-icon"></div>
+                                    <div class="card-body">
+                                        <p class="card-text">Reliability, congestion control, and routing</p>
+                                    </div>
+                                </div>
+                            </div>
+
+                            <div class="col text-center">
+                                <div class="card home-card">
+                                    <div class="home-icon wireless-icon"></div>
+                                    <div class="card-body">
+                                        <p class="card-text">Selected topics on network security and wireless networking
+                                        </p>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+
+                        <div class="row">
+                            <div class="col">
+                                <div class="text-center">
+                                    <!-- <img src="https://via.placeholder.com/750x600.png?text=Some+cool+and+inspiring+image"> -->
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </article>
             </div>
         </div>
+        <!-- /#page-content-wrapper -->
+
     </div>
-</article>
+    <!-- /#wrapper -->
+
+    <!-- Bootstrap core JavaScript -->
+    <script src="https://code.jquery.com/jquery-3.4.1.slim.min.js"
+        integrity="sha384-J6qa4849blE2+poT4WnyKhv5vZF5SrPo0iEjwBvKU7imGFAV0wwj1yYfoRSJoZ+n"
+        crossorigin="anonymous"></script>
+    <script src="https://cdn.jsdelivr.net/npm/popper.js@1.16.0/dist/umd/popper.min.js"
+        integrity="sha384-Q6E9RHvbIyZFJoft+2mJbHaEWldlvI9IOYy5n3zV9zzTtmI3UksdQRVvoxMfooAo"
+        crossorigin="anonymous"></script>
+    <script src="https://stackpath.bootstrapcdn.com/bootstrap/4.4.1/js/bootstrap.min.js"
+        integrity="sha384-wfSDF2E50Y2D1uUdj0O3uMBJnjuUD4Ih7YwaYd1iqfktj0Uod8GCExl3Og8ifwB6"
+        crossorigin="anonymous"></script>
+    <script src="/js/jquery.visible.min.js"></script>
+
+    <!-- Menu Toggle Script -->
+    <script>
+        $("#menu-toggle").click(function (e) {
+            e.preventDefault();
+            $("#wrapper").toggleClass("toggled");
+        });
+    </script>
+
+</body>
+
+</html>
