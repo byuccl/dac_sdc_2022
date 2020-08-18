@@ -1,8 +1,8 @@
 ---
 layout: page
 toc: true
-title: Concurrent HTTP Server
-lab: 6
+title: MQTT Client
+lab: 7
 ---
 
 ### Overview

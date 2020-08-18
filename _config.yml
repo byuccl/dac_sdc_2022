@@ -33,15 +33,22 @@ github:
   url: https://github.com/NET-BYU/networking-course
   branch: master
 
-
 collections:
   labs:
+    output: true
+    permalink: /:collection/:name/
+  homeworks:
     output: true
     permalink: /:collection/:name/
   pages:
     output: true
     permalink: /:name/
-
+    order:
+      - overview.md
+      - goals.md
+      - resources.md
+      - coding_standard.md
+      - schedule.html
 
 # Exclude from processing.
 # The following items will not be processed, by default. Create a custom list

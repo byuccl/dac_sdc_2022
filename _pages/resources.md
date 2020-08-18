@@ -43,4 +43,4 @@ There are a few tools that will be invaluable when debugging your labs.
 : In my opinion, this is the best commandline HTTP tool.
 
 - [curl](https://curl.haxx.se)
-: Fill in...
+: An alternative and precursor to `httpie`. Comes standard on most Linux distros.

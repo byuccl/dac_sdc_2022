@@ -1,8 +1,8 @@
 ---
 layout: page
 toc: true
-title: Concurrent HTTP Server
-lab: 6
+title: HTTP to MQTT Bridge
+lab: 8
 ---
 
 ### Overview

@@ -154,10 +154,26 @@ table {
 }
 
 .home-image {
-    background-image: url("../images/background.svg");
+    // background-image: url("../images/background.svg");
     background-repeat: no-repeat;
     background-size: cover;
     background-position: 20% 0%;
+    background-image: url("../images/background.svg");
+}
+
+@include media-query($on-md) {
+    .home-image {
+        // background-position: 0% -40px;
+        background-image: url("../images/background-medium.svg");
+        padding-bottom: 450px;
+    }
+}
+
+@include media-query($on-sm) {
+    .home-image {
+        background-image: url("../images/background-small.svg");
+        padding-bottom: 250px;
+    }
 }
 
 .home-icon {
@@ -187,3 +203,21 @@ table {
 .wireless-icon {
     background: url("../images/wireless-icon.svg") no-repeat center center;
 }
+
+.almost-hide {
+    margin-top: 200px;
+
+    span {
+        color: rgba(0, 0, 0, 0);
+    }
+
+    ::selection {
+        color: rgba(0, 0, 0, 0.1);
+    }
+}
+
+// .almost-hide {
+//     .span::selection {
+//     color: rgba(0, 0, 0, 0.1);
+//     background-color: $selection-color;
+// }

@@ -63,6 +63,16 @@
           </a>
           {% endfor %}
         </div>
+
+        <div class="sidebar-heading">Homeworks</div>
+        <div class="list-group list-group-flush">
+          {% for item in site.homeworks %}
+          <a href="{{ item.url }}" class="list-group-item list-group-item-action bg-light sidebar-item">
+            <span class="badge badge-pill badge-dark-grey">{{ item.lab }}</span>
+            {{ item.title }}
+          </a>
+          {% endfor %}
+        </div>
       </div>
     </div>
     <!-- /#sidebar-wrapper -->
