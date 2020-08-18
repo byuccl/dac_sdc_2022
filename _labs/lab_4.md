@@ -2,7 +2,7 @@
 layout: page
 toc: true
 title: TCP Server
-lab: 4
+number: 4
 ---
 
 ### Overview

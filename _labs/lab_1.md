@@ -2,7 +2,7 @@
 layout: page
 toc: true
 title: TCP Client v1
-lab: 1
+number: 1
 ---
 
 > Programming isn't about what you know; it's about what you can figure out.

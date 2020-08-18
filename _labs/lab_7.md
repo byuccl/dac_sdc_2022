@@ -2,7 +2,7 @@
 layout: page
 toc: true
 title: MQTT Client
-lab: 7
+number: 7
 ---
 
 ### Overview

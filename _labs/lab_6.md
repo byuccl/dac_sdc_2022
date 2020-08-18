@@ -2,7 +2,7 @@
 layout: page
 toc: true
 title: Concurrent HTTP Server
-lab: 6
+number: 6
 ---
 
 ### Overview

@@ -2,7 +2,7 @@
 layout: page
 toc: true
 title: TCP Client v3
-lab: 3
+number: 3
 ---
 
 > If debugging is the process of removing software bugs, then programming must be the process of putting them in. 
@@ -36,7 +36,7 @@ We are very concerned about wasted space, so we are going to be packing these bi
 The mapping from text action to binary acction is as follows:
 
 | Action       | Binary Value |
-|--------------|--------------|
+| ------------ | ------------ |
 | `uppercase`  | 0x01         |
 | `lowercase`  | 0x02         |
 | `title-case` | 0x04         |

@@ -36,9 +36,11 @@ collections:
   labs:
     output: true
     permalink: /:collection/:name/
+    sort_by: number
   homeworks:
     output: true
     permalink: /:collection/:name/
+    sort_by: number
   pages:
     output: true
     permalink: /:name/
