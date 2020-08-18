@@ -21,14 +21,14 @@
     integrity="sha384-MCw98/SFnGE8fJT3GXwEOngsV7Zt27NXFoaoApmYm81iuXoPkFOJwJ8ERdknLPMO" crossorigin="anonymous">
 
   <!-- Custom styles for this template -->
-  <link rel="stylesheet" href="/css/main.css">
+  <link rel="stylesheet" href={{ "/css/main.css" | relative_url }}>
 
   <link href="https://fonts.googleapis.com/css?family=Ubuntu&display=swap" rel="stylesheet">
   <link href="https://fonts.googleapis.com/css2?family=Ubuntu+Mono&display=swap" rel="stylesheet">
 
-  <link rel="icon" type="image/png" sizes="96x96" href="/icon/favicon-96x96.png">
-  <link rel="icon" type="image/png" sizes="32x32" href="/icon/favicon-32x32.png">
-  <link rel="icon" type="image/png" sizes="16x16" href="/icon/favicon-16x16.png">
+  <link rel="icon" type="image/png" sizes="96x96" href={{ "/icon/favicon-96x96.png" | relative_url }}>
+  <link rel="icon" type="image/png" sizes="32x32" href={{ "/icon/favicon-32x32.png" | relative_url }}>
+  <link rel="icon" type="image/png" sizes="16x16" href={{ "/icon/favicon-16x16.png" | relative_url }}>
 
   <script src="https://kit.fontawesome.com/624d595ebf.js" crossorigin="anonymous"></script>
 
@@ -40,12 +40,12 @@
     <div class="bg-light border-right" id="sidebar-wrapper">
       <div class="sidebar-sticky">
         <div class="sidebar-heading-big">
-          <a href="/"><img src="/icon/favicon-96x96.png"> {{ site.class_number }}</a>
+          <a href="/"><img src={{ "/icon/favicon-96x96.png" | relative_url }}> {{ site.class_number }}</a>
         </div>
         <!-- <div class="sidebar-heading">Pages</div> -->
         <div class="list-group list-group-flush">
           {% for item in site.pages %}
-          <a href="{{ item.url }}" class="list-group-item list-group-item-action bg-light sidebar-item">
+          <a href="{% link {{item.path }} %}" class="list-group-item list-group-item-action bg-light sidebar-item">
             {% if item.icon %}
             <i class="{{ item.icon }}"></i>
             {% endif %}
@@ -57,7 +57,7 @@
         <div class="sidebar-heading">Labs</div>
         <div class="list-group list-group-flush">
           {% for item in site.labs %}
-          <a href="{{ item.url }}" class="list-group-item list-group-item-action bg-light sidebar-item">
+          <a href="{% link {{item.path }} %}" class="list-group-item list-group-item-action bg-light sidebar-item">
             <span class="badge badge-pill badge-dark-grey">{{ item.lab }}</span>
             {{ item.title }}
           </a>
@@ -67,7 +67,7 @@
         <div class="sidebar-heading">Homeworks</div>
         <div class="list-group list-group-flush">
           {% for item in site.homeworks %}
-          <a href="{{ item.url }}" class="list-group-item list-group-item-action bg-light sidebar-item">
+          <a href="{% link {{item.path }} %}" class="list-group-item list-group-item-action bg-light sidebar-item">
             <span class="badge badge-pill badge-dark-grey">{{ item.lab }}</span>
             {{ item.title }}
           </a>
@@ -115,7 +115,7 @@
   <script src="https://stackpath.bootstrapcdn.com/bootstrap/4.4.1/js/bootstrap.min.js"
     integrity="sha384-wfSDF2E50Y2D1uUdj0O3uMBJnjuUD4Ih7YwaYd1iqfktj0Uod8GCExl3Og8ifwB6"
     crossorigin="anonymous"></script>
-  <script src="/js/jquery.visible.min.js"></script>
+  <script src={{ "/js/jquery.visible.min.js" | relative_url }}></script>
 
   <!-- Menu Toggle Script -->
   <script>
