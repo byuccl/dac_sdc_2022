@@ -11,15 +11,19 @@ body {
   position: -webkit-sticky;
   position: sticky;
   top: 0;
+  height: calc(100vh);
+  padding-top: 0.5rem;
+  overflow-x: hidden;
+  overflow-y: auto;
 }
 
 #sidebar-wrapper {
   min-height: 100vh;
   margin-left: -16rem;
-  -webkit-transition: margin .25s ease-out;
-  -moz-transition: margin .25s ease-out;
-  -o-transition: margin .25s ease-out;
-  transition: margin .25s ease-out;
+  -webkit-transition: margin 0.25s ease-out;
+  -moz-transition: margin 0.25s ease-out;
+  -o-transition: margin 0.25s ease-out;
+  transition: margin 0.25s ease-out;
 }
 
 #sidebar-wrapper .sidebar-heading-big {
@@ -40,12 +44,13 @@ body {
   color: #111;
 }
 
-a.sidebar-item:focus, a.sidebar-item:hover {
-  background-color: rgba($sidebar-hover-color, .7) !important;
+a.sidebar-item:focus,
+a.sidebar-item:hover {
+  background-color: rgba($sidebar-hover-color, 0.7) !important;
 }
 
 #sidebar-wrapper .sidebar-heading {
-  padding: 2.0rem 1.25rem 0.3rem 1.25rem;
+  padding: 2rem 1.25rem 0.3rem 1.25rem;
   font-size: 0.8rem;
   text-transform: uppercase;
   color: grey;
