@@ -80,6 +80,8 @@ You could imagine more interesting ways of chaining commands together.
 
 - The name of your program must be named `tcp_client`.
 
+- No modifications to `tcp_client.h` are allowed.
+
 - Update `tcp_client` to accept *one* argument, a file name. If a "-" is provided, read from `stdin`. All the other options from the previous lab must stay the same.
 
 ```

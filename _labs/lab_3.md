@@ -85,6 +85,8 @@ At this point of the CLI and protocol, you might have incurred some [technical d
 
 - The name of your program must be named `tcp_client`.
 
+- No modifications to `tcp_client.h` are allowed.
+
 - Everything about the command-line interface must stay the same.
 
 - You must build off of the previous lab (meaning that you have to keep the pipelining).

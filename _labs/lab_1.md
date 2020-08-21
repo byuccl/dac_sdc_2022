@@ -5,6 +5,7 @@ title: TCP Client v1
 number: 1
 ---
 
+
 > Programming isn't about what you know; it's about what you can figure out.
 > 
 > Chris Pine
@@ -59,6 +60,8 @@ For all labs, you have the option of using a simple logging library, [log.c](htt
 ## Requirements
 
 - The name of your program must be named `tcp_client`.
+
+- No modifications to `tcp_client.h` are allowed.
 
 - Your program must have the following usage pattern and parse all of the options and arguments correctly.
 
