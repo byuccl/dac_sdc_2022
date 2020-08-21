@@ -1,7 +1,7 @@
 ---
 layout: page
 toc: true
-title: ???
+title: Chat Client
 number: 9
 ---
 
@@ -12,9 +12,6 @@ number: 9
 
 
 ### Requirements
-
-
-### Pass Off
 
 
 ### Resources

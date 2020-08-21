@@ -7,7 +7,7 @@ icon: fas fa-terminal
 
 ### 1. General
 
-* **1.1** You must write C-code. No class definitions are allowed. If you need a data-structure, it must be something supported by "C", such as a `struct`.
+* **1.1** You must write C-code. No class definitions are allowed. If you need a data structure, it must be something supported by "C", such as a `struct`.
 
 * **1.2** When compiled, your code must not cause the compiler to issue any warnings or errors.
 
@@ -35,8 +35,8 @@ icon: fas fa-terminal
     - ColumnLimit: 80 or 100
 
 ### 4. Program Output
-* All logging messages must be written to `stderr`.
+* **4.1** All logging messages must be written to `stderr`.
 
-* All program output must be written to `stdout`.
+* **4.2** All program output must be written to `stdout`.
 
-* A program must return the correct return value when it exits.
+* **4.3** A program must return the correct return value when it exits.

@@ -33,8 +33,5 @@ Now that you have your TCP client and server written, you are not that far away 
 - Need to be able to handle any file (no hard coding file names)
 
 
-### Pass Off
-
-
 ### Resources
 

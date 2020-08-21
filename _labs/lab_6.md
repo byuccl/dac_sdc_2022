@@ -14,8 +14,5 @@ number: 6
 ### Requirements
 
 
-### Pass Off
-
-
 ### Resources
 

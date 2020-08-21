@@ -37,7 +37,7 @@ There are a few tools that will be invaluable when debugging your labs.
 : This is a good tool for basic TCP and UDP socket debugging. It can connect to a socket or act as a socket server. It will show you all the raw data that is sent and received.
 
 - [Wireshark](https://www.wireshark.org)
-: This is an indepsensable tool for any networking professional. This will show you all packets...
+: This is an indepsensable tool for any networking professional. This will show you all packets being sent between two devices.
 
 - [httpie](https://httpie.org)
 : In my opinion, this is the best commandline HTTP tool.
