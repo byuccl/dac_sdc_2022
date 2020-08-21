@@ -5,6 +5,10 @@ title: TCP Server
 number: 4
 ---
 
+> First, solve the problem. Then, write the code.
+>
+> John Johnson
+
 ## Overview
 
 In this lab, you will be building a TCP server that implements your favorite protocol (the same one as the last three labs). The individual parts of the lab are outlined below. Many of the components that you have developed and refined in the previous labs can be reused in this lab, with some modifications.
