@@ -1,9 +1,10 @@
 ---
-layout: page
+layout: homework
 title: Transport Layer
-number: 3
+chapter: 3
+problems:
+    - TBD...
+wireshark_labs:
+    - "[TCP](http://www-net.cs.umass.edu/wireshark-labs/Wireshark_TCP_v8.0.pdf)"
+    - "[UDP](http://www-net.cs.umass.edu/wireshark-labs/Wireshark_UDP_v8.0.pdf)"
 ---
-
-[Wireshark Lab: TCP](http://www-net.cs.umass.edu/wireshark-labs/Wireshark_TCP_v8.0.pdf)
-
-[Wireshark Lab: UDP](http://www-net.cs.umass.edu/wireshark-labs/Wireshark_UDP_v8.0.pdf)

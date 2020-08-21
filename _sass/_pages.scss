@@ -220,6 +220,11 @@ table {
     }
 }
 
+
+.card-deck .card {
+    min-width: 220px;
+}
+
 // .almost-hide {
 //     .span::selection {
 //     color: rgba(0, 0, 0, 0.1);

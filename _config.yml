@@ -40,7 +40,7 @@ collections:
   homeworks:
     output: true
     permalink: /:collection/:name/
-    sort_by: number
+    sort_by: chapter
   pages:
     output: true
     permalink: /:name/

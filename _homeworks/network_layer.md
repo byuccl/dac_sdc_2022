@@ -1,7 +1,10 @@
 ---
-layout: page
+layout: homework
 title: Network Layer
-number: 4
+chapter: 4
+problems:
+    - TBD...
+wireshark_labs:
+    - "[IP](http://www-net.cs.umass.edu/wireshark-labs/Wireshark_IP_v8.0.pdf)"
 ---
 
-[Wireshark Lab: IP](http://www-net.cs.umass.edu/wireshark-labs/Wireshark_IP_v8.0.pdf)
