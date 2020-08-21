@@ -220,6 +220,17 @@ table {
     }
 }
 
+.thanks {
+    position: fixed;
+    bottom: 0;
+    right: 10px;
+    color: rgba(0, 0, 0, 0.3);
+    font-size: 12px;
+
+    a {
+        opacity: 0.3;
+    }
+}
 
 .card-deck .card {
     min-width: 220px;
