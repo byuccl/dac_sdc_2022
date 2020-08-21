@@ -5,14 +5,4 @@ title: Concurrent HTTP Server
 number: 6
 ---
 
-### Overview
-
-
-### Objectives
-
-
-### Requirements
-
-
-### Resources
-
+Coming soon!

@@ -5,14 +5,5 @@ title: MQTT Client
 number: 7
 ---
 
-### Overview
-
-
-### Objectives
-
-
-### Requirements
-
-
-### Resources
+Coming soon!
 

@@ -5,14 +5,5 @@ title: HTTP to MQTT Bridge
 number: 8
 ---
 
-### Overview
-
-
-### Objectives
-
-
-### Requirements
-
-
-### Resources
+Coming soon!
 
