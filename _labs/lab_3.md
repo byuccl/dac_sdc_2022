@@ -97,10 +97,6 @@ At this point of the CLI and protocol, you might have incurred some [technical d
 
 - Ensure no errors are reported by Valgrind.
 
-## Grading
-
-???
-
 ## Resources
 
 - [`htonl`, `htons`, `ntohl`, `ntohs`](https://linux.die.net/man/3/htonl)

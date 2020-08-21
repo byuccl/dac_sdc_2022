@@ -109,10 +109,6 @@ Options:
 
 - Your program must handle *any size* input.
 
-## Grading
-
-???
-
 ## Resources
 
 - [strchr](http://www.cplusplus.com/reference/cstring/strchr/)

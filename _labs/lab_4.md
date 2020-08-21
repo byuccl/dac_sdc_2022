@@ -74,11 +74,6 @@ Options:
 
 Netcat is going to be your best friend for this lab. This will allow you to connect directly to your server and test out different input. You can also use the client that you created in lab 1.
 
-
-## Grading
-
-???
-
 ## Resources
 
 - [Guide on socket programming](https://beej.us/guide/bgnet/html/)

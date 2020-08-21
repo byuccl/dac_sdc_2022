@@ -108,19 +108,6 @@ You can have your client connect to the server and see what is being received. Y
 I will also be running a TCP server at `lundrigan.byu.edu:8080`. This server is only accessible on campus (for security purposes). If you are off-campus, you will need to VPN to test against it.
 
 
-## Pass Off
-
-To pass off your code, zip up all of the files in the lab folder, and upload it to Learning Suite. You only have one pass off, so make sure your client is well tested!
-
-
-## Grading
-
-- Parsing command-line options (40%)
-- Send data correctly to the server (20%)
-- Receive data from the server successfully (20%)
-- Style (20%)
-
-
 ## Resources
 
 - [getopt](https://man7.org/linux/man-pages/man3/getopt.3.html)
