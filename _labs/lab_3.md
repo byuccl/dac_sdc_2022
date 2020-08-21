@@ -11,7 +11,7 @@ number: 3
 
 ## Overview
 
-For this lab, you will be building off what you did in the previous two lab. You will want to use your previous code as a starting point. The major difference is that we will be creating a [binary protocol](https://en.wikipedia.org/wiki/Binary_protocol). What this means is that instead of using ASCII, we will be using binary. I know what you are thinking: ASCII is binary! And you are right! In fact, this protocol will still have ASCII characters to represent the text of the message. However, for the action and message length fields, we will be using binary.
+For this lab, you will be building off what you did in the previous two lab. You will want to use your previous code as a starting point. The major difference is that we will be creating a [binary protocol](https://en.wikipedia.org/wiki/Binary_protocol){:target="_blank"}. What this means is that instead of using ASCII, we will be using binary. I know what you are thinking: ASCII is binary! And you are right! In fact, this protocol will still have ASCII characters to represent the text of the message. However, for the action and message length fields, we will be using binary.
 
 ### Protocol
 
@@ -60,7 +60,7 @@ Message Length: 32 bits
 Data: variable
 ```
 
-When dealing with binary formats, you have to be careful what kind of [endianness](https://en.wikipedia.org/wiki/Endianness) you use. You don't know what architecture the server is running so you can't assume it is the same as yours. The server also can't assume anything. To deal with this, all networking protocols are formatted in big-endianness (called network order).
+When dealing with binary formats, you have to be careful what kind of [endianness](https://en.wikipedia.org/wiki/Endianness){:target="_blank"} you use. You don't know what architecture the server is running so you can't assume it is the same as yours. The server also can't assume anything. To deal with this, all networking protocols are formatted in big-endianness (called network order).
 
 
 ### Command-line Interface (CLI)
@@ -69,7 +69,7 @@ You're program will take the same input file as the previous lab. So from the co
 
 ### Technical Debt
 
-At this point of the CLI and protocol, you might have incurred some [technical debt](https://en.wikipedia.org/wiki/Technical_debt). Since this lab is on the lighter side, this is your chance to pay it back. Take some time to understand how all of the different parts come together. Having a clear understanding of this will be helpful in future labs. Take time to make sure your code is clean and understandable. Run [Valgrind](https://www.valgrind.org).
+At this point of the CLI and protocol, you might have incurred some [technical debt](https://en.wikipedia.org/wiki/Technical_debt){:target="_blank"}. Since this lab is on the lighter side, this is your chance to pay it back. Take some time to understand how all of the different parts come together. Having a clear understanding of this will be helpful in future labs. Take time to make sure your code is clean and understandable. Run [Valgrind](https://www.valgrind.org){:target="_blank"}.
 
 
 ## Objectives
@@ -99,8 +99,8 @@ At this point of the CLI and protocol, you might have incurred some [technical d
 
 ## Resources
 
-- [`htonl`, `htons`, `ntohl`, `ntohs`](https://linux.die.net/man/3/htonl)
+- [`htonl`, `htons`, `ntohl`, `ntohs`](https://linux.die.net/man/3/htonl){:target="_blank"}
 
-- [The Valgrind Quick Start Guide](https://www.valgrind.org/docs/manual/quick-start.html#quick-start.mcrun)
+- [The Valgrind Quick Start Guide](https://www.valgrind.org/docs/manual/quick-start.html#quick-start.mcrun){:target="_blank"}
 
-- [Copying integer value to character buffer and vice versa in C](https://www.includehelp.com/c/copying-of-integer-value-to-character-buffer-and-vice-versa-in-c.aspx)
+- [Copying integer value to character buffer and vice versa in C](https://www.includehelp.com/c/copying-of-integer-value-to-character-buffer-and-vice-versa-in-c.aspx){:target="_blank"}

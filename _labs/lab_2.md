@@ -12,7 +12,7 @@ number: 2
 ## Overview
 For this lab, you will be building off what you did in the previous lab. You will want to use your previous code as a starting point. We will be using the same protocol, but with a minor adjustment. The `Config` `struct` and `tcp_client.h` file have been modified to reflect these changes, so make sure to review these changes.
 
-This lab adds [pipelining](https://en.wikipedia.org/wiki/Pipeline_(computing)) to our protocol. In this context, pipelining is sending multiple requests in one TCP connection. In the previous lab, if you wanted to send multiple requests, you had to start a TCP connect for each request. This can be quite time consuming because of [TCP's three-way handshake](https://en.wikipedia.org/wiki/Transmission_Control_Protocol#Connection_establishment). Rather than starting a new TCP connection for each request, we can reuse the TCP socket and send multiple requests. To accommodate pipelining, both your command-line tool and our protocol will need to change. 
+This lab adds [pipelining](https://en.wikipedia.org/wiki/Pipeline_(computing)){:target="_blank"} to our protocol. In this context, pipelining is sending multiple requests in one TCP connection. In the previous lab, if you wanted to send multiple requests, you had to start a TCP connect for each request. This can be quite time consuming because of [TCP's three-way handshake](https://en.wikipedia.org/wiki/Transmission_Control_Protocol#Connection_establishment){:target="_blank"}. Rather than starting a new TCP connection for each request, we can reuse the TCP socket and send multiple requests. To accommodate pipelining, both your command-line tool and our protocol will need to change. 
 
 ### Protocol
 
@@ -59,7 +59,7 @@ uppercase networking is the best!
 shuffle banana
 ```
 
-Here is an [input file](input.txt) to get you started. You will want to create your own to test out various aspects of your program. We will also be adding the ability to read from `stdin` if "-" is provided as the file name. This is a common paradigm for command-line tools and allows for easily pipelining of tools. For example, you could run the following:
+Here is an [input file]({% link _labs/input.txt %}) to get you started. You will want to create your own to test out various aspects of your program. We will also be adding the ability to read from `stdin` if "-" is provided as the file name. This is a common paradigm for command-line tools and allows for easily pipelining of tools. For example, you could run the following:
 
 ```
 cat input.txt | ./tcp_client -
@@ -111,25 +111,25 @@ Options:
 
 ## Resources
 
-- [strchr](http://www.cplusplus.com/reference/cstring/strchr/)
+- [strchr](http://www.cplusplus.com/reference/cstring/strchr/){:target="_blank"}
 
 - Memory management
-    - [malloc](https://en.cppreference.com/w/c/memory/malloc)
+    - [malloc](https://en.cppreference.com/w/c/memory/malloc){:target="_blank"}
 
-    - [realloc](https://en.cppreference.com/w/c/memory/realloc)
+    - [realloc](https://en.cppreference.com/w/c/memory/realloc){:target="_blank"}
 
-    - [Please Grow Your Buffers Exponentially](https://blog.mozilla.org/nnethercote/2014/11/04/please-grow-your-buffers-exponentially/)
+    - [Please Grow Your Buffers Exponentially](https://blog.mozilla.org/nnethercote/2014/11/04/please-grow-your-buffers-exponentially/){:target="_blank"}
 
-    - [This might be helpful too.](https://stackoverflow.com/questions/15409453/pointer-being-reallocd-was-not-allocated)
+    - [This might be helpful too.](https://stackoverflow.com/questions/15409453/pointer-being-reallocd-was-not-allocated){:target="_blank"}
 
-- [Function pointers](https://www.learn-c.org/en/Function_Pointers)
+- [Function pointers](https://www.learn-c.org/en/Function_Pointers){:target="_blank"}
 
 - File IO
-    - [fopen](http://www.cplusplus.com/reference/cstdio/fopen/)
+    - [fopen](http://www.cplusplus.com/reference/cstdio/fopen/){:target="_blank"}
 
-    - [fread](http://www.cplusplus.com/reference/cstdio/fread/)
+    - [fread](http://www.cplusplus.com/reference/cstdio/fread/){:target="_blank"}
 
-    - [getline](https://linux.die.net/man/3/getline)
+    - [getline](https://linux.die.net/man/3/getline){:target="_blank"}
 
 
 <p class="almost-hide" markdown="1">* <span>You might be asking yourself, if I sent the message, then I already know the length of the response, why does the server send it to me? Well, don't ask it. If you ask too many questions, then I am going to have to add more actions to the protocol that change the length of the content, which in turn will make the lab harder for you. Just keep quite and hope that no one notices. You're smart, you can understand why the content length would be important in a response outside of the context of this ~~contrived~~ simple protocol.</span></p>

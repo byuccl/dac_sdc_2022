@@ -36,7 +36,7 @@ To simplify this lab, a few adjustments will be made:
 
 The CLI will have no arguments and three options: port, verbose flag, and help flag. The port option changes the port that your server binds to. Your program will print nothing to `stdout` and can print log messages to `stderr`, if the verbose flag is set.
 
-Your server will be designed to block forever. Once it has handled one client, it will wait for another client to connect. As a result, you must be able to properly handle an [interrupt signal (`SIGINT`)](https://en.wikipedia.org/wiki/Signal_(IPC)). A process is usually sent this signal by typing `ctrl-c` in a terminal window. Your server must catch this signal and properly shutdown the server.
+Your server will be designed to block forever. Once it has handled one client, it will wait for another client to connect. As a result, you must be able to properly handle an [interrupt signal (`SIGINT`)](https://en.wikipedia.org/wiki/Signal_(IPC)){:target="_blank"}. A process is usually sent this signal by typing `ctrl-c` in a terminal window. Your server must catch this signal and properly shutdown the server.
 
 
 ## Objectives
@@ -63,7 +63,7 @@ Options:
 
 - No modifications to `tcp_server.h` are allowed.
 
-- You must set the [`SO_REUSEADDR`](https://man7.org/linux/man-pages/man7/socket.7.html) option on the server socket.
+- You must set the [`SO_REUSEADDR`](https://man7.org/linux/man-pages/man7/socket.7.html){:target="_blank"} option on the server socket.
 
 - Your must handle any request size.
 
@@ -80,14 +80,14 @@ Netcat is going to be your best friend for this lab. This will allow you to conn
 
 ## Resources
 
-- [Guide on socket programming](https://beej.us/guide/bgnet/html/)
+- [Guide on socket programming](https://beej.us/guide/bgnet/html/){:target="_blank"}
 
-- [toupper](http://www.cplusplus.com/reference/cctype/toupper/)
+- [toupper](http://www.cplusplus.com/reference/cctype/toupper/){:target="_blank"}
 
-- [strcpy](https://www.programiz.com/c-programming/library-function/string.h/strcpy)
+- [strcpy](https://www.programiz.com/c-programming/library-function/string.h/strcpy){:target="_blank"}
 
-- [rand](http://www.cplusplus.com/reference/cstdlib/rand/)
+- [rand](http://www.cplusplus.com/reference/cstdlib/rand/){:target="_blank"}
 
-- [Fisher–Yates shuffle](https://en.wikipedia.org/wiki/Fisher–Yates_shuffle)
+- [Fisher–Yates shuffle](https://en.wikipedia.org/wiki/Fisher–Yates_shuffle){:target="_blank"}
 
-- [Catch Ctrl-C in C](https://stackoverflow.com/questions/4217037/catch-ctrl-c-in-c)
+- [Catch Ctrl-C in C](https://stackoverflow.com/questions/4217037/catch-ctrl-c-in-c){:target="_blank"}

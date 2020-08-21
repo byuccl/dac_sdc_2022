@@ -49,7 +49,7 @@ To make this lab easier, you can assume the following:
 
 - Your application does not need to handle more than 1024 bytes of input.
 
-For all labs, you have the option of using a simple logging library, [log.c](https://github.com/rxi/log.c). I highly recommend you get familiar with it and use it. It does a lot of things for you and will save you time. If you do use it (and really you should), take care to provide the right log level output for messages (e.g., `log_debug`, `log_info`, `log_warn`). This will save you trouble when later when you are hunting down a bug. In my opinion, good logging messages is the key to good debugging.
+For all labs, you have the option of using a simple logging library, [log.c](https://github.com/rxi/log.c){:target="_blank"}. I highly recommend you get familiar with it and use it. It does a lot of things for you and will save you time. If you do use it (and really you should), take care to provide the right log level output for messages (e.g., `log_debug`, `log_info`, `log_warn`). This will save you trouble when later when you are hunting down a bug. In my opinion, good logging messages is the key to good debugging.
 
 ## Objectives
 
@@ -90,7 +90,7 @@ Options:
 
 - When the verbose flag is set, you must print debugging messages to `stderr`. These debugging messages must be *meaningful* and not garbage data. They should be helpful to anyone that is trying to debug your program.
 
-- Your program must return a correct exit code, using `EXIT_SUCCESS` and `EXIT_FAILURE` (see [here](https://en.wikipedia.org/wiki/Exit_status#C_language)).
+- Your program must return a correct exit code, using `EXIT_SUCCESS` and `EXIT_FAILURE` (see [here](https://en.wikipedia.org/wiki/Exit_status#C_language){:target="_blank"}).
 
 - Your program should be able to handle an arbitrary amount of input, up to 1024 bytes.
 
@@ -110,20 +110,20 @@ I will also be running a TCP server at `lundrigan.byu.edu:8080`. This server is 
 
 ## Resources
 
-- [getopt](https://man7.org/linux/man-pages/man3/getopt.3.html)
+- [getopt](https://man7.org/linux/man-pages/man3/getopt.3.html){:target="_blank"}
 
-- [Options vs Arguments](https://stackoverflow.com/questions/36495669/difference-between-terms-option-argument-and-parameter)
+- [Options vs Arguments](https://stackoverflow.com/questions/36495669/difference-between-terms-option-argument-and-parameter){:target="_blank"}
 
-- [Guide on socket programming](https://beej.us/guide/bgnet/html/)
+- [Guide on socket programming](https://beej.us/guide/bgnet/html/){:target="_blank"}
 
 - `stderr` and `stdout`
-    - [Tutorial](http://www.learnlinux.org.za/courses/build/shell-scripting/ch01s04.html)
-    - [`stderr` vs `stdout`](https://stackoverflow.com/questions/3385201/confused-about-stdin-stdout-and-stderr)
-    - [Redirect `stderror`](https://askubuntu.com/questions/625224/how-to-redirect-stderr-to-a-file)
+    - [Tutorial](http://www.learnlinux.org.za/courses/build/shell-scripting/ch01s04.html){:target="_blank"}
+    - [`stderr` vs `stdout`](https://stackoverflow.com/questions/3385201/confused-about-stdin-stdout-and-stderr){:target="_blank"}
+    - [Redirect `stderror`](https://askubuntu.com/questions/625224/how-to-redirect-stderr-to-a-file){:target="_blank"}
 
-- [Wrapping `printf` into a function](https://stackoverflow.com/questions/20639632/how-to-wrap-printf-into-a-function-or-macro)
+- [Wrapping `printf` into a function](https://stackoverflow.com/questions/20639632/how-to-wrap-printf-into-a-function-or-macro){:target="_blank"}
 
-- [`netcat`](https://en.wikipedia.org/wiki/Netcat)
+- [`netcat`](https://en.wikipedia.org/wiki/Netcat){:target="_blank"}
 
-- [Exit Status](https://www.tldp.org/LDP/abs/html/exit-status.html)
+- [Exit Status](https://www.tldp.org/LDP/abs/html/exit-status.html){:target="_blank"}
 
