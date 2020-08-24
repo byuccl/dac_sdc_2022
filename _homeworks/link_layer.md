@@ -2,6 +2,7 @@
 layout: homework
 title: Link Layer
 chapter: 5
+icon: link-layer.svg
 problems:
     - TBD...
 wireshark_labs:

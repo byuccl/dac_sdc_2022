@@ -2,6 +2,7 @@
 layout: homework
 title: Networking
 chapter: 1
+icon: networking.svg
 problems:
   - P6
   - P20

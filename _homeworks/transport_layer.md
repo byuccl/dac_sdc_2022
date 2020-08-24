@@ -2,6 +2,7 @@
 layout: homework
 title: Transport Layer
 chapter: 3
+icon: transport-layer.svg
 problems:
     - TBD...
 wireshark_labs:

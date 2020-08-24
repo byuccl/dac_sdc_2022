@@ -28,7 +28,8 @@ body {
 
 #sidebar-wrapper .sidebar-heading-big {
   padding: 0.875rem 1.25rem;
-  font-size: 1.2rem;
+  font-size: 1.5rem;
+  font-family: omnium, sans-serif;
 }
 
 .sidebar-heading-big img {
@@ -51,9 +52,10 @@ a.sidebar-item:hover {
 
 #sidebar-wrapper .sidebar-heading {
   padding: 2rem 1.25rem 0.3rem 1.25rem;
-  font-size: 0.8rem;
+  font-size: 1rem;
   text-transform: uppercase;
   color: grey;
+  font-family: omnium, sans-serif;
 }
 
 #sidebar-wrapper .list-group {

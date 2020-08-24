@@ -2,6 +2,7 @@
 layout: homework
 title: Application Layer
 chapter: 2
+icon: application-layer.svg
 problems:
     - TBD...
 wireshark_labs:

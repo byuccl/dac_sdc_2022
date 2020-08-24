@@ -2,6 +2,7 @@
 layout: homework
 title: Network Layer
 chapter: 4
+icon: network-layer.svg
 problems:
     - TBD...
 wireshark_labs:
