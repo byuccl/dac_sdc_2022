@@ -5,33 +5,87 @@ title: HTTP Server
 number: 5
 ---
 
-### Overview
+> Never let a computer know you're in a hurry.
+> 
+> Author Unknown
 
-Now that you have your TCP client and server written, you are not that far away from having an HTTP client and server! HTTP is just a text-based protocol that runs on top of TCP sockets. To convert your TCP client/server to an HTTP client/server, you must implement an HTTP parser. Easy, right?
+## Overview
 
-### Objectives
+Now that you have written TCP client and a TCP server, it is time to graduate to a real protocol: HTTP! As you know, HTTP is just a text-based protocol that runs on top of TCP sockets. The previous lab built the ground work for your HTTP server. Now instead of parsing my made up protocol, you will be parsing HTTP. Your HTTP server will support `GET` requests. When your server receives a `GET` request, it will determine the file that is being requested, and return it. By the end of this lab, your server should be able to host a full website on it.
 
+There are two parts to this project, the HTTP parsing and CLI.
 
-### Requirements
+### HTTP Parsing
+Assuming you did the previous lab correctly, you will just need to modify the logic that parses a request and builds a response—all of the TCP related logic can stay the same. The HTTP request and response format are pure ASCII so a lot of the work and tooling you have built around parsing the other protocol still apply.
 
-- Provide a command-line option to change the port your server is listening on.
+For your server, you can assume that all requests and responses will be in `HTTP/1.1`.
 
-- Provide a command-line option to change the amount of bytes the receiver can receive. Your program should work with any receive size greater than zero. By receive size, I mean the variable `len` in `recv(sock, buf, len, 0)`.
+### Command-line Interface (CLI)
 
-- Multiple requests must be handled at once (see the Testing section for how to test this).
+Only one modification needs to be made to the CLI of your server from the previous lab. You need to add an option that allows you to pass in the folder that your server will look for files. What I mean by this is when someone requests `http://localhost:8080/test.jpg`, where should your server look for `test.jpg`? It could look relative to the root directory, but that is a big security problem because then the person requesting has access to your whole harddrive. Instead, an option will be provided that makes all requests relative to that folder. For example you could run the server,
 
-- Using a web browser, going to [`http://localhost:8080/page.html`](http://localhost:8080/page.html) and the webpage should load (assuming you set your server to listen on port 8080).
+```
+bin/http_server -f ./www
+```
 
-- If you request a file and it does not exist (e.g. [`http://localhost:8080/fdfasd.html`](http://localhost:8080/fdfasd.html)), a proper error message is returned (`HTTP/1.1 404 File Not Found`)
-
-- The program must be written in C or Rust (only using std::net or async_std::net)
-
-- Must be able to handle a call to recv with no full request, one and a half requests, and multiple requests
-
-- Must be able to handle any *send and receive* buffer size
-
-- Need to be able to handle any file (no hard coding file names)
+Then all requests would be relative to the `www` folder. The previous request would try to access a file at `www/test.jpg`.
 
 
-### Resources
+
+## Objectives
+
+- Get experience with the HTTP protocol.
+
+- Get more experience with file IO.
+
+
+## Requirements
+
+- No modifications to `http_server.h` are allowed.
+
+- The name of your program must be named `http_server`.
+
+- `http_server` accepts no arguments, and four options:
+
+```
+Usage: http_server [--help] [-v] [-p PORT] [-f FOLDER]
+
+Options:
+  -h, --help
+  -v, --verbose
+  --port PORT, -p PORT
+  --folder FOLDER, -f FOLDER
+```
+
+- The default port must be `8080`.
+
+- The default folder must be `.`.
+
+- Your server must be able to *parse* all request types (`POST`, `PUT`, etc.), however, you only need to service `GET` requests. If a request type other than `GET` is received, you must return a `405 Method Not Allowed` error. 
+
+- You are only required to respond with one header, `Content-Length`, which contains the size of the response file. You are welcome to support other response headers, such as `Content-Type`, `Last-Modified`, etc.
+
+- Your server must be able to server a webpage to Chrome.
+
+- If a request for a file does not exit, a proper error message must be returned (`404 File Not Found`).
+
+- If any other error occurs, the [approriate error code/message](https://www.w3.org/Protocols/rfc2616/rfc2616-sec10.html) must be returned.
+
+
+## Testing
+
+You can follow the same tools as the previous lab. You can also add [httpie](https://httpie.org) or [curl](https://curl.haxx.se) to your repertoire. They will create a valid HTTP request for you to test your server against. Once you have refined your lab, you can use a web browser to make sure your response is well formed and the data you are returning is correct.
+
+
+## Resources
+
+- [`strtok`](https://linux.die.net/man/3/strtok)
+
+- HTTP
+  - [HTTP Specification](https://www.w3.org/Protocols/rfc2616/rfc2616.html)
+  - [Wikipedia](https://en.wikipedia.org/wiki/Hypertext_Transfer_Protocol#Message_format)
+
+- [File IO](https://man7.org/linux/man-pages/man3/fopen.3.html)
+
+- [Max size of file name and path](https://serverfault.com/a/306726)
 

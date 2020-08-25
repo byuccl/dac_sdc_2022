@@ -48,6 +48,8 @@ Your server will be designed to block forever. Once it has handled one client, i
 
 ## Requirements
 
+- No modifications to `tcp_server.h` are allowed.
+
 - The name of your program must be named `tcp_server`.
 
 - `tcp_server` accepts no arguments, and three options, as outlined above.
@@ -61,7 +63,9 @@ Options:
   --port PORT, -p PORT
 ```
 
-- No modifications to `tcp_server.h` are allowed.
+
+
+- The default port must be `8080`.
 
 - You must set the [`SO_REUSEADDR`](https://man7.org/linux/man-pages/man7/socket.7.html){:target="_blank"} option on the server socket.
 
@@ -76,7 +80,7 @@ Options:
 
 ## Testing
 
-Netcat is going to be your best friend for this lab. This will allow you to connect directly to your server and test out different input. You can also use the client that you created in lab 1.
+[Netcat](http://netcat.sourceforge.net) is going to be your best friend for this lab. This will allow you to connect directly to your server and test out different input. You can also use the client that you created in lab 1.
 
 ## Resources
 
