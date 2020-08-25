@@ -49,8 +49,7 @@ collections:
       - goals.md
       - resources.md
       - coding_standard.md
-      - homeworks.md
-      - schedule.html
+      - lab_setup.md
 
 # Exclude from processing.
 # The following items will not be processed, by default. Create a custom list
