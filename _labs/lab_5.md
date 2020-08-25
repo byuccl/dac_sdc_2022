@@ -5,9 +5,9 @@ title: HTTP Server
 number: 5
 ---
 
-> Never let a computer know you're in a hurry.
+> Computer Science is no more about computers than astronomy is about telescopes.
 > 
-> Author Unknown
+> Edsger W. Dijkstra
 
 ## Overview
 
