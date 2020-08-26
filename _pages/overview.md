@@ -15,10 +15,16 @@ This course is made up of three major components:
 
 - **Exams**. There are two midterms and a comprehensive final.
 
+## Goals
+
+This is a networking class, so the major goal is to get you familiar with **networking principles, how to send data reliabily and securely, and a good understanding of how the Internet works**. However, I am taking a two prong approach to this class. Along the way of learning the fundamentials of networking, I want you to gain some valuable computer systems level experience. This part of the course is accomplished through the labs. In the labs, you will be exposed to socket programming, file I/O, writing good command-line tools, and concurrency techniques.
+
+
+
 ## Grade Breakdown
 
 | Component | % of Grade |
-| --------- | ---------- |
+|-----------|------------|
 | Labs      | 40         |
 | Homeworks | 15         |
 | Midterms  | 25         |
