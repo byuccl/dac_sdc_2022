@@ -69,23 +69,23 @@ Options:
 
 - If a request for a file does not exit, a proper error message must be returned (`404 File Not Found`).
 
-- If any other error occurs, the [approriate error code/message](https://www.w3.org/Protocols/rfc2616/rfc2616-sec10.html) must be returned.
+- If any other error occurs, the [approriate error code/message](https://www.w3.org/Protocols/rfc2616/rfc2616-sec10.html){:target="_blank"} must be returned.
 
 
 ## Testing
 
-You can follow the same tools as the previous lab. You can also add [httpie](https://httpie.org) or [curl](https://curl.haxx.se) to your repertoire. They will create a valid HTTP request for you to test your server against. Once you have refined your lab, you can use a web browser to make sure your response is well formed and the data you are returning is correct.
+You can follow the same tools as the previous lab. You can also add [httpie](https://httpie.org){:target="_blank"} or [curl](https://curl.haxx.se){:target="_blank"} to your repertoire. They will create a valid HTTP request for you to test your server against. Once you have refined your lab, you can use a web browser to make sure your response is well formed and the data you are returning is correct.
 
 
 ## Resources
 
-- [`strtok`](https://linux.die.net/man/3/strtok)
+- [`strtok`](https://linux.die.net/man/3/strtok){:target="_blank"}
 
 - HTTP
-  - [HTTP Specification](https://www.w3.org/Protocols/rfc2616/rfc2616.html)
-  - [Wikipedia](https://en.wikipedia.org/wiki/Hypertext_Transfer_Protocol#Message_format)
+  - [HTTP Specification](https://tools.ietf.org/html/rfc7230){:target="_blank"}
+  - [Wikipedia](https://en.wikipedia.org/wiki/Hypertext_Transfer_Protocol#Message_format){:target="_blank"}
 
-- [File IO](https://man7.org/linux/man-pages/man3/fopen.3.html)
+- [File IO](https://man7.org/linux/man-pages/man3/fopen.3.html){:target="_blank"}
 
-- [Max size of file name and path](https://serverfault.com/a/306726)
+- [Max size of file name and path](https://serverfault.com/a/306726){:target="_blank"}
 
