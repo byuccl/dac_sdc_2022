@@ -1,8 +1,9 @@
 ---
-layout: page
+layout: lab
 toc: true
 title: TCP Client v2
 number: 2
+repo: https://github.com/byu-ecen493r-classroom/lab2.git
 ---
 
 > Any fool can write code that a computer can understand. Good programmers write code that humans can understand.

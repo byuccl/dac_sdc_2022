@@ -1,8 +1,9 @@
 ---
-layout: page
+layout: lab
 toc: true
 title: HTTP Server
 number: 5
+repo: https://github.com/byu-ecen493r-classroom/lab5.git
 ---
 
 > Computer Science is no more about computers than astronomy is about telescopes.

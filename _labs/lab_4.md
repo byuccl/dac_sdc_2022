@@ -1,8 +1,9 @@
 ---
-layout: page
+layout: lab
 toc: true
 title: TCP Server
 number: 4
+repo: https://github.com/byu-ecen493r-classroom/lab4.git
 ---
 
 > First, solve the problem. Then, write the code.
