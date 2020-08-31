@@ -11,7 +11,7 @@ This course is made up of three major components:
 
 - **Labs**. Labs will generally be due every week on Thursdays. Occassionally, you get an extra week for a lab when you are implementing a new concept.
 
-- **Homeworks**. Homeworks are due every other week on Tuesdays. They will cover information from the lecture and book. They will typically consist of problems from the text book and a [Wireshark lab](https://gaia.cs.umass.edu/kurose_ross/wireshark.htm), where you get hands on experience with protocols using [Wireshark](https://www.wireshark.org).
+- **Homeworks**. Homeworks are due every other week on Tuesdays. They will cover information from the lecture and book. They will typically consist of problems from the text book and a [Wireshark lab](https://gaia.cs.umass.edu/kurose_ross/wireshark.htm){:target="_blank"}, where you get hands on experience with protocols using [Wireshark](https://www.wireshark.org){:target="_blank"}.
 
 - **Exams**. There are two midterms and a comprehensive final.
 

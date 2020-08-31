@@ -11,7 +11,7 @@ The labs will be tested and graded on Linux, so you need to make sure that it wo
 
 ## Visual Studio Code
 
-I highly recommend you use [VS Code](https://code.visualstudio.com). It's a good enough [editor]({% link assets/vim.png %}){:target="_blank"} and has a lot of powerful extensions. Specifically, using the auto-formatting on save will save you a lot of trouble when you submit your code. Specifically, set up your VS Code [C/C++ extension](https://marketplace.visualstudio.com/items?itemName=ms-vscode.cpptools) with the following Clang format specification:
+I highly recommend you use [VS Code](https://code.visualstudio.com){:target="_blank"}. It's a good enough [editor]({% link assets/vim.png %}){:target="_blank"} and has a lot of powerful extensions. Specifically, using the auto-formatting on save will save you a lot of trouble when you submit your code. Specifically, set up your VS Code [C/C++ extension](https://marketplace.visualstudio.com/items?itemName=ms-vscode.cpptools){:target="_blank"} with the following Clang format specification:
 
 ```
 { BasedOnStyle: LLVM, UseTab: Never, IndentWidth: 4, TabWidth: 4, ColumnLimit: 100 }
@@ -29,7 +29,7 @@ I even have it format my code on save.
 
 ## Git Repositories
 
-For the labs, we will be using [GitHub Classroom](https://classroom.github.com/classrooms). If you are unfamiliar with Git, now is the time to start learning. VSCode has some Git integrations which will make this easier. 
+For the labs, we will be using [GitHub Classroom](https://classroom.github.com/classrooms){:target="_blank"}. If you are unfamiliar with Git, now is the time to start learning. VSCode has some Git integrations which will make this easier. 
 
 For each lab, you will be given a link to start the lab. This will automatically create an empty GitHub repo for you for that lab. This is the only way to start and submit the lab! In order for your code to be graded, you must push your code to your repo. 
 

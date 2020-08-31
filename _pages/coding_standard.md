@@ -15,7 +15,7 @@ icon: fas fa-terminal
 
 * **1.4** Avoid using repetitive sections of copied and pasted code in your programs.
 
-* **1.5** No external libraries or code is allowed, except for the simple logging library, [log.c](https://github.com/rxi/log.c).
+* **1.5** No external libraries or code is allowed, except for the simple logging library, [log.c](https://github.com/rxi/log.c){:target="_blank"}.
 
 * **1.6** All code will be graded against the coding standard.
 
@@ -28,7 +28,7 @@ icon: fas fa-terminal
     - A description of the return value and its meaning.
 
 ### 3. Formatting
-* **3.1** You must use the `clang-format` code formatter on your code. I recommend you use something that automatically formats your code when you save your file, such as [VS Code](https://code.visualstudio.com) and the [C/C++ Extension](https://github.com/Microsoft/vscode-cpptools). You must configure your system with the following settings:
+* **3.1** You must use the `clang-format` code formatter on your code. I recommend you use something that automatically formats your code when you save your file, such as [VS Code](https://code.visualstudio.com){:target="_blank"} and the [C/C++ Extension](https://github.com/Microsoft/vscode-cpptools){:target="_blank"}. You must configure your system with the following settings:
     - BasedOnStyle: LLVM
     - IndentWidth: 4
     - UseTab: Never
