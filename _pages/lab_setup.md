@@ -45,7 +45,7 @@ If for some reason, I need to fix a problem with the starter code, you will need
   git remote add template [URL OF LAB TEMPLATE REPO]
 ```
 
-If you evern need to pull down changes I made (I will let you know when this is the case), you can do the following:
+If you ever need to pull down changes I made (I will let you know when this is the case), you can do the following:
 
 ```
 get fetch template

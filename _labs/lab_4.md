@@ -24,7 +24,7 @@ The request protocol will be formatted as follows:
 ACTION LENGTH MESSAGE
 ```
 
-Once your server has received a request, it will parse it, transform the message, and send back a reponse. In processing a request, if an unexpected action is encountered or a request is malformed, then the message "error" should be returned.
+Once your server has received a request, it will parse it, transform the message, and send back a response. In processing a request, if an unexpected action is encountered or a request is malformed, then the message "error" should be returned.
 
 To simplify this lab, a few adjustments will be made:
 
@@ -70,13 +70,13 @@ Options:
 
 - You must set the [`SO_REUSEADDR`](https://man7.org/linux/man-pages/man7/socket.7.html){:target="_blank"} option on the server socket.
 
-- Your must handle any request size.
+- Your server must handle any request size.
 
 - Your server does not need to support IPv4 or concurrent clients.
 
 - Return "error" if an error occurs when processing request.
 
-- Properly shutdown server when a interrupt signal (`ctrl-c`) is sent to server.
+- Properly shutdown server when an interrupt signal (`ctrl-c`) is sent to server.
 
 
 ## Testing

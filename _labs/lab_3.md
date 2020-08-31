@@ -46,7 +46,7 @@ The mapping from text action to binary acction is as follows:
 
 All other values are reserved and should not be used ☠️.
 
-The response will be formated as:
+The response will be formatted as:
 
 ```
  0                   1                   2                   3

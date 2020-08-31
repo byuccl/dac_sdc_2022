@@ -110,7 +110,7 @@ Options:
 
 - You must properly separate out the responses.
 
-- Once your progam has determined that all data has been received, *you* must close the the socket.
+- Once your program has determined that all data has been received, *you* must close the socket.
 
 - Your program must handle *any size* input.
 
