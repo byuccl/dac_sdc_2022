@@ -98,7 +98,7 @@ Arguments:
          be read.
 
 Options:
-  -h, --help
+  --help
   -v, --verbose
   --host HOSTNAME, -h HOSTNAME
   --port PORT, -p PORT

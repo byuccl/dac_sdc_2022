@@ -75,7 +75,7 @@ Arguments:
   MESSAGE  Message to send to the server
 
 Options:
-  -h, --help
+  --help
   -v, --verbose
   --host HOSTNAME, -h HOSTNAME
   --port PORT, -p PORT
