@@ -38,7 +38,7 @@ dlroW olleH
 
 To use your protocol, you will be building a command-line tool that accepts different options and arguments. Here is a video of the program running:
 
-<script id="asciicast-n80bD5ZPFtAOsdrq4lld8bwGd" src="https://asciinema.org/a/n80bD5ZPFtAOsdrq4lld8bwGd.js" async></script>
+<iframe width="560" height="315" src="https://www.youtube-nocookie.com/embed/pdnJnOV6zqI" frameborder="0" allow="accelerometer; autoplay; encrypted-media; gyroscope; picture-in-picture" allowfullscreen></iframe>
 
 Your program must be able to accept a port and hostname as an option. For arguments, your program must be able to accept an action and a message.
 

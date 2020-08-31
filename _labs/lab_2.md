@@ -66,7 +66,11 @@ Here is an [input file]({% link _labs/input.txt %}) to get you started. You will
 cat input.txt | ./tcp_client -
 ```
 
-You could imagine more interesting ways of chaining commands together.
+You could imagine more interesting ways of chaining commands together. 
+
+Here is a video of the program running:
+
+<iframe width="560" height="315" src="https://www.youtube-nocookie.com/embed/V_jFzM07lio" frameborder="0" allow="accelerometer; autoplay; encrypted-media; gyroscope; picture-in-picture" allowfullscreen></iframe>
 
 
 ## Objectives
