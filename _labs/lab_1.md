@@ -96,11 +96,6 @@ Options:
 - Your program should be able to handle an arbitrary amount of input, up to 1024 bytes.
 
 
-## Repository
-
-https://github.com/byu-ecen493r-classroom/lab1.git
-
-
 ## Testing
 
 There are a few ways to test your client. The first is using `netcat`. Netcat can create a temporary TCP server on `localhost` at port 8080 by running the following command:
