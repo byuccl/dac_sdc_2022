@@ -48,6 +48,6 @@ If for some reason, I need to fix a problem with the starter code, you will need
 If you ever need to pull down changes I made (I will let you know when this is the case), you can do the following:
 
 ```
-get fetch template
+git fetch template
 git merge template/master
 ```
