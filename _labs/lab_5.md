@@ -52,7 +52,7 @@ Then all requests would be relative to the `www` folder. The previous request wo
 Usage: http_server [--help] [-v] [-p PORT] [-f FOLDER]
 
 Options:
-  -h, --help
+  --help
   -v, --verbose
   --port PORT, -p PORT
   --folder FOLDER, -f FOLDER

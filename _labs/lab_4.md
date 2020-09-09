@@ -59,7 +59,7 @@ Your server will be designed to block forever. Once it has handled one client, i
 Usage: tcp_server [--help] [-v] [-p PORT]
 
 Options:
-  -h, --help
+  --help
   -v, --verbose
   --port PORT, -p PORT
 ```
