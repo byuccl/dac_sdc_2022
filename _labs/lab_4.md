@@ -39,6 +39,10 @@ The CLI will have no arguments and three options: port, verbose flag, and help f
 
 Your server will be designed to block forever. Once it has handled one client, it will wait for another client to connect. As a result, you must be able to properly handle an [interrupt signal (`SIGINT`)](https://en.wikipedia.org/wiki/Signal_(IPC)){:target="_blank"}. A process is usually sent this signal by typing `ctrl-c` in a terminal window. Your server must catch this signal and properly shutdown the server.
 
+Here is a video of the program running:
+
+<iframe width="560" height="315" src="https://www.youtube-nocookie.com/embed/Udl4iCAU9MU" frameborder="0" allow="accelerometer; autoplay; encrypted-media; gyroscope; picture-in-picture" allowfullscreen></iframe>
+
 
 ## Objectives
 
