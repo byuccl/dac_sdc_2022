@@ -1,7 +1,7 @@
 ---
 layout: page
 toc: false
-title: Chat server
+title: Chat Server
 number: 9
 ---
 
