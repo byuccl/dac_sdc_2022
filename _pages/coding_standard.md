@@ -15,7 +15,7 @@ icon: fas fa-terminal
 
 * **1.4** Avoid using repetitive sections of copied and pasted code in your programs.
 
-* **1.5** No external libraries or code is allowed, except for the simple logging library, [log.c](https://github.com/rxi/log.c){:target="_blank"}.
+* **1.5** No external downloaded libraries are allowed, except for the simple logging library, [log.c](https://github.com/rxi/log.c){:target="_blank"}. Libraries that come standard in the Unix environment are allowed (e.g., `string.h`, `getopt.h`, `stdio.h`). 
 
 * **1.6** All code will be graded against the coding standard.
 
