@@ -39,7 +39,7 @@ uppercase 11 Hello World
 The response from the server would be
 
 ```
-11 dlroW olleH11HELLO WORLD
+11 dlroW olleH11 HELLO WORLD
 ```
 
 
