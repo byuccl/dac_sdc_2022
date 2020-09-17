@@ -86,7 +86,7 @@ Options:
 - The default `HOST` must be "localhost", and the default `PORT` must be 8080.
 
 - Your program is allowed only to print two things to `stdout`:
-    - The usage message when `-h`/`--help` option is provided. _The usage message displayed because of an incorrect option or argument should be printed to `stderr`_.
+    - The usage message when `--help` option is provided. _The usage message displayed because of an incorrect option or argument should be printed to `stderr`_.
     - The text returned from the server.
 
 - When the verbose flag is set, you must print debugging messages to `stderr`. These debugging messages must be *meaningful* and not garbage data. They should be helpful to anyone that is trying to debug your program.
