@@ -11,13 +11,13 @@ This course is made up of three major components:
 
 - **Labs**. Labs will generally be due every week on Thursdays. Occasionally, you get an extra week for a lab when you are implementing a new concept.
 
-- **Homeworks**. Homeworks are due every other week on Tuesdays. They will cover information from the lecture and book. They will typically consist of problems from the text book and a [Wireshark lab](https://gaia.cs.umass.edu/kurose_ross/wireshark.htm){:target="_blank"}, where you get hands on experience with protocols using [Wireshark](https://www.wireshark.org){:target="_blank"}.
+- **Homeworks**. Homeworks are due every other week on Tuesdays. They will cover information from the lecture and book. They will typically consist of problems from the textbook and a [Wireshark lab](https://gaia.cs.umass.edu/kurose_ross/wireshark.htm){:target="_blank"}, where you get hands-on experience with protocols using [Wireshark](https://www.wireshark.org){:target="_blank"}.
 
 - **Exams**. There are two midterms and a comprehensive final.
 
 ## Goals
 
-This is a networking class, so the major goal is to get you familiar with **networking principles, how to send data reliably and securely, and a good understanding of how the Internet works**. However, I am taking a two-prong approach to this class. Along the way of learning the fundamentals of networking, I want you to gain some valuable computer systems level experience. This part of the course is accomplished through the labs. In the labs, you will be exposed to socket programming, file I/O, writing good command-line tools, and concurrency techniques.
+This is a networking class, so the major goal is to get you familiar with **networking principles, how to send data reliably and securely, and a good understanding of how the Internet works**. However, I am taking a two-prong approach to this class. Along the way of learning the fundamentals of networking, I want you to gain valuable computer systems-level experience. This part of the course is accomplished through the labs. In the labs, you will be exposed to socket programming, file I/O, writing good command-line tools, and concurrency techniques.
 
 
 
@@ -30,17 +30,20 @@ This is a networking class, so the major goal is to get you familiar with **netw
 | Midterms  | 25         |
 | Final     | 20         |
 
-There are 9 labs so each lab is worth 4.4% of your grade. There are 5 homeworks, so each homework is worth 3% of your grade.
+There are nine labs, so each lab is worth 4.4% of your grade. There are five homeworks, so each homework is worth 3% of your grade.
 
 
 ## Communication
 All communication will be done over Slack. Slack is intended to be used for announcements, questions, and facilitate student communication. If you have a question, ask it on Slack so that everyone can benefit from seeing the question and answer. 
 
 ## Attendance and Participation
-This is a senior-level class, and I expect senior-level participation. I expect all students to watch every lecture and be engaged in the lecture. Asking and answering questions in class is important. When you are in a lecture, I expect your attention, so students should not be on their phones or doing non-class related things on laptops.
+This is a senior-level class, and I expect senior-level participation. I expect all students to watch every lecture and be engaged in the lecture. Asking and answering questions in class is essential. When you are in a lecture, I expect your attention, so students should not be on their phones or doing non-class related things on laptops.
+
+## Late Policy
+Don't be late. With all programming, but especially with networking, bugs pop up, and things take longer than you hope, so plan ahead on the labs. 20% of the grade will be subtracted for each day late, not including weekends.
 
 ## Source Code Sharing
-No source code should be shared between students. Students are allowed to work on assignments together, but no direct or indirect copying from another student is allowed. This class will use a code similarity checker to determine if students are copying code.
+No source code should be shared between students. Students can work on assignments together, but no direct or indirect copying from another student is allowed. This class will use a code similarity checker to determine if students are copying code.
 
 ## Policies
 
