@@ -87,6 +87,8 @@ Here is a video of the program running:
 
 - No modifications to `tcp_client.h` are allowed.
 
+- The default port must be `8081`.
+
 - Update `tcp_client` to accept *one* argument, a file name. If a "-" is provided, read from `stdin`. All the other options from the previous lab must stay the same.
 
 ```

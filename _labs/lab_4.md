@@ -68,9 +68,7 @@ Options:
   --port PORT, -p PORT
 ```
 
-
-
-- The default port must be `8080`.
+- The default port must be `8083`.
 
 - You must set the [`SO_REUSEADDR`](https://man7.org/linux/man-pages/man7/socket.7.html){:target="_blank"} option on the server socket.
 

@@ -88,7 +88,9 @@ At this point of the CLI and protocol, you might have incurred some [technical d
 
 - No modifications to `tcp_client.h` are allowed.
 
-- Everything about the command-line interface must stay the same.
+- The default port must be `8082`.
+
+- Everything about the command-line interface must stay the same as lab 2.
 
 - You must build off of the previous lab (meaning that you have to keep the pipelining).
 
