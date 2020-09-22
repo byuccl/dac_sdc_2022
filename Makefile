@@ -3,6 +3,3 @@ develop:
 
 build:
 	docker run --rm --volume="$$PWD:/srv/jekyll" -it jekyll/jekyll:4.0 jekyll build
-
-deploy: build
-	scp -r _site/. philipbl@scp.et.byu.edu:groups/networking/www/493r
