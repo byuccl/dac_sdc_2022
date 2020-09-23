@@ -31,6 +31,9 @@ bin/http_server -f ./www
 
 Then all requests would be relative to the `www` folder. The previous request would try to access a file at `www/test.jpg`.
 
+Here is a demonstration of the server:
+
+<iframe width="560" height="315" src="https://www.youtube-nocookie.com/embed/kO3OcsUKtgQ" frameborder="0" allow="accelerometer; autoplay; encrypted-media; gyroscope; picture-in-picture" allowfullscreen></iframe>
 
 
 ## Objectives
