@@ -37,7 +37,7 @@ We are very concerned about wasted space, so we will be packing these bits in ti
 The mapping from text action to binary action is as follows:
 
 | Action       | Binary Value |
-| ------------ | ------------ |
+|--------------|--------------|
 | `uppercase`  | 0x01         |
 | `lowercase`  | 0x02         |
 | `title-case` | 0x04         |
@@ -62,6 +62,12 @@ Data: variable
 ```
 
 When dealing with binary formats, you have to be careful what kind of [endianness](https://en.wikipedia.org/wiki/Endianness){:target="_blank"} you use. You don't know what architecture the server is running, so you can't assume it is the same as yours. The server also can't assume anything. To deal with this, all networking protocols are formatted in big-endianness (called network order).
+
+For example, if you wanted to reverse the string "The LAN Before Time", then you would send the following:
+
+```
+40 00 00 13 54 68 65 20 4C 41 4E 20 42 65 66 6F 72 65 20 54 69 6D 65
+```
 
 
 ### Command-line Interface (CLI)
