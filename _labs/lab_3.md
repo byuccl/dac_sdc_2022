@@ -12,7 +12,7 @@ repo: https://github.com/byu-ecen493r-classroom/lab3.git
 
 ## Overview
 
-For this lab, you will be building off what you did in the previous two lab. You will want to use your previous code as a starting point. The major difference is that we will be creating a [binary protocol](https://en.wikipedia.org/wiki/Binary_protocol){:target="_blank"}. What this means is that instead of using ASCII, we will be using binary. I know what you are thinking: ASCII is binary! And you are right! In fact, this protocol will still have ASCII characters to represent the text of the message. However, for the action and message length fields, we will be using binary.
+For this lab, you will be building off what you did in the previous two labs. You will want to use your previous code as a starting point. The major difference is that we will be creating a [binary protocol](https://en.wikipedia.org/wiki/Binary_protocol){:target="_blank"}. What this means is that instead of using ASCII, we will be using binary. I know what you are thinking: ASCII is binary! And you are right! In fact, this protocol will still have ASCII characters to represent the text of the message. However, for the action and message length fields, we will be using binary.
 
 ### Protocol
 
@@ -34,7 +34,7 @@ Data: variable
 
 We are very concerned about wasted space, so we are going to be packing these bits in tight!
 
-The mapping from text action to binary acction is as follows:
+The mapping from text action to binary action is as follows:
 
 | Action       | Binary Value |
 | ------------ | ------------ |
