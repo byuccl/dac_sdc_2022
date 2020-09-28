@@ -32,7 +32,7 @@ Message Length: 27 bits
 Data: variable
 ```
 
-We are very concerned about wasted space, so we are going to be packing these bits in tight!
+We are very concerned about wasted space, so we will be packing these bits in tight!
 
 The mapping from text action to binary action is as follows:
 
@@ -61,16 +61,16 @@ Message Length: 32 bits
 Data: variable
 ```
 
-When dealing with binary formats, you have to be careful what kind of [endianness](https://en.wikipedia.org/wiki/Endianness){:target="_blank"} you use. You don't know what architecture the server is running so you can't assume it is the same as yours. The server also can't assume anything. To deal with this, all networking protocols are formatted in big-endianness (called network order).
+When dealing with binary formats, you have to be careful what kind of [endianness](https://en.wikipedia.org/wiki/Endianness){:target="_blank"} you use. You don't know what architecture the server is running, so you can't assume it is the same as yours. The server also can't assume anything. To deal with this, all networking protocols are formatted in big-endianness (called network order).
 
 
 ### Command-line Interface (CLI)
 
-You're program will take the same input file as the previous lab. So from the command-line interface perspective, you do not have to modify anything. This lab only touches the protocol part.
+Your program will take the same input file as the previous lab. So from the command-line interface perspective, you do not have to modify anything. This lab only touches the protocol part.
 
 ### Technical Debt
 
-At this point of the CLI and protocol, you might have incurred some [technical debt](https://en.wikipedia.org/wiki/Technical_debt){:target="_blank"}. Since this lab is on the lighter side, this is your chance to pay it back. Take some time to understand how all of the different parts come together. Having a clear understanding of this will be helpful in future labs. Take time to make sure your code is clean and understandable. Run [Valgrind](https://www.valgrind.org){:target="_blank"}.
+At this point in the labs, you might have incurred some [technical debt](https://en.wikipedia.org/wiki/Technical_debt){:target="_blank"}. Since this lab is on the lighter side, this is your chance to pay it back. Take some time to understand how all of the different parts come together. Having a clear understanding of this will be helpful in future labs. Take time to make sure your code is clean and understandable. Run [Valgrind](https://www.valgrind.org){:target="_blank"}.
 
 
 ## Objectives
@@ -92,13 +92,13 @@ At this point of the CLI and protocol, you might have incurred some [technical d
 
 - Everything about the command-line interface must stay the same as lab 2.
 
-- You must build off of the previous lab (meaning that you have to keep the pipelining).
+- You must build off the previous lab (meaning you have to keep the pipelining).
 
 - Your program must handle *any size* input, up to the allowable limit of the protocol.
 
 - Use the binary version of the protocol.
 
-- Ensure no errors are reported by Valgrind.
+- Ensure that Valgrind reports no errors.
 
 
 ## Testing
@@ -113,3 +113,4 @@ You can follow the same testing structure as lab 1 and 2. I will also be running
 - [The Valgrind Quick Start Guide](https://www.valgrind.org/docs/manual/quick-start.html#quick-start.mcrun){:target="_blank"}
 
 - [Copying integer value to character buffer and vice versa in C](https://www.includehelp.com/c/copying-of-integer-value-to-character-buffer-and-vice-versa-in-c.aspx){:target="_blank"}
+
