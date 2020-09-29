@@ -45,7 +45,7 @@ The response from the server would be
 
 ### Command-line Interface (CLI)
 
-Instead of proving the action and text one at a time (e.g., `./tcp_client reverse "hello world"`), your program will now accept a file name as the only argument. This file will contain a list of actions and text, separated by newlines. For example, to run the client with `input.txt` as the input file,
+Instead of providing the action and text one at a time (e.g., `./tcp_client reverse "hello world"`), your program will now accept a file name as the only argument. This file will contain a list of actions and text, separated by newlines. For example, to run the client with `input.txt` as the input file,
 
 ```
 ./tcp_client input.txt
