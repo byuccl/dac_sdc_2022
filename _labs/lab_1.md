@@ -22,7 +22,7 @@ The purpose of the protocol is to have a client send text to a server to transfo
 
 ### Protocol
 
-The request structure is in the form of `ACTION LENGTH MESSAGE`. The values of `ACTION` can be "uppercase", "lowercase", "title-case", "reverse", or "shuffle". `LENGTH` is the length of the message. `MESSAGE` is the text that you want to send. For example, if you want "Hello World" to be reversed, you would send
+The request structure is in the form of `ACTION LENGTH MESSAGE`. The values of `ACTION` can be "uppercase", "lowercase", "title-case", "reverse", or "shuffle". `LENGTH` is the length of the message. `MESSAGE` is the text that you want to send. It must be made out of displayable ASCII characters. For example, if you want "Hello World" to be reversed, you would send
 
 ```
 reverse 11 Hello World
