@@ -71,7 +71,7 @@ For example, if you wanted to reverse the string "The LAN Before Time", then you
 
 If you were to print this to your console, you would see:
 ```
-@\0\0�The LAN Before Tiem
+@\0\0�The LAN Before Time
 ```
 
 Where `\0` is the NULL terminator and � is `DC3`, which is an unrepresentable ASCII character.
