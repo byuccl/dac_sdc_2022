@@ -12,7 +12,7 @@ repo: https://github.com/byu-ecen493r-classroom/lab2.git
 
 ## GitHub Classroom
 
-The GitHub Classroom link is posted as the topic of the Slack channel for the lab. You must use this link to accept the lab assignment.
+The GitHub Classroom link is posted as the topic of the Slack channel for the lab. You must use this link to accept the lab assignment. Once you have accepted the lab, the template repository you need to start the lab can be found [here](https://github.com/byu-ecen493r-classroom/lab2.git){:target="_blank"}.
 
 ## Overview
 For this lab, you will be building off what you did in the previous lab. You will want to use your previous code as a starting point. We will be using the same protocol, but with a minor adjustment. The `Config` `struct` and `tcp_client.h` file have been modified to reflect these changes, so make sure to review these changes.
