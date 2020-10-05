@@ -11,6 +11,10 @@ repo: https://github.com/byu-ecen493r-classroom/lab1.git
 > 
 > Chris Pine
 
+## GitHub Classroom
+
+The GitHub Classroom link is posted as the topic of the Slack channel for the lab. You must use this link to accept the lab assignment.
+
 ## Overview
 
 For this lab, you will be building a simple TCP client that sends data to a server to be transformed. The client will be a command-line tool that follows standard Unix norms. There are two parts to this lab:

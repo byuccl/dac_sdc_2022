@@ -10,6 +10,10 @@ repo: https://github.com/byu-ecen493r-classroom/lab4.git
 >
 > John Johnson
 
+## GitHub Classroom
+
+The GitHub Classroom link is posted as the topic of the Slack channel for the lab. You must use this link to accept the lab assignment.
+
 ## Overview
 
 In this lab, you will be building a TCP server that implements your favorite protocol (the same one as the last three labs). The individual parts of the lab are outlined below. Many of the components that you have developed and refined in the previous labs can be reused in this lab, with some modifications.

@@ -10,6 +10,10 @@ repo: https://github.com/byu-ecen493r-classroom/lab3.git
 > 
 > Edsger Dijkstra
 
+## GitHub Classroom
+
+The GitHub Classroom link is posted as the topic of the Slack channel for the lab. You must use this link to accept the lab assignment.
+
 ## Overview
 
 For this lab, you will be building off what you did in the previous two labs. You will want to use your previous code as a starting point. The major difference is that we will be creating a [binary protocol](https://en.wikipedia.org/wiki/Binary_protocol){:target="_blank"}. What this means is that instead of using ASCII, we will be using binary. I know what you are thinking: ASCII is binary! And you are right! In fact, this protocol will still have ASCII characters to represent the text of the message. However, for the action and message length fields, we will be using binary.
@@ -37,7 +41,7 @@ We are very concerned about wasted space, so we will be packing these bits in ti
 The mapping from text action to binary action is as follows:
 
 | Action       | Binary Value |
-|--------------|--------------|
+| ------------ | ------------ |
 | `uppercase`  | 0x01         |
 | `lowercase`  | 0x02         |
 | `title-case` | 0x04         |

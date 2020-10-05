@@ -10,6 +10,10 @@ repo: https://github.com/byu-ecen493r-classroom/lab5.git
 > 
 > Edsger W. Dijkstra
 
+## GitHub Classroom
+
+The GitHub Classroom link is posted as the topic of the Slack channel for the lab. You must use this link to accept the lab assignment.
+
 ## Overview
 
 Now that you have written TCP client and a TCP server, it is time to graduate to a real protocol: HTTP! As you know, HTTP is just a text-based protocol that runs on top of TCP. The previous lab built the groundwork for your HTTP server. Now instead of parsing my made-up protocol, you will be parsing HTTP. Your HTTP server will support `GET` requests. When your server receives a `GET` request, it will determine the file that is being requested and return it. By the end of this lab, your server should be able to host a full website on it.
