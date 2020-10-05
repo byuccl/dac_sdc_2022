@@ -63,11 +63,18 @@ Data: variable
 
 When dealing with binary formats, you have to be careful what kind of [endianness](https://en.wikipedia.org/wiki/Endianness){:target="_blank"} you use. You don't know what architecture the server is running, so you can't assume it is the same as yours. The server also can't assume anything. To deal with this, all networking protocols are formatted in big-endianness (called network order).
 
-For example, if you wanted to reverse the string "The LAN Before Time", then you would send the following:
+For example, if you wanted to reverse the string "The LAN Before Time", then you would send the following binary data (displayed in hex format):
 
 ```
 40 00 00 13 54 68 65 20 4C 41 4E 20 42 65 66 6F 72 65 20 54 69 6D 65
 ```
+
+If you were to print this to your console, you would see:
+```
+@\0\0�The LAN Before Tiem
+```
+
+Where `\0` is the NULL terminator and � is `DC3`, which is an unrepresentable ASCII character.
 
 
 ### Command-line Interface (CLI)
