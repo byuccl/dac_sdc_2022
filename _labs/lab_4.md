@@ -39,7 +39,7 @@ To simplify this lab, a few adjustments will be made:
 
 ### Command-line Interface (CLI)
 
-The CLI will have no arguments and three options: port, verbose flag, and help flag. The port option changes the port that your server binds to. Your program will print nothing to `stdout` and can print log messages to `stderr`, if the verbose flag is set.
+The CLI will have no arguments and three options: port, verbose flag, and help flag. The port option changes the port that your server binds to. Your program will generally print nothing to `stdout`. The only exception is if the `--help` option is set. Your program must print to `stderr` any errors while running the server and log messages, if the verbose flag is set.
 
 Your server will be designed to block forever. Once it has handled one client, it will wait for another client to connect. As a result, you must be able to properly handle an [interrupt signal (`SIGINT`)](https://en.wikipedia.org/wiki/Signal_(IPC)){:target="_blank"}. A process is usually sent this signal by typing `ctrl-c` in a terminal window. Your server must catch this signal and properly shutdown the server.
 
