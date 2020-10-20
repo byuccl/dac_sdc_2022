@@ -7,7 +7,6 @@ problems:
     - P4
     - P14
     - P23
-    - P32
     - P40
     - P41
 wireshark_labs:
