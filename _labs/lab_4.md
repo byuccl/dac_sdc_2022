@@ -80,7 +80,9 @@ Options:
 
 - Your server does not need to support IPv4 or concurrent clients.
 
-- Return "error" if an error occurs when processing request.
+- Return "error" if an error occurs when processing request. A couple of reasons this might happen is if an invalid action or a non-numeric length is sent.
+
+- If a client does not send enough data (e.g., the length is 10 but they only send 4 bytes), your server is allowed to block waiting for the remaining bytes of data.
 
 - Properly shutdown server when an interrupt signal (`ctrl-c`) is sent to server.
 
