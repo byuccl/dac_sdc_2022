@@ -1,7 +1,7 @@
 ---
 layout: page
 toc: false
-title: HTTP to MQTT Bridge
+title: Chat Server
 number: 8
 ---
 
