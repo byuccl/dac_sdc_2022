@@ -16,9 +16,17 @@ The GitHub Classroom link is posted as the topic of the Slack channel for the la
 
 ## Overview
 
-For this lab, you will be extending your HTTP server to handle multiple clients _at once_. The rest of your server will stay the same. There are multiple ways of supporting multiple clients. A typical approach is to spawn a new thread or process for each client that connects. That thread or process is responsible for communicating with a specific client. There is another approach that uses a system call (`poll` or `select`) to determine which sockets are ready to receive data from or write data too. Since with socket programming, most of the time your program is waiting around for the sockets to send or receive data, this allows your program to handle multiple sockets at once. Instead of creating a new thread or process, we will have one process that keeps track of many sockets at once.
+For this lab, you will be extending your HTTP server to handle multiple clients _at once_. The rest of your server will stay the same. There are multiple ways of supporting multiple clients. A typical approach is to spawn a new thread or process for each client that connects. That thread or process is responsible for communicating with a specific client. There is another approach that uses a system call (`poll` or `select`) to determine which sockets are ready to receive data from or write data to. Since with socket programming, most of the time your program is waiting around for the sockets to send or receive data, this allows your program to handle multiple sockets at once. Instead of creating a new thread or process for reach client socket, one process keeps track of many sockets at once.
 
-The simplest approach is to use threads and that is the approach we will be using in this lab. When a new request comes in, a thread is created and the socket is passed to that thread. The newly spawned thread is now responsible for receiving and sending data while the main thread is still accepting new clients. As mentioned in lecture, threads has their own set of issues, largely shared memory. To limit these issues, try to use local variables as much as possible. You should not need to use mutex/locks in this lab!
+For this lab, we will be using threads to handle multiple clients concurrently. When a new request comes in, a thread is created and the socket is passed to that thread. The newly spawned thread is now responsible for receiving and sending data while the main thread is still accepting new clients. As mentioned in lecture, threads has their own set of issues, largely shared memory. To limit these issues, try to use local variables as much as possible. You should not need to use mutex/locks in this lab!
+
+As part of writing a well behaving server, you will need to approperately handle the threads when you are exiting (the user hits `ctrl-c`). This allows your server to finishing handling clients that have already connected before shutting down the server. To do this, you must join all spawned threads.
+
+Assuming you did lab 5 correctly, you shouldn't have to change anything except `main.c`.
+
+Here is a demonstration of the server:
+
+<iframe width="560" height="315" src="https://www.youtube-nocookie.com/embed/dnDi3XXLFpE" frameborder="0" allow="accelerometer; autoplay; encrypted-media; gyroscope; picture-in-picture" allowfullscreen></iframe>
 
 ## Objectives
 
@@ -31,6 +39,8 @@ The simplest approach is to use threads and that is the approach we will be usin
 
 - You must be able to handle multiple concurrent clients at once using threads.
 
+- You must gracefully shutdown your server, waiting for all client sockets to finish.
+
 - The default port must be `8085`.
 
 - All other requirements are the same as lab 5.
@@ -42,9 +52,11 @@ Hopefully, your HTTP parsing is working at this point, so you will not need to t
 
 Another way to test that your server is handling multiple clients is to add an artificial delay (e.g., `sleep`) to your program, just for testing purposes. This technique will simulate a request taking a long time and show if you are handling clients concurrently.
 
+For debugging purposes, it might be useful to prefix all log messages with the socket that you are working on. The socket number should correspond to what thread is running. This can give you insight into what each thread is doing.
+
 
 ## Resources
 
 - [`pthread_create`](https://linux.die.net/man/3/pthread_create){:target="_blank"}
 
-- Threading [example 1](assets/threads.c){:target="_blank"} and [example 2](assets/locks.c){:target="_blank"} from class.
+- Threading [example 1]({% link assets/threads.c %}){:target="_blank"} and [example 2]({% link assets/locks.c %}){:target="_blank"} from class.
