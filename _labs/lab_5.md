@@ -94,6 +94,11 @@ Options:
 You can follow the same tools as the previous lab. You can also add [httpie](https://httpie.org){:target="_blank"} or [curl](https://curl.haxx.se){:target="_blank"} to your repertoire. They will create a valid HTTP request for you to test your server against. Once you have refined your lab, you can use a web browser to make sure your response is well-formed, and the data you are returning is correct.
 
 
+## Submission
+
+To submit your code, push it to your Github repository. Tag the commit you want to be graded with a tag named `final`.
+
+
 ## Resources
 
 - [`strtok`](https://linux.die.net/man/3/strtok){:target="_blank"}

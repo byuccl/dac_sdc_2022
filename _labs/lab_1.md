@@ -115,6 +115,11 @@ I will also be running a TCP server at `lundrigan.byu.edu:8080`. This server is 
 <iframe width="560" height="315" src="https://www.youtube-nocookie.com/embed/Kfmsi_WCd74" frameborder="0" allow="accelerometer; autoplay; encrypted-media; gyroscope; picture-in-picture" allowfullscreen></iframe>
 
 
+## Submission
+
+To submit your code, push it to your Github repository. Tag the commit you want to be graded with a tag named `final`.
+
+
 ## Resources
 
 - [getopt](https://man7.org/linux/man-pages/man3/getopt.3.html){:target="_blank"}

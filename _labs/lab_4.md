@@ -91,6 +91,12 @@ Options:
 
 [Netcat](http://netcat.sourceforge.net) is going to be your best friend for this lab. This will allow you to connect directly to your server and test out different input. You can also use the client that you created in lab 1.
 
+
+## Submission
+
+To submit your code, push it to your Github repository. Tag the commit you want to be graded with a tag named `final`.
+
+
 ## Resources
 
 - [Guide on socket programming](https://beej.us/guide/bgnet/html/){:target="_blank"}

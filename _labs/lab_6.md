@@ -55,6 +55,11 @@ Another way to test that your server is handling multiple clients is to add an a
 For debugging purposes, it might be useful to prefix all log messages with the socket that you are working on. The socket number should correspond to what thread is running. This can give you insight into what each thread is doing.
 
 
+## Submission
+
+To submit your code, push it to your Github repository. Tag the commit you want to be graded with a tag named `final`.
+
+
 ## Resources
 
 - [`pthread_create`](https://linux.die.net/man/3/pthread_create){:target="_blank"}
