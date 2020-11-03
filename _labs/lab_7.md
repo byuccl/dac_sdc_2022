@@ -29,7 +29,7 @@ To use MQTT, you need a couple of pieces of information:
 
 We will not be using a username and password for this lab.
 
-## Protocol
+### Protocol
 
 You will be using the [Paho MQTT C Client Library](https://www.eclipse.org/paho/index.php?page=clients/c/index.php){:target="_blank"}. This library comes in two flavors, classic (blocking) and async (non-blocking). For this lab, you must use the async version. 
 
@@ -37,7 +37,7 @@ We will be going back to our old-faithful protocol. It will work the following w
 
 **Note**: We are trying to fit a request/response protocol into a publisher/subscriber model. Though it happens all the time, it is not ideal and slightly unintuitive. We are doing this to combine something you are familiar with something new. In the next lab, you will see the full power and beauty of a publisher/subscriber protocol.
 
-## CLI
+### CLI
 
 The only arguments for this lab are NetID, action, message. The NetID will be used for the topic that you publish and subscribe to. The action and message will be the same as the previous labs. Similar to earlier labs, your client must take a hostname and port number. The default port number should be 1883, and the default host should be `localhost`. The provided NetID will also be used for the client ID. You must use the following usage pattern:
 
