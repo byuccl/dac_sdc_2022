@@ -57,6 +57,10 @@ Options:
  --port PORT, -p PORT
 ```
 
+Here is a demonstration of the client:
+
+<iframe width="560" height="315" src="https://www.youtube-nocookie.com/embed/vcE0FdQGQB8" frameborder="0" allow="accelerometer; autoplay; encrypted-media; gyroscope; picture-in-picture" allowfullscreen></iframe>
+
 ## Objectives
 
 - Learn MQTT and how to use it.
@@ -67,7 +71,7 @@ Options:
 
 ## Requirements
 
-- No .h file is provided in this lab. Good luck!
+- No .h file is provided in this lab. Feel free to structure the code however you would like. Good luck! 
 
 - The name of your program must be named `mqtt_client`.
 
