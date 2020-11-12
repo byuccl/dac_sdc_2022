@@ -20,7 +20,7 @@ For this lab, you will be extending your HTTP server to handle multiple clients 
 
 For this lab, we will be using threads to handle multiple clients concurrently. When a new request comes in, a thread is created and the socket is passed to that thread. The newly spawned thread is now responsible for receiving and sending data while the main thread is still accepting new clients. As mentioned in lecture, threads have their own set of issues, largely shared memory. To limit these issues, try to use local variables as much as possible. You should not need to use mutex/locks in this lab!
 
-As part of writing a well behaving server, you will need to approperately handle the threads when you are exiting (the user hits `ctrl-c`). This allows your server to finishing handling clients that have already connected before shutting down the server. To do this, you must join all spawned threads.
+As part of writing a well behaving server, you will need to appropriately handle the threads when you are exiting (the user hits `ctrl-c`). This allows your server to finishing handling clients that have already connected before shutting down the server. To do this, you must join all spawned threads.
 
 Assuming you did lab 5 correctly, you shouldn't have to change anything except `main.c`.
 
