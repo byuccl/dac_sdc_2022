@@ -50,7 +50,7 @@ We will be going back to our old-faithful protocol. It will work the following w
 The only arguments for this lab are NetID, action, message. The NetID will be used for the topic that you publish and subscribe to. The action and message will be the same as the previous labs. Similar to earlier labs, your client must take a hostname and port number. The default port number should be 1883, and the default host should be `localhost`. The provided NetID will also be used for the client ID. You must use the following usage pattern:
 
 ```
-Usage: tcp_client [--help] [-v] [-h HOST] [-p PORT] NETID ACTION MESSAGE
+Usage: mqtt_client [--help] [-v] [-h HOST] [-p PORT] NETID ACTION MESSAGE
 
 Arguments:
  NETID The NetID of the user.
