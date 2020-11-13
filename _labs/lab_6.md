@@ -48,7 +48,7 @@ Here is a demonstration of the server:
 
 ## Testing
 
-Hopefully, your HTTP parsing is working at this point, so you will not need to test that. To test concurrent clients, here are a few thoughts. You can use a tool to help stress-test your server. There are no requirements that your server handles a certain amount of load, just that it handles clients concurrently, so some of these tools might be overkill. You can use the tools to prove to yourself that you are handling clients concurrently. Such tools include [wrk2](https://github.com/giltene/wrk2){:target="_blank"}, [Seige](https://www.joedog.org/siege-home/){:target="_blank"}, and [JMeter](https://jmeter.apache.org){:target="_blank"}.
+Hopefully, your HTTP parsing is working at this point, so you will not need to test that. To test concurrent clients, here are a few thoughts. You can use a tool to help stress-test your server. There are no requirements that your server handles a certain amount of load, just that it handles clients concurrently, so some of these tools might be overkill. You can use the tools to prove to yourself that you are handling clients concurrently. Such tools include [wrk2](https://github.com/giltene/wrk2){:target="_blank"}, [Siege](https://www.joedog.org/siege-home/){:target="_blank"}, and [JMeter](https://jmeter.apache.org){:target="_blank"}.
 
 Another way to test that your server is handling multiple clients is to add an artificial delay (e.g., `sleep`) to your program, just for testing purposes. This technique will simulate a request taking a long time and show if you are handling clients concurrently.
 
