@@ -78,7 +78,7 @@ Options:
 
 - Your server must handle any request size.
 
-- Your server does not need to support IPv4 or concurrent clients.
+- Your server does not need to support IPv6 or concurrent clients.
 
 - Return "error" if an error occurs when processing request. A couple of reasons this might happen is if an invalid action or a non-numeric length is sent.
 
