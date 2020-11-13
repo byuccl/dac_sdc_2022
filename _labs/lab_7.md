@@ -33,6 +33,14 @@ We will not be using a username and password for this lab.
 
 You will be using the [Paho MQTT C Client Library](https://www.eclipse.org/paho/index.php?page=clients/c/index.php){:target="_blank"}. This library comes in two flavors, classic (blocking) and async (non-blocking). For this lab, you must use the async version. 
 
+To use this library, you need to install it on your computer. To do so, follow these [instructions](https://github.com/eclipse/paho.mqtt.c#build-instructions-for-gnu-make). As the instructions say, you need to have the OpenSSL development package installed. You can install it by running,
+
+```
+apt-get install libssl-dev
+```
+
+The library is installed on the Embedded Lab computers, but _not_ on the CAEDM computers.
+
 We will be going back to our old-faithful protocol. It will work the following way: A client will publish a message with a topic set to `<netid>/<action>`. The payload of the message will be the text you want to transform. For example, if you want to uppercase the text, "Networking is the best!" and your NetID is [le0nh4rt](https://en.wikipedia.org/wiki/Squall_Leonhart), then you would publish to the topic `le0nh4rt/uppercase` and the message would be "Networking is the best!". Your client must subscribe to `le0nh4rt/response` to get the response, which in this example would be "NETWORKING IS THE BEST!".
 
 **Note**: We are trying to fit a request/response protocol into a publisher/subscriber model. Though it happens all the time, it is not ideal and slightly unintuitive. We are doing this to combine something you are familiar with something new. In the next lab, you will see the full power and beauty of a publisher/subscriber protocol.
