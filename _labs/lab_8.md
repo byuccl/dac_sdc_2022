@@ -39,8 +39,14 @@ For example, if you are publishing a message, "Hello world" at 8:13:00 AM on Nov
 
 The payload for the `<netid>/status` publications must contain `json` data with the following keys:
 
-- name: The name of the person sending the message.
-- online: An integer showing if the person is online or not. 0 for offline and any other value for online.
+- `name`: The name of the person sending the message.
+- `online`: An integer showing if the person is online or not. 0 for offline and any other value for online.
+
+For example, to update your status to online the payload of the status update would be:
+
+```
+{"name": "Dr. Phil", "online": 1}
+```
 
 You must publish an "online" message when you start your client and register a [last will](https://mntolia.com/mqtt-last-will-testament-explained-with-examples/){:target="_blank"} with the broker that publishes an "offline" message when you disconnect. To make the status messages more useful, you must set the retain flag for all status message publications.
 
@@ -100,15 +106,15 @@ If no name is provided, then use NETID as the name.
 - Your status messages must set the retain flag to `true`.
 
 - Your user interface must show the following information:
- - Messages that have been sent and received. It must include the time the message was sent, the name of the person that sent the message, and the message itself. The timestamp must be human-readable and not in epoch time format.
- - Show when people have left or joined the chat server. This can be inline with the chat messages.
+  - Messages that have been sent and received. It must include the time the message was sent, the name of the person that sent the message, and the message itself. The timestamp must be human-readable and not in epoch time format.
+  - Show when people have left or joined the chat server. This can be inline with the chat messages.
 
 - For extra credit, you can add the following or improve on the previous requirements:
- - +10 points: Make a more advanced GUI (using something other than ncurses), that has the same functionality as above.
- - +5 points: Mark that the message was delivered.
- - +5 points: Show who is online/offline. Instead of putting these messages inline with the chats, it should be off to the side with lists of names and an indication of who is offline/online. For example, you could have a list of names and green circles next to people that are online and red circles next to people who are offline.
- - +5 points: Automatically reconnect to the chat server if you get disconnected.
- - +5 points: Have some kind of status indicator showing if you are online or offline (assuming that your client can reconnect automatically).
+  - +10 points: Make a more advanced GUI (using something other than ncurses), that has the same functionality as above.
+  - +5 points: Mark that the message was delivered.
+  - +5 points: Show who is online/offline. Instead of putting these messages inline with the chats, it should be off to the side with lists of names and an indication of who is offline/online. For example, you could have a list of names and green circles next to people that are online and red circles next to people who are offline.
+  - +5 points: Automatically reconnect to the chat server if you get disconnected.
+  - +5 points: Have some kind of status indicator showing if you are online or offline (assuming that your client can reconnect automatically).
 
 ## Testing
 
