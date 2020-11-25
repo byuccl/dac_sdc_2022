@@ -33,7 +33,7 @@ The payload for the `<netid>/message` publications must contain [`json`](https:/
 
 For example, if you are publishing a message, "Hello world" at 8:13:00 AM on Nov 24, 2020, then the payload would be the following:
 
-```
+```json
 {"timestamp": 1606230780, "name": "Dr. Phil", "message": "Hello world"}
 ```
 
@@ -44,7 +44,7 @@ The payload for the `<netid>/status` publications must contain `json` data with 
 
 For example, to update your status to online the payload of the status update would be:
 
-```
+```json
 {"name": "Dr. Phil", "online": 1}
 ```
 
@@ -121,6 +121,13 @@ If no name is provided, then use NETID as the name.
 The chat server will be hosted at lundrigan.byu.edu:1883.
 
 One good way of testing your chat client is to bring up multiple instances of your client. That way, you can see how it responds to people coming online and offline.
+
+If you use ncurses, your log messages will not work because ncurses has taken over the screen. To get around this issue, you can write your log messages to a file. This can be set up using the following code:
+
+```c
+  log_file = fopen("log.txt", "w");
+  log_add_fp(log_file, LOG_TRACE);
+```
 
 
 ## Submission
