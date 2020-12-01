@@ -42,7 +42,7 @@ The payload for the `<netid>/status` publications must contain `json` data with 
 - `name`: The name of the person sending the message.
 - `online`: An integer showing if the person is online or not. 0 for offline and any other value for online.
 
-For example, to update your status to online the payload of the status update would be:
+For example, to update your status to "online", the payload of the status update would be:
 
 ```json
 {"name": "Dr. Phil", "online": 1}
@@ -108,6 +108,8 @@ Here is a demonstration of the chat client:
 - Your client must publish an "online" status message when first connecting to the broker and register a last will to publish an "offline" status for when your client disconnects.
 
 - Your status messages must set the retain flag to `true`.
+
+- To support multiple instances of your chat client, you must add randomness to the client ID you use to connect to the broker. You are free to choose how you want to add randomness to your client ID. 
 
 - Your user interface must show the following information:
   - Messages that have been sent and received. It must include the time the message was sent, the name of the person that sent the message, and the message itself. The timestamp must be human-readable and not in epoch time format.
