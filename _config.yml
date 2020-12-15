@@ -13,20 +13,21 @@
 # you will see them accessed via {{ site.title }}, {{ site.email }}, and so on.
 # You can create any custom variable you would like, and they will be accessible
 # in the templates via {{ site.myvariable }}.
-title: "ECEn 493R: Computer Networking"
+title: "ECEn 625: Compilation Strategies for High-Performance Systems"
 class_name: Computer Networking
-class_number: ECEn 493R
-email: lundrigan@byu.edu
+class_number: ECEn 625
+email: jgoeders@byu.edu
 description: >-
-  Class website for BYU's ECEn 493R: Computer Networking.
-baseurl: "/493r" # the subpath of your site, e.g. /blog
-url: "https://ecenetworking.byu.edu" # the base hostname & protocol for your site, e.g. http://example.com
+  Class website for BYU's ECEn 625: Compilation Strategies for High-Performance Systems.
+baseurl: "/625" # the subpath of your site, e.g. /blog
+
+# url: "https://ecenetworking.byu.edu" # the base hostname & protocol for your site, e.g. http://example.com
 permalink: pretty
 
 # Build settings
 markdown: kramdown
-plugins:
-  - jekyll-feed
+# plugins:
+#   - jekyll-feed
 
 github:
   url: https://github.com/NET-BYU/networking-course
@@ -47,8 +48,8 @@ collections:
     order:
       - overview.md
       - goals.md
-      - resources.md
-      - coding_standard.md
+      # - resources.md
+      # - coding_standard.md
       - lab_setup.md
 
 # Exclude from processing.

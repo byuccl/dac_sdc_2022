@@ -9,61 +9,78 @@ icon: fas fa-chalkboard-teacher
 
 This course is made up of three major components:
 
-- **Labs**. Labs will generally be due every week on Thursdays. Occasionally, you get an extra week for a lab when you are implementing a new concept.
+- **Labs**. TBD
 
-- **Homeworks**. Homeworks are due every other week on Tuesdays. They will cover information from the lecture and book. They will typically consist of problems from the textbook and a [Wireshark lab](https://gaia.cs.umass.edu/kurose_ross/wireshark.htm){:target="_blank"}, where you get hands-on experience with protocols using [Wireshark](https://www.wireshark.org){:target="_blank"}.
+- **Exams**. TBD
 
-- **Exams**. There are two midterms and a comprehensive final.
+## Content
 
-## Goals
+This course will investigate high-level automated compilation strategies for digital circuits. This course will focus on the theoretical foundations of behavioral synthesis as well as applied practice of high-level synthesis (HLS) with modern tools. The major topics addressed in this course include: 
+* Graph Theory, Algorithms, and Analysis
+* HLS Algorithms (Scheduling, Allocation, Binding, Retiming)
+* Compilers (Passes, SSA, IR)
+* HLS Optimizations (Pipelining, IR transformations)
+* Modern HLS research topics
+* Design using open-source and commercial HLS tools
 
-This is a networking class, so the major goal is to get you familiar with **networking principles, how to send data reliably and securely, and a good understanding of how the Internet works**. However, I am taking a two-prong approach to this class. Along the way of learning the fundamentals of networking, I want you to gain valuable computer systems-level experience. This part of the course is accomplished through the labs. In the labs, you will be exposed to socket programming, file I/O, writing good command-line tools, and concurrency techniques.
 
+## Prerequisites
+
+Students should have reasonable coding skills in RTL (Verilog or VHDL), and C++.  If you are unsure if you have the necessary experience, contact the instructor.
+
+## Textbook
+
+Parallel Programming for FPGAs.  [http://kastner.ucsd.edu/hlsbook/]()
 
 
 ## Grade Breakdown
 
 | Component | % of Grade |
 |-----------|------------|
-| Labs      | 40         |
-| Homeworks | 15         |
-| Midterms  | 25         |
-| Final     | 20         |
+| Class Participation      | 5         |
+| Mini-Lecture | 10         |
+| Labs  | 40         |
+| Project & Presentation     | 30         |
+| Exam     | 15         |
 
-There are nine labs, so each lab is worth 4.4% of your grade. There are five homeworks, so each homework is worth 3% of your grade.
 
 
-## Communication
-All communication will be done over Slack. Slack is intended to be used for announcements, questions, and facilitate student communication. If you have a question, ask it on Slack so that everyone can benefit from seeing the question and answer. 
+## Class Participation
+Active participation by all students is an essential component of learning in this course. Class participation includes attending class, preparing for class (usually by reading and understanding the reading), participating in the class discussion, and providing additional insight or help to the instructor or fellow students. The class participation score is subjective and will be computed at the end of the semester based on feedback from fellow students and observations from the instructor.
 
-## Attendance and Participation
-This is a senior-level class, and I expect senior-level participation. I expect all students to watch every lecture and be engaged in the lecture. Asking and answering questions in class is essential. When you are in a lecture, I expect your attention, so students should not be on their phones or doing non-class related things on laptops.
+## Mini-Lecture
+Several classes will be spent on student-led lectures from the “Parallel Programming for FPGAs” textbook.   Each student will participate in one presentation, as part of a group of two.
+
+## Labs
+A number of assignments will be given during the semester that involve implementing HLS concepts and using commercial HLS tools. The criteria used to grade each assignment will be posted with the assignment description on the course website.
+
+## Mid-Term Exam
+One midterm examination will be given to test your understanding of the course material.  This examination will be closed book and taken at the testing center.  The test is scheduled for the following three days: March TBD. Make sure you complete the test during this time. No makeup examinations will be given.
+
+## Project and Presentation
+Each student will be required to complete a project related to the topics covered in the course and present the results from this project in a class presentation. The project will begin during the second half of the semester and the presentations will occur during the last week of class. Details of the project requirements and grading will be given at a later time.
+There will be no final exam for the course.
 
 ## Late Policy
-Don't be late. With all programming, but especially with networking, bugs pop up, and things take longer than you hope, so plan ahead on the labs. 20% of the grade will be subtracted for each day late, not including weekends.
+For assignments submitted late, the penalty will be 20% for each week late (rounding up), to a maximum of 60% deduction.  (Example: submitting 1 day late will result in a 20% penalty and 13 days late will result in a 40% penalty).  No assignments will be accepted after the last day of class.  
+This policy applies to assignments only.  The final project deliverables must be completed on time, or no credit will be given.
 
-## Source Code Sharing
-No source code should be shared between students. Students can work on assignments together, but no direct or indirect copying from another student is allowed. This class will use a code similarity checker to determine if students are copying code.
+## Course Schedule
+The course lecture and reading schedule for the semester will be posted on the course website. 
 
-## Policies
+## Honor Code Standards
+In keeping with the principles of the BYU Honor Code, students are expected to be honest in all of their academic work.  Academic honesty means, most fundamentally, that any work you present as your own must in fact be your own work and not that of another.  Violations of this principle may result in a failing grade in the course and additional disciplinary action by the university. 
 
-### COVID-19 Statement
-While COVID-19 conditions persist and until further notice, students and faculty are required to wear face coverings at all times during class; faculty are not at liberty to waive this expectation.
+Students are also expected to adhere to the Dress and Grooming Standards.  Adherence demonstrates respect for yourself and others and ensures an effective learning and working environment.  It is the university’s expectation, and my own expectation in class, that each student will abide by all Honor Code standards.  Please call the Honor Code Office at 422-2847 if you have questions about those standards.
 
-Students who feel sick, including exhibiting symptoms commonly associated with COVID 19 (fever; cough; shortness of breath/difficulty breathing; chills; muscle pain; sore throat; new loss of taste or smell; etc.) should not attend class and should work with their instructor to develop a study plan for the duration of the illness.
+## Preventing & Responding to Sexual Misconduct
+ 
+In accordance with Title IX of the Education Amendments of 1972, Brigham Young University prohibits unlawful sex discrimination against any participant in its education programs or activities. The university also prohibits sexual harassment—including sexualviolence—committed by or against students, university employees, and visitors to campus. As outlined in university policy, sexual harassment, dating violence, domestic violence,sexual assault, and stalking are considered forms of "Sexual Misconduct" prohibited by the university.
+ 
+University policy requires all university employees in a teaching, managerial, or supervisory role to report all incidents of Sexual Misconduct that come to their attention in any way, including but not limited to face-to-face conversations, a written class assignment or paper, class discussion, email, text, or social media post.  Incidents of Sexual Misconduct should be reported to the Title IX Coordinator at t9coordinator@byu.edu or (801) 422-8692.  Reports may also be submitted through EthicsPoint at https://titleix.byu.edu/reportor 1-888-238-1062 (24-hours a day).
+ 
+BYU offers confidential resources for those affected by Sexual Misconduct, including the university’s Victim Advocate, as well as a number of non-confidential resources and services that may be helpful. Additional information about Title IX, the university’s SexualMisconduct Policy, reporting requirements, and resources can be found athttp://titleix.byu.edu or by contacting the university’s Title IX Coordinator.  
+Students With Disabilities 
+If you have a disability that may affect your performance in this course, you should get in touch with the office of Services for Students with Disabilities (1520 WSC).  This office can evaluate your disability and assist the professor in arranging for reasonable accommodations.    
+  
 
-### Honor Code
-In keeping with the principles of the BYU Honor Code, students are expected to be honest in all of their academic work. Academic honesty means, most fundamentally, that any work you present as your own must in fact be your own work and not that of another. Violations of this principle may result in a failing grade in the course and additional disciplinary action by the university. Students are also expected to adhere to the Dress and Grooming Standards. Adherence demonstrates respect for yourself and others and ensures an effective learning and working environment. It is the university's expectation, and every instructor's expectation in class, that each student will abide by all Honor Code standards. Please call the Honor Code Office at 422-2847 if you have questions about those standards.
-
-### Preventing & Responding to Sexual Misconduct
-In accordance with Title IX of the Education Amendments of 1972, Brigham Young University prohibits unlawful sex discrimination against any participant in its education programs or activities. The university also prohibits sexual harassment-including sexual violence-committed by or against students, university employees, and visitors to campus. As outlined in university policy, sexual harassment, dating violence, domestic violence, sexual assault, and stalking are considered forms of "Sexual Misconduct" prohibited by the university.
-
-University policy requires all university employees in a teaching, managerial, or supervisory role to report all incidents of Sexual Misconduct that come to their attention in any way, including but not limited to face-to-face conversations, a written class assignment or paper, class discussion, email, text, or social media post. Incidents of Sexual Misconduct should be reported to the Title IX Coordinator at t9coordinator@byu.edu or (801) 422-8692. Reports may also be submitted through EthicsPoint at https://titleix.byu.edu/report or 1-888-238-1062 (24-hours a day).
-
-BYU offers confidential resources for those affected by Sexual Misconduct, including the university's Victim Advocate, as well as a number of non-confidential resources and services that may be helpful. Additional information about Title IX, the university's Sexual Misconduct Policy, reporting requirements, and resources can be found at http://titleix.byu.edu or by contacting the university's Title IX Coordinator.
-
-### Student Disability
-Brigham Young University is committed to providing a working and learning atmosphere that reasonably accommodates qualified persons with disabilities. A disability is a physical or mental impairment that substantially limits one or more major life activities. Whether an impairment is substantially limiting depends on its nature and severity, its duration or expected duration, and its permanent or expected permanent or long-term impact. Examples include vision or hearing impairments, physical disabilities, chronic illnesses, emotional disorders (e.g., depression, anxiety), learning disorders, and attention disorders (e.g., ADHD). If you have a disability which impairs your ability to complete this course successfully, please contact the University Accessibility Center (UAC), 2170 WSC or 801-422-2767 to request a reasonable accommodation. The UAC can also assess students for learning, attention, and emotional concerns. If you feel you have been unlawfully discriminated against on the basis of disability, please contact the Equal Employment Office at 801-422-5895, D-285 ASB for help.
-
-### Academic Honesty
-The first injunction of the Honor Code is the call to "be honest." Students come to the university not only to improve their minds, gain knowledge, and develop skills that will assist them in their life's work, but also to build character. "President David O. McKay taught that character is the highest aim of education" (The Aims of a BYU Education, p.6). It is the purpose of the BYU Academic Honesty Policy to assist in fulfilling that aim. BYU students should seek to be totally honest in their dealings with others. They should complete their own work and be evaluated based upon that work. They should avoid academic dishonesty and misconduct in all its forms, including but not limited to plagiarism, fabrication or falsification, cheating, and other academic misconduct.
