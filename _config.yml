@@ -21,48 +21,48 @@ description: >-
   Class website for BYU's ECEn 625: Compilation Strategies for High-Performance Systems.
 baseurl: "/625" # the subpath of your site, e.g. /blog
 
-# url: "https://ecenetworking.byu.edu" # the base hostname & protocol for your site, e.g. http://example.com
-permalink: pretty
+# # url: "https://ecenetworking.byu.edu" # the base hostname & protocol for your site, e.g. http://example.com
+# permalink: pretty
 
-# Build settings
-markdown: kramdown
-# plugins:
-#   - jekyll-feed
+# # Build settings
+# markdown: kramdown
+# # plugins:
+# #   - jekyll-feed
 
-github:
-  url: https://github.com/NET-BYU/networking-course
-  branch: master
+# github:
+#   url: https://github.com/NET-BYU/networking-course
+#   branch: master
 
-collections:
-  labs:
-    output: true
-    permalink: /:collection/:name/
-    sort_by: number
-  homeworks:
-    output: true
-    permalink: /:collection/:name/
-    sort_by: chapter
-  pages:
-    output: true
-    permalink: /:name/
-    order:
-      - overview.md
-      - goals.md
-      # - resources.md
-      # - coding_standard.md
-      - lab_setup.md
+# collections:
+#   labs:
+#     output: true
+#     permalink: /:collection/:name/
+#     sort_by: number
+#   homeworks:
+#     output: true
+#     permalink: /:collection/:name/
+#     sort_by: chapter
+#   pages:
+#     output: true
+#     permalink: /:name/
+#     order:
+#       - overview.md
+#       - goals.md
+#       # - resources.md
+#       # - coding_standard.md
+#       - lab_setup.md
 
-# Exclude from processing.
-# The following items will not be processed, by default. Create a custom list
-# to override the default setting.
-exclude:
-  - icon.ai
-  - Dockerfile
-  - Makefile
-  - Gemfile
-  - Gemfile.lock
-  - node_modules
-  - vendor/bundle/
-  - vendor/cache/
-  - vendor/gems/
-  - vendor/ruby/
+# # Exclude from processing.
+# # The following items will not be processed, by default. Create a custom list
+# # to override the default setting.
+# exclude:
+#   - icon.ai
+#   - Dockerfile
+#   - Makefile
+#   - Gemfile
+#   - Gemfile.lock
+#   - node_modules
+#   - vendor/bundle/
+#   - vendor/cache/
+#   - vendor/gems/
+#   - vendor/ruby/
