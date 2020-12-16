@@ -50,8 +50,6 @@ This will produce an executable located in `build/main`.  If you change any file
 
 ## Requirements
 
-
-
 The goal of this lab is to perform a topological sort of a dataflow graph, identify the longest delay path, and create a graph visualization.  [Graph 0]({% link media/graphs/graph0.pdf %}) shows a the graph for `DelayGraph\_0.graphml`. 
 Your graphs should have the following properties:
 * Show all nodes and edges. Some nodes don't have edges.
@@ -131,97 +129,44 @@ See lecture slides, [wikipedia](https://en.wikipedia.org/wiki/Longest_path_probl
 Again, to ensure the graph is a DAG, you will \uline{need to ignore feedback edges}. Remember to ignore these edges when finding the longest back, and during the backtracking portion.
 
 
-# Remainder of page is under construction
-
 ## Deliverables
 
 * Make sure your code is pushed up to your Github repo.   
 
-* Add a 1 page report, that incluedes a short paragraph about how your topological sorting algorithm works.  Include a [scatter plot](https://en.wikipedia.org/wiki/Scatter_plot), which plots the run-time for your topological sort code for  **ALL** 2333 of the provided graphs.  The plot should be of the following format:
+* Add a 1 page report, that includes a short paragraph about how your topological sorting algorithm works.  Include a [scatter plot](https://en.wikipedia.org/wiki/Scatter_plot), which plots the run-time for your topological sort code for  **ALL** 2333 of the provided graphs.  The plot should be of the following format:
     * The x-axis should show the size of the graph ($V + E$)
 	* The y-axis should show the runtime of the topological sorting.
 	* Both the x and y axis should be in logarithmic scale, with appropriate ranges to fit your data points.
 
-There are many ways to do a topological sort.  For full marks, your chart data should show that your algorithm complexity is approximately `O(V+E)`.  Please don't spend extra time performing analysis to show this -- just a visual inspection of the scatter plot is fine.
+There are many ways to do a topological sort.  For full marks, your chart data should show that your algorithm complexity is approximately `O(V+E)`.  Please don't spend extra time performing analysis to show this; a visual inspection of the scatter plot is fine.
 
-\paragraph{Deliverables:}
-Include the following data using your longest path code:
-\begin{itemize}
-	\item Include the following table in your report, with all values populated:
-	\begin{table}[h!]
-	\centering
-	\begin{tabular}{|l|r|r|} \hline
-	{\bf Graph} & {\bf size ($V+E$)} & Delay \\ \hline
-	DelayGraph\_0 & 197 & 8077 \\ \hline
-	DelayGraph\_1 &  &  \\ \hline
-	DelayGraph\_2 &  &  \\ \hline
-	DelayGraph\_3 &  &  \\ \hline
-	DelayGraph\_4 &  &  \\ \hline
-	DelayGraph\_5 &  &  \\ \hline
-	DelayGraph\_6 &  &  \\ \hline
-	DelayGraph\_7 &  &  \\ \hline
-	DelayGraph\_8 &  &  \\ \hline
-	DelayGraph\_9 &  &  \\ \hline
-	DelayGraph\_10 &  &  \\ \hline
+* Include the following data using your longest path code:
 
-	\end{tabular}
-	\end{table}
+| Graph | size (V+E) | Delay |
+|:------|-----------:|------:|
+|DelayGraph_0 |  197| 8077 |
+|DelayGraph_1  |  | 
+|DelayGraph_2  |  | 
+|DelayGraph_3  |  | 
+|DelayGraph_4  |  | 
+|DelayGraph_5  |  | 
+|DelayGraph_6  |  | 
+|DelayGraph_7  |  | 
+|DelayGraph_8  |  | 
+|DelayGraph_9  |  | 
+|DelayGraph_10 |  | 
+
 	
-	\item Include the longest path for DelayGraph\_3.  
-	
-	For example, the longest path for DelayGraph\_0 is:
-	\begin{lstlisting}
+* Include the longest path for DelayGraph\_3.  For example, the longest path for DelayGraph\_0 is:
+```
 n0 -> n14 -> n15 -> n19 -> n21 -> n23 -> n24 -> n25 -> n26 -> n27 -> 
 n29 -> n43 -> n44 -> n50 -> n51 -> n56 -> n60 -> n70 -> n71 -> n74 -> 
 n75 -> n78 -> n76 -> n77 -> n79 -> n80 -> n81 -> n82 -> n83 -> n84 -> 
 n88
+```
 
-	\end{lstlisting}
-\end{itemize}
+## Submission Instructions
 
-\section{Coding Guidelines}
-\begin{itemize}
-	\item Your code should be added to the {\tt src/522r\_asst1.cpp} file.  You can add additional files if you like, just don't forget to submit them.  You shouldn't change the {\tt niGraph*} files.
-  \item You are free to add extra helper functions, but you should not change the definition of the provided functions. 
-	%\item All graph objects ({\tt NIGraph}, {\tt NIGraphNode}, {\tt NIGraphEdge}) should be allocated by the {\tt parseGraphMlFile()} function.  Do not allocate these objects yourself.  Example object allocations, which you should not do:
-	%\begin{lstlisting}
-	%NIGraphNode * node1 = new NIGraphNode();
-	%NIGraphNode node2;
-	%\end{lstlisting}
-	\item I have made {\tt topologicalSort()} return a  {\tt std::deque} instead of a {\tt std::vector}, as it supports $O(1)$ insertion at the front or back of the list ({\tt std::vector} is $O(n)$ insertion at the front).  Since different topological sorting algorithms require inserting at the front or back, I wanted to provide this functionality.
-	%\item Topological order is such that for every directed edge $uv$ from vertex $u$ to vertex $v$, $u$ comes before $v$ in the ordering.  For the output of {\tt topologicalSort()}, and the input to {\tt longestDelayPathFromTopolSortedNodes()} you are free to use topological or reverse topological ordering.  When I implemented the code, the topological sorting algorithm I used added items to the vector in reverse topological order.  To avoid inserting at the start of the vector, which is $O(n)$, I just inserted items at the end of the vector, which is $O(1)$, and returned the reverse topological ordering.  You should choose the appropriate ordering for the algorithm you use.  (An alternative would be to use a data structure that supported $O(1)$ insertion at the front, such as {\tt std::deque}; however, for simplicity I chose to define the function as returning a {\tt std::vector}).
-	\item It doesn't matter what code you submit in {\tt main()}, you will only be marked on the code in the required functions, and any code that those functions call.
-\end{itemize}
+Submit your code using a Github tag: `lab1_submission`
 
-\section{Submission Instructions}
-
-\begin{enumerate}
-	\item 
-
-Submit a report containing the following items:
-\begin{itemize}
-	\item Your name :)
-	\item The two DOT graph images, described in \cref{sec:del1}.
-	\item The paragraph describing your algorithm, and scatter plot, from \cref{sec:del2}.
-	\item The table, and longest path, described in \cref{sec:del3}.
-	\item Feedback about the assignment
-	
-	\begin{itemize}
-		\item How many hours you spent on the assignment?  
-		\item How challenging was the C++ coding?
-		\item Anything you liked?
-		\item Anything you didn't like? Or anything you would change?
-		\item Did you find the assignment worthwhile? Why or why not?
-	\end{itemize}
-\end{itemize}
-
-\item Submit your source code.  If you only change the one .cpp file, then only submit that file.
-\end{enumerate}
-
-
-\textbf{Send your report and code to \href{mailto:jgoeders@byu.edu}{jgoeders@byu.edu} with the subject: 625 Asst1}
-
-\section{Evaluation Criteria}
-The three deliverables will be weighted equally.  You will be marked based on completion, adherence to specification, correctness of code, efficiency of code, and readability of code.
-
-
+Instructions are provided [here]({% link _pages/lab_setup.md %}#submitting-code)

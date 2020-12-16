@@ -44,3 +44,17 @@ If you ever need to pull down changes I made (I will let you know when this is t
 git fetch template
 git merge template/master
 ```
+
+## Submitting Code
+Lab submissions will be done by creating a tag in your Git repository.  You can do this like so:
+
+```
+git tag lab1_submission
+git push origin lab1_submission
+```
+
+If, after you create this tag, you want to change it (ie, re-submit your code), you can re-run the above commands and include the --force option, ie:
+```
+git tag --force lab1_submission
+git push --force origin lab1_submission
+```
