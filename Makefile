@@ -5,6 +5,8 @@ serve:
 	jekyll serve
 
 deploy:
+	jekyll build
+	ssh byu-domains "rm -rf public_html/courses/ecen625_new/*"
 	scp -r _site/* byu-domains:public_html/courses/ecen625_new/
 
 develop_docker:
