@@ -24,10 +24,6 @@ permalink: pretty
 
 markdown: kramdown
 
-github:
-  url: https://github.com/NET-BYU/networking-course
-  branch: master
-
 collections:
   labs:
     output: true
