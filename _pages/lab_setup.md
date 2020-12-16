@@ -5,40 +5,33 @@ toc: true
 icon: fas fa-wrench
 ---
 
+## Prerequisite Skilss
+In this class you are expected to be familiar with the Linux command line, Git and Github.  If you haven't used these tools before, here are links to a few tutorials:
+
+* <https://ryanstutorials.net/linuxtutorial/>
+*	[Learn Git in 15 minutes](https://www.youtube.com/watch?v=USjZcfj8yxE)
+* [Learn Github in 20 minutes](https://www.youtube.com/watch?v=nhNq2kIvi9s)
+
 ## Environment
 
-The labs will be tested and graded on Linux, so you need to make sure that it works in that environment. However, I completed all of the labs on macOS and did not see major differences. If you would like to use Windows to develop your labs, don't. Sorry, the socket programming is different on Windows so it would require a lot of effort to have it support Windows and Linux. I can't vouch for the Linux Subsystem, but you are welcome to try. Just know that all grading will be done using pure Linux (or a docker container running Linux). If you don't have access to Linux or macOS on your machine, you can SSH into a CAEDM computer and develop from there, or install a VM on your machine. 
+The assignments assume you are running an Ubuntu 18.04 Linux Operating System.  You may be able to complete some assignments on other Linux variants; however, for the assignments that use the Xilinx Vivado tools, you will likely need Ubuntu 18 LTS, but Ubuntu 16 or 20 LTS may work as well.
 
-## Visual Studio Code
+If you don't yet have a Linux OS environment set up, I would suggest doing so for use in this assignment, and subsequent assignments. VMWare Workstation is available for free to BYU students through [CAEDM](https://caedm.et.byu.edu/wiki/index.php/Free_Software). You can also install a full Ubuntu image (including Xilinx tools) in Windows using [WSL2](https://docs.microsoft.com/en-us/windows/wsl/install-win10).  **Alternatively, I have a machine available that you can ssh into -- if you want to go this route, please email me your desired username and I will create a login for you.**
 
-I highly recommend you use [VS Code](https://code.visualstudio.com){:target="_blank"}. It's a good enough [editor]({% link assets/vim.png %}){:target="_blank"} and has a lot of powerful extensions. Specifically, using the auto-formatting on save will save you a lot of trouble when you submit your code. Specifically, set up your VS Code [C/C++ extension](https://marketplace.visualstudio.com/items?itemName=ms-vscode.cpptools){:target="_blank"} with the following Clang format specification:
+## Tools
+You are welcome to use whatever development tools you like, but a few things I suggest you look into:
+* VS Code for code editing.
+* Using SSH keys with Github to avoid having to enter your password when pushing your code up.
 
-```
-{ BasedOnStyle: LLVM, UseTab: Never, IndentWidth: 4, TabWidth: 4, ColumnLimit: 100 }
-```
+## Class Repository
+1. You must use this invitation link to set up a Github classroom repo for the class: <https://classroom.github.com/a/B3CVEv7k>
 
-(you can also change the ColumnLimit to 80, the default.)
-
-Here is an example of my configuration:
-
-![Clang format configuration in VS Code]({% link assets/clang-format.png %}){:width="80%"}
-
-I even have it format my code on save.
-
-![Setting to format on save]({% link assets/format-on-save.png %}){:width="80%"}
-
-## Git Repositories
-
-For the labs, we will be using [GitHub Classroom](https://classroom.github.com/classrooms){:target="_blank"}. If you are unfamiliar with Git, now is the time to start learning. VSCode has some Git integrations which will make this easier. 
-
-For each lab, you will be given a link to start the lab. This will automatically create an empty GitHub repo for you for that lab. This is the only way to start and submit the lab! In order for your code to be graded, you must push your code to your repo. 
-
-To start the lab, you can import the boilerplate code that I will give you for each lab through the "Import code" button:
-
+2. This will create a blank repository for you.  On the github website for your repo, click the **Import Code** button (shown below), and import from <https://github.com/byu-cpe/ecen625_student>.
 ![Screen shot of how to import code]({% link assets/import-code.png %})
+3. Clone your repository to your local machine.  
 
-Each lab page will have a link to the repo you should uses as your starting point. 
 
+## Getting Code Updates
 If for some reason, I need to fix a problem with the starter code, you will need a way of pulling those changes down onto your computer. The easiest approach is to create another remote for your git repo. By default, you will have one remote, `origin`, which will point to your GitHub repo. Add another one using the following command:
 
 ```

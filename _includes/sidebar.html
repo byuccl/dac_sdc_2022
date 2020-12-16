@@ -2,40 +2,40 @@
 <div class="bg-light border-right" id="sidebar-wrapper">
     <div class="sidebar-sticky">
         <div class="sidebar-heading-big">
-            <a href="{% link index.html %}"><img src={{ "/icon/icon.svg" | relative_url }}>
+            <a href="{% link index.html %}">
                 {{ site.class_number }}</a>
         </div>
         <!-- <div class="sidebar-heading">Pages</div> -->
         <div class="list-group list-group-flush">
             {% for item in site.pages %}
-            <a href="{% link {{item.path }} %}" class="list-group-item list-group-item-action bg-light sidebar-item">
+            <a href="{% link {{ item.path }} %}" class="list-group-item list-group-item-action bg-light sidebar-item">
                 {% if item.icon %}
                 <i class="{{ item.icon }}"></i>
                 {% endif %}
                 {{ item.title }}
             </a>
             {% endfor %}
-            <a href="https://learningsuite.byu.edu/.qD2F/cid-B84_MqETGWke/calendar"
+            <!-- <a href="https://learningsuite.byu.edu/.qD2F/cid-B84_MqETGWke/calendar"
                 class="list-group-item list-group-item-action bg-light sidebar-item" target="_blank">
                 <i class="far fa-calendar"></i>
                 Schedule
-            </a>
+            </a> -->
         </div>
 
         <div class="sidebar-heading">Labs</div>
         <div class="list-group list-group-flush">
             {% for item in site.labs %}
-            <a href="{% link {{item.path }} %}" class="list-group-item list-group-item-action bg-light sidebar-item">
+            <a href="{% link {{ item.path }} %}" class="list-group-item list-group-item-action bg-light sidebar-item">
                 <span class="badge badge-pill badge-dark-grey">{{ item.number }}</span>
                 {{ item.title }}
             </a>
             {% endfor %}
         </div>
 
-        <div class="sidebar-heading">Homeworks</div>
+        <!-- <div class="sidebar-heading">Homeworks</div>
         <div class="list-group list-group-flush">
             {% for item in site.homeworks %}
-            <a href="{% link {{item.path }} %}" class="list-group-item list-group-item-action bg-light sidebar-item">
+            <a href="{% link {{ item.path }} %}" class="list-group-item list-group-item-action bg-light sidebar-item">
                 {% if item.icon %}
                 <img src="{% link icon/{{ item.icon }} %}" alt="triangle with all three sides equal" height="20"
                     width="20" />
@@ -43,7 +43,7 @@
                 {{ item.title }}
             </a>
             {% endfor %}
-        </div>
+        </div> -->
     </div>
 </div>
 <!-- /#sidebar-wrapper -->
