@@ -19,7 +19,7 @@ class_number: ECEn 625
 email: jgoeders@byu.edu
 description: >-
   Class website for BYU's ECEn 625: Compilation Strategies for High-Performance Systems.
-baseurl: "/625" # the subpath of your site, e.g. /blog
+# baseurl: "/625" # the subpath of your site, e.g. /blog
 
 # # url: "https://ecenetworking.byu.edu" # the base hostname & protocol for your site, e.g. http://example.com
 # permalink: pretty
