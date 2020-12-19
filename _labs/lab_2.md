@@ -18,11 +18,13 @@ The goals of this assignment are to:
 
 ### Required Packages
 ```
-sudo apt install llvm-9 libclang-common-9-dev clang-9 liblpsolve55-dev
+sudo apt install llvm-9 libclang-common-9-dev clang-9 liblpsolve55-dev texlive-latex-base texlive-pictures
 ```
 
 ### How this lab works
 In this lab you are going to write an HLS scheduler that operates on LLVM intermediate representation (assembly-like code).  You are going to formulate a schedule (ie, pick a cycle number for each instruction), such that the schedule completes are soon as possible.  But you can't just run all the instructions at once! You need to respect data and memory dependencies, as well as respecting functional unit limits (ie. you can't read unlimited things from memory at once). 
+
+This provided code isn't part of a real HLS tool (your schedule won't be used to produce any RTL), but the concepts and techniques are very similar to what is done in commerical HLS tools.
 
 ### Running an LLVM Pass
 Your scheduler is going to run as an LLVM pass.  This mean that after you compile a C program to LLVM IR, you are doing to run your pass on the LLVM IR. 
@@ -40,7 +42,7 @@ You will see an error:
 .../scheduler_625.so: cannot open shared object file: No such file or directory
 ```
 
-This is because we haven't compiled your compiler pass yet.
+This is because we haven't compiled your compiler pass yet.  But you can still browse the LLVM IR produced by clang.  Look through the `simple.clang.ll` file and try to understand how it implements the `simple.c` program.
 
 ### Compiling an LLVM pass
 
@@ -70,84 +72,45 @@ cmake ../src
 make
 ```
 
-This will produce your library `scheduler_625.so`.  You can now go back and try re-compiling the `simple` benchmark.
+This will produce your library `scheduler_625.so`.  You can now go back and try re-compiling the `simple` benchmark.  You should now see an "Invalid schedule" error, since you haven't coded up the scheduler yet!
 
-## Scheduling
+### How Scheduling Works
 
+In our pretend HLS tool, we're going to assume that it will create a circuit that executes the instructions from one basic block at a time. That is, all instructions within a basic block will execute before transitioning to the next basic block (this approach is used in many HLS tools).  This means that we really only need to worry about scheduling the instructions relative to each other within each _Basic Block_.  If our schedule was used by an actual HLS tool, it would generate controlling logic that would then sequence the execution of these different basic blocks.  
 
-
-\subsection{Basic Block Scheduling in LegUp}
-
-Let me first describe a bit about how scheduling fits into the full process in LegUp.  LegUp starts with LLVM IR code, which contains a set of functions ({\tt Function} class), each with basic blocks ({\tt BasicBlock} class) that contains instructions ({\tt Instruction} class).  LegUp will create an FSM that executes basic blocks in the same order as the control-flow dictated by the IR code.  That is, all instructions within a basic block will execute before transitioning to the next basic block.  \textbf{Thus, when we performing scheduling, we are really only talking about the scheduling of instructions within each basic block.}
-
-\subsection{How the Scheduler is Run}
-
-When LegUp is run, the first function executed is {\tt LegupPass::runOnModule()} (which is in LegupPass.cpp).  Feel free to look through the code if you like, but the important line is the following:
-\begin{lstlisting}
-    // Schedule the operations in each function
-    for (Allocation::hw_iterator i = allocation->hw_begin(),
-                                 ie = allocation->hw_end();
-         i != ie; ++i) {
-        GenerateRTL *HW = *i;
-        HW->scheduleOperations();
-    }
-\end{lstlisting}
-which loops through all of the hardware modules (which map one-to-one to the software functions), and performs scheduling.
-
-If you look at {\tt scheduleOperations()}, you will see the following code.  \textbf{In the code given to you, the SDCScheduler is called and the 625 scheduler is commented out.  You will need to first modify this code such that it calls your 625 scheduler (after making the change it should look like code below).}
-
-\begin{lstlisting}
-void GenerateRTL::scheduleOperations() {
-    dag = new SchedulerDAG;
-    dag->runOnFunction(*Fp, alloc);
-
-		...
-    // sched = new SDCScheduler(alloc);
-    sched = new Scheduler522R(alloc);
-
-    sched->schedule(Fp, dag);
-    fsm = sched->getFSM(Fp);
-		...
-\end{lstlisting}
-
-This first creates a new {\tt SchedulerDAG} object and populates the data.  Then the scheduler is called (which you need to complete for the assignment).  Once the scheduler has completed, an FSM is created which implements the schedule.  The code will call your scheduler, but if you want to try out the SDC scheduler in LegUp, you can revert the commenting.
-
-You will see two arguments to the scheduler function, a {\tt Function*}, {\tt F} and a {\tt SchedulerDAG*}, {\tt dag}.  
-
-The {\tt Function} is the LLVM class for a function in the IR.  You can use this to loop through basic blocks in the function, and to loop through instructions in the basic block (As you did in the last assignment).  The {\tt SchedulerDAG} class is described later in \cref{sec:dag}.
-
-
-\subsection{What the Scheduler Needs to Do}
-Your objective in this assignment is to write a scheduler (with a few variations).  \textbf{This consists of mapping Instructions to cycle numbers.}  The following code is the first function that will be called in the {\tt Scheduler625} class.  I have given you code that will loop through the basic blocks in the Function and perform either unconstrained ASAP ({\tt scheduleAsap()}) or constrained optimal scheduling using ILP ({\tt scheduleIlp()}).
-
-
-\begin{lstlisting}
-
-SchedulerMapping *Scheduler625::createMapping(Function *F, SchedulerDAG *dag) {
-  ...
-	map = new SchedulerMapping();
-
-	for (auto &bb : *F) {
-		// Uncomment the one you wan to run
-		//scheduleAsap(&bb, dag);
-		//scheduleIlp(&bb, dag);
-
-		printSchedule(&bb, dag);
-		validateSchedule(&bb, dag);
-	}
-
-	return map;
+The provided code will schedule the Instructions within each Basic Block one at a time:
+```
+// Loop through basic blocks
+for (auto &bb : F.getBasicBlockList()) {
+  if (ILPFlag)
+    scheduleILP(bb);
+  else
+    scheduleASAP(bb);
 }
-\end{lstlisting}
+  ```
 
+The bulk of this assignment will be implementing these two scheduling approaches: `scheduleASAP()` and `scheduleILP()`.
 
-In these two functions you should write code that schedules the Instructions of a basic block to a set of cycle numbers (0, 1, 2, 3, ..., $n$).  In order to save your schedule in a way that the rest of LegUp can use, you need to do the following:
+## Implementation
 
-\begin{itemize}
-	\item Assign each Instruction within the basic block to a cycle number, using: {\tt map->setState( InstructionNode*, unsigned int)}.  
-	\item Indicate the maximum number of cycles in the basic block using: {\tt map->setNumStates(BasicBlock*, unsigned int)}, where the second argument should be $n$ as defined above.;
-\end{itemize}
+In the two scheduling functions you should write code that schedules the `Instruction`s of a basic block to a set of cycle numbers (0, 1, 2, 3, ..., n).  You can do this by populating the following data structure:
+```
+std::map<Instruction *, int> Scheduler625::schedule;
+```
+Not all instructions need to be scheduled.  Some instructions don't get translated into hardware logic.  You can check using the following:
+```
+static bool SchedHelper::needsScheduling(Instruction &I);
+```
+For example, the following code is a very simple (and invalid) scheduler that would schedule all Instructions to cycle number 0.
+```
+for (auto & I : bb) {
+  if (!SchedHelper::needsScheduling(I))
+    continue;
+  schedule[&I] = 0;
+}
+```
 
+### Debugging
 
 I've given you two functions to help you debug your code.  You will see that after performing scheduling I will print the schedule out, and then validate it.  The validation checks that the schedule is functionally correct, that is, it checks that you have assigned all instructions to states, that data dependencies are met, that available functional units are not exeeded, and that the critical path is within the constraint.  It does not check that your solution is optimal!  You could create a very bad schedule that simply executed each instruction in a different cycle, which may pass validation, but will not get you a very good grade on the assignment.
 
