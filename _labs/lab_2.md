@@ -134,7 +134,7 @@ LLVM has no idea that you are going to perform mock HLS scheduling, and knows no
 ### Integer Linear Programming
 
 In this assignment we will use the `lp_solve`} linear programmer tool.  We will discuss formulating ILP problems in class.  Generally you should use the following functions (in this order), to set up and solve an ILP problem:
-* `lprec *` Not a function, but the structure which contains your ILP problem.  This will be initialized from `make_lp()` and you will pass it into every other function you call.   Unfortunately lp\_solve is not object oriented.
+* `lprec *` Not a function, but the structure which contains your ILP problem.  This will be initialized from `make_lp()` and you will pass it into every other function you call.   Unfortunately lp_solve is not object oriented.
 * `make_lp()` To create a new ILP problem. 
 * `add_constraintex()` To add a new constraint using sparse column format.
 * `set_obj_fnex()` To set the objective function using sparse column format.
@@ -147,7 +147,7 @@ Documentation on these functions can be found online.  Post on Piazza if you hav
 
 ## Implementation
 
-### Part 1: ASAP Scheduler (20\% of grade)
+### Part 1: ASAP Scheduler (20% of grade)
 
 For this deliverable you must write code to perform unconstrained ASAP scheduling.  See section 5.3.1 from the textbook.  Unconstrained means you do not need to consider resource or timing constraints.  You still need to consider data dependencies.
 
@@ -169,38 +169,34 @@ Try this scheduler out on the `simple` benchmark.  This program is simple enough
 
 Look at the design and make sure you understand why it introduces issues with resource usage.
 
-## Part 2: ASAP Scheduler with Resource Constraints (50% of grade)
-For this deliverable you must write code to perform resource-constrained ASAP scheduling.  You will use an ILP formulation to determine an optimal scheduling.
-
-The approach we will be using is described in Section 5.4.1 of the textbook.   We will go through this in class.
-
-Although the full details are in the textbook, I will provide a brief description here.  The algorithm works by establishing a \textbf{boolean} LP variable for every Instruction in the basic block, and every possible start time, which indicates whether the Instruction is scheduled to start at that cycle number.  In the textbook this is defined as $x_{il}$.  This variable is 1 if Insturction $i$ starts execution at time $l$, and 0 otherwise.  You will see in the code I have given you, I have added another set of variables for the terminating NOP instruction (See Figure 5.8 in the textbook).  I have also given you a function which returns the maximum possible number of cycles in the basic block.  Thus, the total number of boolean LP variables for a basic block are $(number\_of\_isntructions + 1)\cdot max\_mum\_cycles$ (the +1 is for the NOP).
-
-You will need to formulate the ILP problem by:
-\begin{itemize}
-	\item Adding constraints to ensure every instruction is scheduled to exactly 1 cycle (equation 5.8 from textbook)
-	\item Addding data dependency constraints (equation 5.9 from textbook)
-	\item Adding resource constraints (equation 5.10 from textbook)
-	\item Set the objective function to be start time of the terminating NOP
-\end{itemize}
+### Part 2: ASAP Scheduler with Resource Constraints (50% of grade)
+For this deliverable you must write code to perform resource-constrained ASAP scheduling.  You will use an ILP formulation to determine an optimal scheduling.  Use the following approach:
+* Use an ILP variable to represent the _start cycle_ of each Instruction.  This code is already provided to you.
+* An extra variable is used to represent the NOP at the end of the schedule.
+* Add constraints to ensure data dependencies are met.  If there is a dependency I<sub>1</sub>->I<sub>2</sub>, then create a dependency "S(I<sub>2</sub>) >= S(I<sub>1</sub>) + latency(I<sub>1</sub>)", where S(I) is the start cycle of Instruction I.
+* Add resource constraints.  We will discuss for this in class, but the approach is that for each FunctionalUnit, you should find all Instructions that use it, then choose a heuristic ordering in order to _bind_ the Instructions to the available FunctionalUnits.  Then, for the various Instructions bound to each individual FunctionalUnit instance, their start times must be separated by at least the _InitiationInterval_ of the FunctionalUnit.
+* Set the objective function to be start time of the terminating NOP.
 
 The code to execute the ILP solver and extract the schedule is provided to you.
 
-This is to be completed in the following function (you are free to add additional private member functions to the class as needed):
-\begin{lstlisting}
-void Scheduler625::scheduleIlp(Function *F, SchedulerDAG *dag) {
-}
-\end{lstlisting}
+Once you have this implemented, test out the `simple_unrolled` example to see that a valid schedule is obtained.  Run your design like so:
+```
+make ILP=1
+```
 
-Once you have this implemented, test out the {\tt simple\_unrolled} example to see that a valid schedule is obtained.   You can then modify the design configuration ({\tt simple\_unrolled/config.tcl}) to reduce the target clock period to the point where your scheduler fails due to timing constraints.
+### Part 3: Adding timing constraints (20% of grade)
+
+You can apply a 10ns clock period constraint to the schedule like so:
+```
+make ILP=1 period=10.0
+```
+
+This will cause the Schedule validation code to also check that the delay of each combinational path is within the target period.  If you run this on the `simple` or `simple_runrolled` benchmarks, you should see that your scheduler now fails.
+
+Add additional constraints to your ILP formulation to prevent long combinational chaining.  It's up to you to come up with a solution for this.  In my solutions I use a recursive function to search for all combinational paths that exist from one Instruction (I<sub>1</sub>) to another (I<sub>2</sub>) that exceed the target period, and esure that S(I<sub>2</sub>) > S(I<sub>1</sub>).  This will be challenging, and I don't expect everyone to finish this part, which is why it is worth less points than the previous section.
 
 
-
-## Part 3: Adding timing constraints (20% of grade)
-Update your code from the previous section to also consider timing constraints (ie. critical path delay).  This will be challenging, and I don't expect everyone to finish this part, which is why it is worth less marks than the previous section.
-
-
-\subsection{Part 4: Report (10\% of grade)}
+##  Report (10% of grade)
 
 
 \begin{enumerate}
