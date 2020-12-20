@@ -91,7 +91,7 @@ for (auto &bb : F.getBasicBlockList()) {
 
 The bulk of this assignment will be implementing these two scheduling approaches: `scheduleASAP()` and `scheduleILP()`.
 
-## Implementation
+## Code Framework
 
 In the two scheduling functions you should write code that schedules the `Instruction`s of a basic block to a set of cycle numbers (0, 1, 2, 3, ..., n).  You can do this by populating the following data structure:
 ```
@@ -112,73 +112,64 @@ for (auto & I : bb) {
 
 ### Debugging
 
-I've given you two functions to help you debug your code.  You will see that after performing scheduling I will print the schedule out, and then validate it.  The validation checks that the schedule is functionally correct, that is, it checks that you have assigned all instructions to states, that data dependencies are met, that available functional units are not exeeded, and that the critical path is within the constraint.  It does not check that your solution is optimal!  You could create a very bad schedule that simply executed each instruction in a different cycle, which may pass validation, but will not get you a very good grade on the assignment.
+I've given you a few aids to help you debug your code.  You will see that after calling your scheduling functions I will print the schedule out, and then validate it.  The validation checks that the schedule is functionally correct, that is, it checks that you have assigned all instructions to states, that data dependencies are met, that available functional units are not exeeded. If you specify a target period (discussed later), it will also check that the critical path is within the constraint.  It does not check that your solution is optimal!  You could create a very bad schedule that simply executed each instruction in a different cycle, which may pass validation, but will not get you a very good grade on the assignment.
 
-\section{Background}
+### Getting the Info You Need
 
+LLVM has no idea that you are going to perform mock HLS scheduling, and knows nothing about the potential hardware we are going to target.  As such, you are given some extra classes that contain the information you need:
+* `FunctionHLS`: This is a wrapper aound each `Function` and contains HLS-specific information for the function.  This object is available as a private variable `fHLS` inside your Scheduler class.  It provides the following information:
+  * `FunctionalUnit *getFU(Instruction &I)` returns the `FunctionalUnit` for an Instruction. This will return NULL for certain Instructions that don't require hardware units (ie control-flow instructions). 
+  * `std::vector<Instruction *> &getDeps(Instruction &I)` returns a list of Instructions that the scheduling of Instruction `I` is dependent upon.  These dependencies will always be Instructions that execute earlier in the same BasicBlock.  This includes:
+    * _Data dependencies:_ For example, if `I`=`%3 = add %1, %2` then both the `%1 = ...` and `%2 = ...` Instructions could be in the list.
+	* _Memory dependencies:_ For example, if you have two instructions that access the same physical memory, `store %A, %1` and `load %A, %2`, then the former would be included in the dependency list of the latter.
 
-\subsection{The SchedulerDAG and the InstructionNode}
-\label{sec:dag}
+* `bool needsScheduling(Instruction &I)`: Not all Instructions need to be scheduled.  Make sure you check this value before trying to schedule an Instruction.  For example, if you pass a non-scheduled Instruction to `getDeps()` it will throw an error.
+* `int SchedHelper::getInsnLatency(Instruction &I)`: Returns the number of cycles of latency for Instruction `I`.  For example, a latency of 1 means the data produced by this operation can be used in the next cycle.  A latency of 0 means that this Instruction is implemented by purely combinational logic, and it's output can be _chained_ into the input of another operation in the same cycle. 
+* `double getInsnDelay(Instruction &I)`: Returns the estimated nanosecond delay for Instruction `I`.  This is useful if you want to limit _chaining_ to meet a certain clock frequency.
+* `FunctionalUnit`: This class represents a hardware functional unit that implements an operation.
+  * `int getNumUnits()`: The represents how many Instructions can use this unit at one time.  For example, `load` and `store` Instructions will access dual-ported RAMs on the FPGA that allow **two** memory operations to be issued at once.  Most operations (addition, subtraction, comparison, etc) can be implemented using the FPGA fabric.  For the "fabric" FunctionalUnit, a 0 is returned, indicating there is no limit placed on the number of these functional units. 
+  * `int getInitiationInterval()`: Even though some FunctionalUnits may have a multi-cycle latency, _pipelining_ allows for these units to accept new data more often than the latency.  This function returns the cycle interval that new data can be provided.  For example, a `load` operation will take two cycles to retrieve the data, but a new read request can be issued each cycle.
 
-The {\tt SchedulerDAG} is a LegUp class, and contains important information about the control and data flow graph, which you will need.  Most commonly you will invoke the {\tt InstructionNode* SchedulerDAG:: getInstructionNode(Instruction*)} function, where you can pass in an {\tt Instruction} pointer (this is an LLVM class, and so it knows nothing about HLS, hardware, etc.), and get a {\tt InstructionNode} class, which is a LegUp class, and contains important HLS scheduling-related information.  
+  
+### Integer Linear Programming
 
-Take a look at the {\tt InstructionNode} class, where you will find methods you will need in this assignment:
-
-\begin{itemize}
-	\item {\tt dep\_begin()/dep\_end()}: Iterate through list of dependencies for this instruction.  This only includes dependencies within the same basic block.  (We don't need to worry about dependencies across different basic blocks, since LegUp only executes one basic block at a time, it won't be possible to violate those dependencies).
-	\item {\tt use\_begin()/use\_end()}: Iterate through instructions that use this instruction, and thus are dependent upon it.  Same rules about basic blocks apply as above.
-		\item {\tt mem\_dep\_begin()/mem\_dep\_end()/mem\_use\_begin()/mem\_use\_end()}:  Same as above, but for memory operations.  These are not necessarily true RAW dependencies as above, but may be WAR, or other such dependencies where due to memory aliasing it is not possible to determine beforehand whether they cause a dependency.  To be conservative, we must assume a dependency is possible.  Thus, they also must be considered when performing scheduling.
-		\item {\tt getDelay()} will return the delay of the hardware unit used to execute the instruction, in nanoseconds.
-\end{itemize}
-
-
-\subsection{Functional Units}
-To determine scheduling, you must know both the latency of the instruction (number of cycles to complete), as well as the number of available functional units.  Here are the relevant functions to call:
-
-\begin{itemize}
-	\item {\tt Scheduler::getNumInstructionCycles(Instruction*)} will return the latency of the functional unit for the given Instruction.  This could be 0 cycles if the hardware is pure combinational logic (which means the instruction can be chained together with other instructions); for example, this is the case for additon operations.  The latency will be one or more cycles for operations where the output is not available until the next cycle (latency=1), or later.  No operations can be chained after these operations.  As an example, memory reads have a latency of two cycles.
-	\item {\tt LEGUP\_CONFIG->getOpNameFromInst(Instruction*, Allocation*)}, will return the name of the functional unit for the Instruction.  The Allocation object contains information from the allocation step, and you can use {\tt this->alloc} from within the {\tt Scheduler625} class to access this object. ({\tt LEGUP\_CONFIG} is a global variable).  Some instructions will return a functional unit where the name is an empty string -- this is ok.
-	\item {\tt LEGUP\_CONFIG->getNumberOfFUsAllocated(string, int*)} will return the number of functional units allocated, where the first argument is the name of the functional unit, and the second argument is a pointer to an int that is populated with the return value.  If 0 is returned, it indicates there is no limit placed on the number of these functional units.  (If you pass in an empty string, the function will return 0).
-	\item {\tt Scheduler::getInitiationInterval(Instruction*)} returns the initiation interval of the functional unit for the Instruction.  This means that new data must be provided to the function unit at least these number of cycles apart.  It is key that you understand the difference between the initiation interval and latency of the functional unit.
-\end{itemize}
-
-\subsection{Integer Linear Programming}
-
-In this assignment we will use the {\tt lp\_solve} linear programmer tool.  If you aren't familiar with linear programming, you may need to brush up by finding a tutorial online.  
-
-Generally you should use the following functions (in this order), to set up and solve an ILP problem:
-
-\begin{itemize}
-	\item {\tt lprec *} Not a function, but the structure which contains your ILP problem.  This will be initialized from {\tt make\_lp()} and you will pass it into every other function you call.   Unfortunately lp\_solve is not object oriented.
-	\item {\tt make\_lp()} To create a new ILP problem.
-	\item {\tt add\_constraintex()} To add a new constraint.
-	\item {\tt set\_obj\_fnex()} To set the objective function.
-	\item {\tt set\_minim() or set\_maxim()} To select minimization or maximization of objective.
-	\item {\tt write\_LP()} if you wish to output the ILP after it is formed.
-	\item {\tt solve()} To solve the problem.
-	\item {\tt get\_variables()} To extract the solution.	
-\end{itemize}
+In this assignment we will use the `lp_solve`} linear programmer tool.  We will discuss formulating ILP problems in class.  Generally you should use the following functions (in this order), to set up and solve an ILP problem:
+* `lprec *` Not a function, but the structure which contains your ILP problem.  This will be initialized from `make_lp()` and you will pass it into every other function you call.   Unfortunately lp\_solve is not object oriented.
+* `make_lp()` To create a new ILP problem. 
+* `add_constraintex()` To add a new constraint using sparse column format.
+* `set_obj_fnex()` To set the objective function using sparse column format.
+* `set_minim()` or `set_maxim()` To select minimization or maximization of objective.
+* `write_LP()` if you wish to output the ILP after it is formed.
+* `solve()` To solve the problem.
+* `get_variables()` To extract the solution.	
 
 Documentation on these functions can be found online.  Post on Piazza if you have further questions.
 
-
-## Deliverables
+## Implementation
 
 ### Part 1: ASAP Scheduler (20\% of grade)
 
-For this deliverable you must write code to perform unconstrained ASAP scheduling.  See section 5.3.1 from the textbook.  Unconstrained means you do not need to consider resource or timing constraints.  You still need to consider data dependencies (both true dependencies and memory dependencies).
+For this deliverable you must write code to perform unconstrained ASAP scheduling.  See section 5.3.1 from the textbook.  Unconstrained means you do not need to consider resource or timing constraints.  You still need to consider data dependencies.
 
 This is to be completed in the following function:
-\begin{lstlisting}
-void Scheduler625::scheduleAsap(Function *F, SchedulerDAG *dag) {
-}
-\end{lstlisting}
+```
+void Scheduler625::scheduleASAP(BasicBlock &bb) {}
+```
 
 For this function, don't create an ILP solution.  You can simply treat the instructions in the basic block as a topologically sorted DAG and propagate start times as you work through the list of instructions.  This should be a fairly simple task, especially considering the previous assignment, and is mainly to get you used to the APIs and data structures.
 
-You can run {\tt make} in the {\tt examples/522r/simple} directory to test this scheduler.  This program is simple enough that you should end up with a valid scheduling, even when ignoring resource and timing constraints.  You can then test out the {\tt simple\_unrolled} example, to see that this scheduling technique fails on a more complicated design.
+A few pieces of advice:
+* Remember, not every `Instruction` in the `BasicBlock` needs to be scheduled.  Call `SchedHelper::needsScheduling()` to check.
+* The terminating Instruction (branch, return) should always be scheduled in the last cycle.  This can be done like so:
+```
+schedule[bb.getTerminator()] = getMaxCycle(bb);
+```
 
-\subsection{Part 2: ASAP Scheduler with Resource Constraints (50\% of grade)}
+Try this scheduler out on the `simple` benchmark.  This program is simple enough that you should end up with a valid scheduling, even when ignoring resource constraints.  You can then test out the `simple_unrolled` example, to see that this scheduling technique fails on a more complicated design.
+
+Look at the design and make sure you understand why it introduces issues with resource usage.
+
+## Part 2: ASAP Scheduler with Resource Constraints (50% of grade)
 For this deliverable you must write code to perform resource-constrained ASAP scheduling.  You will use an ILP formulation to determine an optimal scheduling.
 
 The approach we will be using is described in Section 5.4.1 of the textbook.   We will go through this in class.
@@ -205,7 +196,7 @@ Once you have this implemented, test out the {\tt simple\_unrolled} example to s
 
 
 
-\subsection{Part 3: Adding timing constraints (20\% of grade)}
+## Part 3: Adding timing constraints (20% of grade)
 Update your code from the previous section to also consider timing constraints (ie. critical path delay).  This will be challenging, and I don't expect everyone to finish this part, which is why it is worth less marks than the previous section.
 
 
