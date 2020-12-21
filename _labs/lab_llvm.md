@@ -70,107 +70,30 @@ Now that these optimizations are in place, if you compile the design and inspect
 
 
 
-\section{Getting Started}
+## Getting Started
 
-\subsection{Set up your environment}
-The instructions for this assignment assume you are running an Ubuntu 16.04 Linux Operating System.  You may be able to complete this assignment in other modern Linux variants; however, you may run into unexpected problems getting the code to compile, and finding the necessary packages for your distribution.
+### Install Packages
 
-\subsection{Get the code}
-\begin{enumerate}
-	\item Download the LegUp 4.0 HLS tool source code from \url{http://legup.eecg.utoronto.ca/download.php}
-	\item Extract the files to a location of your choice (such as {\tt \textasciitilde{}/legup})
-	\item Download the patch file (\textit{ecen625\_asst2\_3.patch}) from the course website.
-	\item Apply the patch file to your LegUp 4.0 installation:
-	\begin{lstlisting}
-	cd ~/legup
-	\end{lstlisting}
-	First run a dry-run to make sure there will be no errors.  If there are errors, recheck that you are in the correct directory, and that you followed the previous steps properly.
-	\begin{lstlisting}
-	patch -p1 --dry-run <  ecen625_asst2_3.patch
-	\end{lstlisting}
-	
-	If the dry run executed without errors, then run the patch:
-	\begin{lstlisting}
-	patch -p1 <  ecen625_asst2_3.patch
-	\end{lstlisting}
-	
-	\textbf{When you are done with this assignment be sure to keep this file structure, as we will continue using it for the next assignment.}
-\end{enumerate}
 
 
 
 \subsection{Initial build}
 You will first need to install the necessary packages:
-\begin{lstlisting}
+```
 sudo apt install tcl8.5-dev libmysqlclient-dev liblpsolve55-dev build-essential \
 automake libtool libgmp3-dev clang-3.5 gcc-4.8-plugin-dev libc6-dev-i386 \
 libqt4-dev csh
-
-\end{lstlisting}
-
-
-To compile, just run the following from the top-level directory:
-	\begin{lstlisting}
-	make	
-	\end{lstlisting}
-
-It will take a while, so you may want to use a parallel build (ex. make -j4 to use 4 threads; if you are using my ssh0 machine, you can use 20 threads).  Keep in mind if your compilation fails using a parallel build, the error message may be buried, so you may want to run a normal make in that case to see what the error is.
+```
 
 
-Even if you get the following error, you can consider your build complete:
-\begin{lstlisting}
-make[1]: ip-make-ipx: Command not found
-\end{lstlisting}
+## Code Organization
 
-\emph{(There are some things done in the build script after this point that require you to install the Altera FPGA tools, which we will not do for this assignment.  So if you get to this error you've made it far enough.  We will consider this a successful build.  All of the executables that you will use in this assignment will have been successfully built at this point.)}
+* `AdderTreeBalancer.cpp/.h` -- You will add all your code for this assignment in theses files.
 
-When you make change to any files, you will need to run make again.  This shouldn't take too long.  However, a quicker method is to run the following command \textbf{from the Verilog folder} to just recompile the bare minimum (assuming you only changed files within the Verilog folder):
-
-
-
-\subsection{Incremental build}
-\label{sec:incremental_build}
-When you make change to any files, you will need to run make again.  This shouldn't take too long.  However, a quicker method is to run the following command from the {\tt llvm/lib/Transforms/LegUp/} folder to just recompile the bare minimum (assuming you only changed files within the {\tt llvm/lib/Transforms/LegUp/} folder):  
-
-\begin{lstlisting}
-	/home/jgoeders/ecen625/asst2/llvm/utils/makellvm opt
-\end{lstlisting}
-
-
-\emph{(This recompiles only the \emph{opt} binary, which is the LLVM optimizer, which is responsible for executing our transformation pass.)}
-
-\subsection{Setting up Eclipse}
-Typically when I am coding for LegUp/LLVM I use Eclipse.  Here are some setup instructions after you have checked and done an initial build of the code.  If you don't plan on using Eclipse, just skip this section.
-
-\begin{enumerate}
-	\item File--$>$New--$>$Other.  Choose C/C++--$>$Makefile Project With Existing Code.
-	\item Choose a project name (such as ECEN522rAsst2)
-	\item For existing code location, browse to the code you checked out.
-	\item Choose "Linux GCC" as the indexer.
-	\item Click Finish
-\end{enumerate}
-
-To set up the quick build process in Eclipse (remember you need to do a full compile before you can do a quick incremental build):
-
-\begin{enumerate}
-	\item Right-click project, choose Properties
-	\item Select C/C++ Build 
-	\item For the build command, use the following (change path for your setup): \newline /home/jgoeders/ecen625/asst2/llvm/utils/makellvm opt 
-	\item For the build directory, click "Workspace..." and browse to the Verilog folder.  It should look something like this after you select it: \$\{workspace\_loc:/asst2/llvm/lib/Target/Verilog\}
-	\item Select the "Behvaior" tab, and clear the "Build (incremental build)" field (remove the word 'all').
-\end{enumerate}
-
-
-
-\subsection{Code Organization}
-In this assignment we are adding an optimization pass to the middle passes of the compiler, so the compiler code is located in the {\tt Transforms} folder.  (In case you are interested, LLVM passes that only analyze the IR program, but don't modify it, are typically located in the {\tt Analysis} folder.) Take a look at the files that are part of the assignment:
-\begin{itemize}
-	\item {\tt llvm/lib/Transforms/LegUp/} -- This folder contains transforms that are part of LegUp.   
-	\item {\tt llvm/lib/Transforms/LegUp/AdderTreeBalancer.cpp/.h} -- You will add all your code for this assignment in theses files. 
 	\item {\tt examples/625} -- This contains some C programs to test your code.  For this assignment, I have added the {\tt simple\_unrolled\_partitioned} design, as shown in \cref{fig:code}, so that you can test your optimization pass.  The {\tt shared\_add\_tree} design may also help with testing your code for this assignment.  The other benchmarks in the 625 folder might not see any benefit from this optimization, but you can always create your own benchmark if you want to do further testing.
 \end{itemize}
 
-\subsection{Creating an Optimization Pass in LLVM}
+## Creating an Optimization Pass in LLVM
 For this assignment we will be using a {\tt BasicBlockPass} in LLVM.  That is, it is a transformation pass that modifies code contained with a single basic block.  In this section I will describe how to create such a pass, and how to register it with LLVM, such that LLVM will execute your pass for every basic block in the design.  This code is already given to you.
 
 You can also create passes that operate at different scopes, including Module (entire C program), Function, Loop, Region, and more.  More information on these types of passes can be found at \url{http://releases.llvm.org/3.5.0/docs/WritingAnLLVMPass.html}.
@@ -249,35 +172,28 @@ Remember, the .bc files are binary IR files.  The {\tt *.postlto.9.bc} is the IR
 
 
 
-\section{Coding the Tree Balancer} 
-\label{sec:coding_the_tree}
+## Coding the Tree Balancer
 
 How you code the tree balancer is up to you.  
 
 You probably want to follow this general approach:
-\begin{enumerate}
-		\item Look through the Instructions in the basic block to identify adder trees, and collect a list of inputs to this adder tree.
-		\item Create a balanced adder tree with these inputs.		
-		\item Replace uses of the root adder instruction, $I$, with the output of your newly created adder tree.
-\end{enumerate}
+1. Look through the Instructions in the BasicBlock to identify adder trees, and collect a list of inputs to this adder tree.
+2. Create a balanced adder tree with these inputs.		
+3. Replace uses of the root adder instruction, $I$, with the output of your newly created adder tree.
 
 Some tips with this approach:
-\begin{itemize}
-	\item When recursively visiting adders, you need to make sure the output of an intermediate node is not used elsewhere in the code.  You can do this by checking that the number of uses is 1 ({\tt (Value*)->getNumUses()}).  The reason for this is that all of these instructions will be deleted, and replaced by your adder tree.  Only the final output of the adder tree can be used multiple places in the code.
-	\item The inputs to your adder tree may be instructions, constants, etc.  You should use the LLVM {\tt Value} class (see \cref{sec:llvm_classes}) to keep track of the inputs.
-	\item You will need to add all of your newly created addition instructions to the basic block.  Make sure you add them in a valid position, and order (ie. the final addition in your tree should be located before any uses, and adder nodes in your tree should be in a valid ordering).  This may be simpler than you think.  You should be able to add your entire tree at the location of instruction $I$ (as described in Step 1 of the technique above).
-	\item You don't need to delete the adder instructions you are replacing with your tree.  As long as you complete Step 3, these additions will become dead code.  Since dead code elimination is performed after your pass, these instructions will automatically be removed.
-	\item In step 1 you are iterating over the basic block.  However, if you end up inserting an adder tree, you are modifying the very data structure you are iterating over.  You cannot continue iterating at this point.  Either exit out of the iteration and start over, or keep a track of pending changes and wait until the iteration is complete before actually making the changes.  
-	\item You will probably want to keep track of which additions are part of your balanced adder trees, and then skip over them in Step 1.  Otherwise you can end up in an endless loop of replacing your balanced adder trees with new identical adder trees.  The other benefit of this approach is that you don't need to check whether existing adder networks in the user's code are balanced or not.  Simply replace them with a balanced adder tree regardless of whether the existing structure is already optimal.
-	\item Since you are modifying the original program, you may want to double check that you haven't broken the functionality.  For the {\tt simple\_unrolled\_partitioned} example, I have made it self checking, and it prints {\tt CORRECT} or {\tt ERROR} depending on whether the sum is correct.  You can use the LLVM IR emulator ({\tt lli}) to execute the IR code.  For example:
-	\begin{lstlisting}
-simple_unrolled_partitioned> ../../../llvm/Release+Asserts/bin/lli simple.bc 
-CORRECT
+* When recursively visiting adders, you need to make sure the output of an intermediate node is not used elsewhere in the code.  You can do this by checking that the number of uses is 1 (`Value.getNumUses()`).  The reason for this is that all of these instructions will be deleted, and replaced by your adder tree.  Only the final output of the adder tree can be used multiple places in the code.
+* The inputs to your adder tree may be instructions, constants, etc.  You should use the LLVM `Value` to keep track of the inputs.
+* You will need to add all of your newly created addition instructions to the basic block.  Make sure you add them in a valid position, and order (ie. the final addition in your tree should be located before any uses, and adder nodes in your tree should be in a valid ordering).  This may be simpler than you think.  You should be able to add your entire tree at the location of instruction $I$ (as described in Step 1 of the technique above).
+* You don't need to delete the adder instructions you are replacing with your tree.  As long as you complete Step 3, these additions will become dead code.  Since dead code elimination is performed after your pass, these instructions will automatically be removed.
+* In step 1 you are iterating over the BasicBlock.  However, if you end up inserting an adder tree, you are modifying the very data structure you are iterating over.  You cannot continue iterating at this point.  Either exit out of the iteration and start over, or keep a track of pending changes and wait until the iteration is complete before actually making the changes. 
+* You will probably want to keep track of which additions are part of your balanced adder trees, and then skip over them in Step 1.  Otherwise you can end up in an endless loop of replacing your balanced adder trees with new identical adder trees.  The other benefit of this approach is that you don't need to check whether existing adder networks in the user's code are balanced or not.  Simply replace them with a balanced adder tree regardless of whether the existing structure is already optimal.
+* Since you are modifying the original program, you may want to double check that you haven't broken the functionality.  For the {\tt simple\_unrolled\_partitioned} example, I have made it self checking, and it prints {\tt CORRECT} or {\tt ERROR} depending on whether the sum is correct.  You can use the LLVM IR emulator ({\tt lli}) to execute the IR code.  For example:
+```
+lli-9 simple.bc 
+```
 
-	\end{lstlisting}
-\end{itemize}
-
-\section{LLVM Coding Tips}
+## LLVM Coding Tips
 Here are a few suggestions to help you with the LLVM API.  If you are still unsure how you do something in LLVM, please post on Piazza and I would be happy to help you out.
 
 \subsection{Resources}
