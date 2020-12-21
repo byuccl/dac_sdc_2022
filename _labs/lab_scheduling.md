@@ -2,7 +2,7 @@
 layout: lab
 toc: true
 title: Scheduling
-number: 2
+number: 3
 repo: lab_scheduling
 ---
 
@@ -198,6 +198,7 @@ Add additional constraints to your ILP formulation to prevent long combinational
 
 ##  Report (10% of grade)
 
+# TBD
 
 \begin{enumerate}
 \item Submit a report containing the following items:
