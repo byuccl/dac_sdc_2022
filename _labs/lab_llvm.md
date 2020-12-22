@@ -7,70 +7,103 @@ number: 2
 ---
 
 
+## Background
 
-## Learning Outcomes
+### Learning Outcomes
 The goals of this assignment are to:
 * Understand the benefits of applying optimizations to the IR code, prior to the standard HLS algorithms.
 * Gain experience using LLVM to modify the IR code of a program.
 * Practise C++ skills.
 
-## Background
 
-In this assignment you will write an optimization pass for LLVM, that transforms the IR code.  The goal of the transformation will be to identify adder trees in the IR, and perform tree balancing, as shown in 
+### Motivation
+In this assignment you will get to write your own compiler optimization pass!  You will use LLVM (a commonly used compiler, like GCC).  The goal of the transformation will be to identify adder trees in the IR, and perform tree balancing, as shown below.  This optimization is especially helpful when targeting hardware.
 
 <img src="{% link media/llvm/balancer_example.svg %}" width="600">
 
-
-### Motivation
-
-simple_unrolled_partitioned/simple.c
+Consider the following code (from [simple.c](https://github.com/byu-cpe/ecen625_student/blob/main/benchmarks/simple/simple.c)) that sums the values of a 100-entry array.
 ```
-int main() {
-   ...
-    // int A[100];
-    int A1[20];
-    int A2[20];
-    int A3[20];
-    int A4[20];
-    int A5[20];
+int A[100];
+for (int i = 0; i < 100; i++)
+    sum += A[i];
+```
 
-    int i;
-    for (i = 0; i < 20; i++) {
-        A1[i] = my_rand();
-        A2[i] = my_rand();
-        A3[i] = my_rand();
-        A4[i] = my_rand();
-        A5[i] = my_rand();
-    }
+To implement this in hardware, we could build an RTL circuit with a state machine that repeatedly read a value from memory, added it to a sum register, and incremented the address.  We could also use an HLS tool to build that RTL for us, and it may take a similar approach if no optimizations were applied.
 
-    int sum = 0;
-    for (i = 0; i < 20; i += 2) {
-        sum += A1[i] + A1[i + 1] + A2[i] + A2[i + 1] + A3[i] + A3[i + 1] +
-               A4[i] + A4[i + 1] + A5[i] + A5[i + 1];
-    }
+The code could be made much faster by performing multiple loop iterations in parallel.  This is referred to as _loop unrolling_.  
 
-    if (sum == 3184847)
-        printf("CORRECT\n");
-    else
-        printf("ERROR\n");
-    return 0;
+
+The following code, (from [simple_unrolled_partitioned/simple.c](https://github.com/byu-cpe/ecen625_student/tree/main/benchmarks/simple_unrolled_partitioned)), shows the array summation  unrolled by a factor of 10.  One issue with unrolling like this is that it is usually not possible to load 10 values from memory at once.  If values are loaded sequentially, there will be little to no benefits to loop unrolling.  To get around this problem, the code also includes _memory banking_, where the  `A` array is split into 5 equal sized arrays, `A1`, `A2`, `A3`, `A4`, and `A5`.  Each of these can be placed in a separate dual-ported memory, allowing us to read 10 values from memory simultaneously.  (_While this C code implements loop unrolling and memory banking manually, modern HLS tools will do this for you when requested.  Certain tools may even be smart enough to do it automatically._)
+
+
+```
+int A1[20];
+int A2[20];
+int A3[20];
+int A4[20];
+int A5[20];
+
+for (int i = 0; i < 20; i += 2) {
+    sum += A1[i] + A1[i + 1] + 
+           A2[i] + A2[i + 1] + 
+           A3[i] + A3[i + 1] +
+           A4[i] + A4[i + 1] + 
+           A5[i] + A5[i + 1];
+```
+
+The above code will end up creating a cascading adder tree as shown in the left side of the figure above.  We would like to automatically optimize the IR to balance the adder tree, producing a structure similar to the right-hand side of \cref{fig:balancer_example}.  This optimization can improve the critical path of the resulting hardware, or if timing constraints are imposed, reduce the latency of each loop iteration.
+
+## Getting Started
+
+### Required Packages
+```
+sudo apt install llvm-9 libclang-common-9-dev clang-9 liblpsolve55-dev texlive-latex-base texlive-pictures
+```
+
+### Running an LLVM Pass
+Your scheduler is going to run as an LLVM pass.  This means that after you compile a C program to LLVM IR, you are doing to run your pass on the LLVM IR. 
+
+You are given a few different C programs in the `benchmarks` directory.  You can `cd` into these benchmark directories, and run `make <target>` to compile them.  Try running just  `clang` (C front-end compiler) to compile the `simple` benchmark your C code into LLVM IR.
+
+```
+cd benchmarks/simple
+make clang
+```
+
+The provided [Makefile](https://github.com/byu-cpe/ecen625_student/blob/main/benchmarks/simple_unrolled_partitioned/Makefile) will first run `clang-9` to produce a binary IR file (`simple.clang.bc`), after which it will run `llvm-dis-9` to dissassemble the binary into human readable IR (`simple.clang.ll`)
+
+Look through the LLVM IR file and try to understand how it implements the `simple.c` program.  Then go to the `simple_unrolled_partitioned` bechmark and look at the IR that program produces.  Make sure you can find the long sequence of cascaing add instructions.
+
+### Compiling an LLVM pass
+
+While you could download the LLVM source code, and add your pass code to it, compiling LLVM from source can take 20-30 minutes.  Instead, we are going to develop your pass _out-of-tree_.  Above you should have installed the LLVM 9 binaries using the Ubuntu package manger.  We are going to compile your pass code into a shared library object (.so) file, than can be loaded by LLVM at runtime.
+
+Your pass code and [CMakeLists.txt](https://github.com/byu-cpe/ecen625_student/blob/main/lab_scheduling/src/CMakeLists.txt) file are provided in the `src` directory.
+
+Take a look at [Scheduler625.cpp](https://github.com/byu-cpe/ecen625_student/blob/main/lab_scheduling/src/Scheduler625.cpp), specifically these lines:
+
+```
+char Scheduler625::ID = 0;
+static RegisterPass<Scheduler625> X("sched625", "HLS Scheduler for ECEN 625",
+                                    false /* Only looks at CFG? */,
+                                    true /* Analysis pass? */);
+
+bool Scheduler625::runOnFunction(Function &F) {
+  ...
 }
 ```
 
+The `RegisterPass` registers your pass with LLVM and specifies that it can be called using the `-sched625` flag.  The `Scheudler625` class is a subclass of `llvm::FunctionPass`, meaning this pass should be called for every function in the code.  Specifically, the `runOnFunction()` function will be called for each function in the IR.
 
-The example above, or similar logic trees, often occur when we unroll loops.  Loop unrolling can offer greater performance by potentially executing multiple iterations of the loop in parallel.
+Go ahead and compile the provided code:
+```
+cd build
+cmake ../src
+make
+```
 
-The code above shows the `simple.c` program, which sums the values of a 100 entry array.  I have manually performed _loop unrolling_, and unrolled this loop by a factor of 10, so that for each iteration of the loop, 10 values from the array are summed.   The problem with such an approach is that it is usually not possible to load 10 values from memory at once.  If values are loaded sequentially, there will be little to no benefits to loop unrolling.  To get around this problem, I have also manually performed _memory banking_, by splitting up the `A` array, into 5 equal sized arrays, `A1`, `A2`, `A3`, `A4`, and `A5`.  Each of these can be placed in a separate dual-ported memory, allowing us to read 10 values from memory simultaneously.
+This will produce your library `scheduler_625.so`.  You can now go back and try re-compiling the `simple` benchmark.  You should now see an "Invalid schedule" error, since you haven't coded up the scheduler yet!
 
-Now that these optimizations are in place, if you compile the design and inspect the IR code, you will see that we end up with a summation similar to the left-hand side of \cref{fig:balancer_example}.  We would like to automatically optimize the IR to balance the adder tree, producing a structure similar to the right-hand side of \cref{fig:balancer_example}.  This optimization can improve the critical path of the resulting hardware, or if timing constraints are imposed, reduce the latency of each loop iteration.  
-%In addition, it requires fewer adder resources for large adder trees (A cascading summation requires $O(n)$ adders, while a balanced tree requires $O(log(n))$ adders).
-
-\emph{Note:} Although I manually performed the loop unrolling and memory banking by modifying the C code, these options are often available to the user of an HLS tool via pragmas in their C code (LegUp supports loop unrolling via pragmas, but not memory banking, whereas the commerical tool Xilinx Vivado HLS, supports both).
-
-
-
-
-## Getting Started
 
 ### Install Packages
 
@@ -241,20 +274,20 @@ if (BinaryOperator * bo = dyn_cast<BinaryOperator>(I)) {
 \end{lstlisting}
 
 
-\subsection{Creating Instructions}
+##### Creating Instructions
 
-Generally to create new instructions, you do not call the constructor directly, but rather call a static class method.  For example, one way to create a new {\tt add} instruction:
+Generally to create new instructions, you do not call the constructor directly, but rather call a static class method.  For example, one way to create a new `add` instruction:
 
-\begin{lstlisting}
+```
 Value * in1 = ...
 Value * in2 = ...
 BinaryOperator * bo = BinaryOperator::Create(BinaryOperator::Add, in1, in2, "myInsnName", (Instruction*) NULL);
-\end{lstlisting}
+```
 
 The last argument in this case in the {\tt Instruction} location where this new instruction should be inserted.  The new instruction is inserted before the instruction passed in.  If you pass in NULL, the new instruction is not inserted into the code, but you will need to do so later.
 
-\subsection{Inserting Instructions}
-There are many ways to insert instructions into a basic block.  These are discussed in the Programmers Manual ( \url{http://releases.llvm.org/3.5.0/docs/ProgrammersManual.html#creating-and-inserting-new-instructions} )
+##### Inserting Instructions
+There are many ways to insert instructions into a basic block.  These are discussed in the [Programmers Manual](https://releases.llvm.org/9.0.0/docs/ProgrammersManual.html#creating-and-inserting-new-instructions)
 
 Some commands you may find helpful:
 
