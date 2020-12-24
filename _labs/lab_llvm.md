@@ -3,7 +3,7 @@ layout: lab
 toc: true
 title: LLVM
 number: 2
-# repo: https://github.com/byu-ecen493r-classroom/lab1.git
+repo: lab_llvm
 ---
 
 
