@@ -60,7 +60,7 @@ The above code will end up creating a cascading adder tree as shown in the left 
 sudo apt install llvm-9 libclang-common-9-dev clang-9 liblpsolve55-dev texlive-latex-base texlive-pictures
 ```
 
-### Running an LLVM Pass
+### Running LLVM 
 Your scheduler is going to run as an LLVM pass.  This means that after you compile a C program to LLVM IR, you are doing to run your pass on the LLVM IR. 
 
 You are given a few different C programs in the `benchmarks` directory.  You can `cd` into these benchmark directories, and run `make <target>` to compile them.  Try running just  `clang` (C front-end compiler) to compile the `simple` benchmark your C code into LLVM IR.
@@ -74,207 +74,123 @@ The provided [Makefile](https://github.com/byu-cpe/ecen625_student/blob/main/ben
 
 Look through the LLVM IR file and try to understand how it implements the `simple.c` program.  Then go to the `simple_unrolled_partitioned` bechmark and look at the IR that program produces.  Make sure you can find the long sequence of cascaing add instructions.
 
-### Compiling an LLVM pass
+### Writing an LLVM pass
 
 While you could download the LLVM source code, and add your pass code to it, compiling LLVM from source can take 20-30 minutes.  Instead, we are going to develop your pass _out-of-tree_.  Above you should have installed the LLVM 9 binaries using the Ubuntu package manger.  We are going to compile your pass code into a shared library object (.so) file, than can be loaded by LLVM at runtime.
 
-Your pass code and [CMakeLists.txt](https://github.com/byu-cpe/ecen625_student/blob/main/lab_scheduling/src/CMakeLists.txt) file are provided in the `src` directory.
+Your pass code and [CMakeLists.txt](https://github.com/byu-cpe/ecen625_student/blob/main/lab_llvm/src/CMakeLists.txt) file are provided in the `src` directory. For this assignment we will be using a {\tt BasicBlockPass} in LLVM.  That is, it is a transformation pass that modifies code contained with a single basic block.  
 
-Take a look at [Scheduler625.cpp](https://github.com/byu-cpe/ecen625_student/blob/main/lab_scheduling/src/Scheduler625.cpp), specifically these lines:
+Take a look at [AdderTreeBalancer.cpp](https://github.com/byu-cpe/ecen625_student/blob/main/lab_llvm/src/AdderTreeBalancer.cpp), specifically these lines:
 
 ```
 char Scheduler625::ID = 0;
-static RegisterPass<Scheduler625> X("sched625", "HLS Scheduler for ECEN 625",
-                                    false /* Only looks at CFG? */,
-                                    true /* Analysis pass? */);
+static RegisterPass<AdderTreeBalancer> X("ATB_625", "Adder Tree Balancer Pass");
 
-bool Scheduler625::runOnFunction(Function &F) {
-  ...
+bool AdderTreeBalancer::runOnBasicBlock(BasicBlock &BB) {
+	...
 }
 ```
 
-The `RegisterPass` registers your pass with LLVM and specifies that it can be called using the `-sched625` flag.  The `Scheudler625` class is a subclass of `llvm::FunctionPass`, meaning this pass should be called for every function in the code.  Specifically, the `runOnFunction()` function will be called for each function in the IR.
+
+The `RegisterPass` registers your pass with LLVM and specifies that it can be called using the `-ATB_625` flag.  The `AdderTreeBalancer` class is a subclass of `llvm::BasicBlockPass `, meaning this pass should be called for every BasicBlock in the code.  Specifically, the `runOnBasicBlock()` function will be called for each BasicBlock.
+
+
+You can also create passes that operate at different scopes, including Module (entire C program), Function, Loop, Region, and more.  More information on these types of passes can be found at [WritingAnLLVMPass](https://releases.llvm.org/9.0.0/docs/WritingAnLLVMPass.html).
+
 
 Go ahead and compile the provided code:
 ```
-cd build
+cd lab_llvm/build
 cmake ../src
 make
 ```
 
-This will produce your library `scheduler_625.so`.  You can now go back and try re-compiling the `simple` benchmark.  You should now see an "Invalid schedule" error, since you haven't coded up the scheduler yet!
+This will produce your library `ATB_625.so`.  
+
+### Running Your LLVM Pass
+
+The benchmark Makfile contains several targets that can be used to run your AdderTreeBalancer pass.:
+* `make atb`: This will run your pass, followed by dead code elimination (which will remove unused instructions).  This will produce a file `*.atb.ll` which contains the LLVM IR after your pass is run.
+* `make atb_check`: Since you are modifying the original program, you will want to double check that you haven't broken the functionality. This target will first run the `atb` target to produce the transformed IR, followed by running it using the LLVM emulator (`lli`).  The `simple_unrolled_partitioned` and `shared_add_tree` benchmarks both print **CORRECT** or **ERROR**, depending on whether the sum is correct. 
+* `make atb_schedule`: This will run the `atb` pass, and then pass the new LLVM IR to an HLS scheduler, which will determine which instructions can run in each cycle in hardware.  This will produce PDF files which display the schedule of each IR instructions.  If you implement the pass correctly, you will see improvements made to the produced schedule.
+* `make schedule`: This will run the HLS schedule without your ATB pass.
 
 
-### Install Packages
+### Code Organization
 
+* `lab_llvm/src/AdderTreeBalancer.cpp/.h` -- You will add all your code for this assignment in theses files.  You are welcome to add additional source files if you like.
 
+* `benchmarks` -- This contains some C programs to test your code.  You are welcome to test your pass with any design in this folder (or create your own test designs); however, only the `simple_unrolled_partitioned` and `shared_add_tree` designs have large adder trees.  The `shared_add_tree` design has an adder tree used by another adder tree, so it's useful to test that you are handling that correctly (see the first tip listed later on this page).
 
-
-\subsection{Initial build}
-You will first need to install the necessary packages:
-```
-sudo apt install tcl8.5-dev libmysqlclient-dev liblpsolve55-dev build-essential \
-automake libtool libgmp3-dev clang-3.5 gcc-4.8-plugin-dev libc6-dev-i386 \
-libqt4-dev csh
-```
-
-
-## Code Organization
-
-* `AdderTreeBalancer.cpp/.h` -- You will add all your code for this assignment in theses files.
-
-	\item {\tt examples/625} -- This contains some C programs to test your code.  For this assignment, I have added the {\tt simple\_unrolled\_partitioned} design, as shown in \cref{fig:code}, so that you can test your optimization pass.  The {\tt shared\_add\_tree} design may also help with testing your code for this assignment.  The other benchmarks in the 625 folder might not see any benefit from this optimization, but you can always create your own benchmark if you want to do further testing.
-\end{itemize}
-
-## Creating an Optimization Pass in LLVM
-For this assignment we will be using a {\tt BasicBlockPass} in LLVM.  That is, it is a transformation pass that modifies code contained with a single basic block.  In this section I will describe how to create such a pass, and how to register it with LLVM, such that LLVM will execute your pass for every basic block in the design.  This code is already given to you.
-
-You can also create passes that operate at different scopes, including Module (entire C program), Function, Loop, Region, and more.  More information on these types of passes can be found at \url{http://releases.llvm.org/3.5.0/docs/WritingAnLLVMPass.html}.
-
-If you look at {\tt AdderTreeBalancer.cpp/.h} you will see the following relevant pieces of code:
-
-\begin{itemize}
-	\item The class is a subclass of {\tt BasicBlockPass}
-
-\begin{lstlisting}
-class AdderTreeBalancer : public BasicBlockPass {
-\end{lstlisting}
-
-	\item All LLVM passes must contain a static identifier, ID.  This need to be contained within the class, but you never modify it.  It is used and modified by the LLVM pass manager.
-\begin{lstlisting}
-	static char ID;
-\end{lstlisting}
-
-	\item You must define the following function, which is a virtual function in the parent {\tt BasicBlockPass} class.  This function will be called by the LLVM pass manager on every basic block in the code.  So the bulk of your code will be placed within this function.  This function returns a bool, indicating whether the code made any changes to the basic block. 
-\begin{lstlisting}
-	bool runOnBasicBlock(BasicBlock &BB);
-\end{lstlisting}
-
-	\item You must register your pass with the LLVM pass manager.  The first argument to the {\tt RegisterPass} constructor is the command-line argument for your pass, and the second argument is a text description which is provided to the user when they use ``-help" on the command line. 
-\begin{lstlisting}
-	static RegisterPass<AdderTreeBalancer> X("legup-adderTreeBalancer", "Adder Tree Balancer Pass");
-\end{lstlisting}
-
-
-\end{itemize}
-
-
-\subsection{Compiling and Running the Pass}
-
-When the pass is compiled (either by a top-level make, or by rebuilding {\tt opt}), it will be compiled into a library containing all LegUp passes.  This file is located here:
-\begin{lstlisting}
-legup/llvm/Release+Asserts/lib/LLVMLegUp.so
-\end{lstlisting}
-
-You can test that it is compiled properly by running the {\tt opt} command, and using {\tt -help} to list all available passes.  You need to pass an argument to {\tt opt} to tell it to include your library file.  The full command looks like this:
-
-\begin{lstlisting}
-legup/llvm/Release+Asserts/bin/opt -load legup/llvm/Release+Asserts/lib/LLVMLegUp.so -help 
-\end{lstlisting}
-
-After you compile, run this command and verify that {\tt legup-adderTreeBalancer} appears in the list of available passes.
-
-
-To execute the pass, you would use the following command, where $<$input\_ir$>$.bc is the IR input file, and $<$outout\_ir$>$.bc is the optimized IR code produced by the pass:
-\begin{lstlisting}
-legup/llvm/Release+Asserts/bin/opt -load legup/llvm/Release+Asserts/lib/LLVMLegUp.so <input_ir>.bc -o <output_ir>.bc
-\end{lstlisting}
-
-However, you shouldn't ever need to call {\tt opt} directly.  I have modified the {\tt Makfile} so your pass will automatically be called as part of the full LegUp compile flow.  To enable it, all you need to do is add the following to the {\tt Makefile} that resides within the example program directory.  
-
-\begin{lstlisting}
-ADDER_TREE_BALANCER = 1
-\end{lstlisting}
-
-I have already added this to {\tt examples/625/simple\_unrolled\_partitioned/Makefile}.  
-
-If you are interested in seeing how I added this to the LegUp makefile, you can look at {\tt examples/Makefile.common}, lines 158--163, which contain:
-\begin{lstlisting}
-	# 625 tree balancer pass
-ifdef ADDER_TREE_BALANCER
-	$(LLVM_HOME)opt $(OPT_FLAGS) -legup-adderTreeBalancer -dce $(NAME).postlto.9.bc -o $(NAME).postlto.bc
-else
-	cp $(NAME).postlto.9.bc $(NAME).postlto.bc
-endif 
-\end{lstlisting}
-
-The {\tt -dce} option runs dead code elimination after your pass.
-
-Remember, the .bc files are binary IR files.  The {\tt *.postlto.9.bc} is the IR file before your pass is called, and the {\tt *.postlto.bc} is the IR file after your pass is called.  \uline{If you want to inspect the IR, then open the human-readable files {\tt *.postlto.9.ll} and {\tt *.postlto.ll} in your favorite text editor.}
-
-
-
-
-## Coding the Tree Balancer
+## Implementation
 
 How you code the tree balancer is up to you.  
 
 You probably want to follow this general approach:
-1. Look through the Instructions in the BasicBlock to identify adder trees, and collect a list of inputs to this adder tree.
-2. Create a balanced adder tree with these inputs.		
-3. Replace uses of the root adder instruction, $I$, with the output of your newly created adder tree.
+1. Look through the Instructions in the BasicBlock for add instructions, treat this instruction `I` as the root of an adder tree, and collect a list of inputs to this adder tree.
+2. Create a balanced adder tree with these inputs, and add these new `add` instructions to the BasicBlock.	
+3. Replace uses of the root adder instruction, `I`, with the output of your newly created adder tree.
+4. Repeat until all adder trees are balanced.
 
 Some tips with this approach:
-* When recursively visiting adders, you need to make sure the output of an intermediate node is not used elsewhere in the code.  You can do this by checking that the number of uses is 1 (`Value.getNumUses()`).  The reason for this is that all of these instructions will be deleted, and replaced by your adder tree.  Only the final output of the adder tree can be used multiple places in the code.
-* The inputs to your adder tree may be instructions, constants, etc.  You should use the LLVM `Value` to keep track of the inputs.
-* You will need to add all of your newly created addition instructions to the basic block.  Make sure you add them in a valid position, and order (ie. the final addition in your tree should be located before any uses, and adder nodes in your tree should be in a valid ordering).  This may be simpler than you think.  You should be able to add your entire tree at the location of instruction $I$ (as described in Step 1 of the technique above).
-* You don't need to delete the adder instructions you are replacing with your tree.  As long as you complete Step 3, these additions will become dead code.  Since dead code elimination is performed after your pass, these instructions will automatically be removed.
-* In step 1 you are iterating over the BasicBlock.  However, if you end up inserting an adder tree, you are modifying the very data structure you are iterating over.  You cannot continue iterating at this point.  Either exit out of the iteration and start over, or keep a track of pending changes and wait until the iteration is complete before actually making the changes. 
-* You will probably want to keep track of which additions are part of your balanced adder trees, and then skip over them in Step 1.  Otherwise you can end up in an endless loop of replacing your balanced adder trees with new identical adder trees.  The other benefit of this approach is that you don't need to check whether existing adder networks in the user's code are balanced or not.  Simply replace them with a balanced adder tree regardless of whether the existing structure is already optimal.
-* Since you are modifying the original program, you may want to double check that you haven't broken the functionality.  For the {\tt simple\_unrolled\_partitioned} example, I have made it self checking, and it prints {\tt CORRECT} or {\tt ERROR} depending on whether the sum is correct.  You can use the LLVM IR emulator ({\tt lli}) to execute the IR code.  For example:
-```
-lli-9 simple.bc 
-```
+* When recursively visiting adders, you need to make sure the output of an intermediate node is not used elsewhere in the code.  You can do this by checking that the number of uses is one (`Value.getNumUses()`).  The reason for this is that all of these instructions will be deleted and replaced by your adder tree; only the final output of the adder tree can be used multiple places in the code.
+* The inputs to your adder tree may be instructions, constants, function arguments, etc.  You should use the LLVM `Value` to keep track of the inputs.
+* You will need to add all of your newly created addition instructions to the BasicBlock.  Make sure you add them in a valid position, and order (ie. the final addition in your tree should be located before any uses, and adder nodes in your tree should be in a valid ordering).  If you are smart in how you create your adder tree, you can build a list of add instructions that are already in the correct order.  You can then add all of these add instructions immediately before instruction `I` (as described in Step 3 of the technique above).
+* You don't need to delete the adder instructions you are replacing with your tree.  As long as you complete Step 3, these additions will become dead code.  Since dead code elimination is performed after your pass, these instructions will automatically be removed. Likewire, if you only complete Step 1 and 2, and never use your new adder tree, dead code elimination will remove it. 
+* In Step 1 you are iterating over the BasicBlock.  However, if you end up inserting an adder tree, you are modifying the very data structure you are iterating over.  You cannot continue iterating at this point.  Either exit out of the iteration and start over, or keep a track of pending changes and wait until the iteration is complete before actually making the changes. 
+* You will probably want to keep track of which additions are part of your balanced adder trees, and then skip over them in Step 1.  Otherwise you can end up in an endless loop of replacing your balanced adder trees with new identical adder trees.  **The other benefit of this approach is that you don't need to check whether existing adder networks in the user's code are balanced or not.  Simply replace them with a balanced adder tree regardless of whether the existing structure is already optimal.**
+
 
 ## LLVM Coding Tips
 Here are a few suggestions to help you with the LLVM API.  If you are still unsure how you do something in LLVM, please post on Piazza and I would be happy to help you out.
 
-\subsection{Resources}
+### Resources
 
-The LLVM documentation for version 3.5 (the version bundled with this LegUp release) is located at \url{http://releases.llvm.org/3.5.0/docs/index.html}.  Probably the most useful page is the Programmers Manual (\url{http://releases.llvm.org/3.5.0/docs/ProgrammersManual.html}).
+We are using LLVM version 9.0.  The documentation can be found at <https://releases.llvm.org/9.0.0/docs/>.  Some useful pages:
+* The [Language Reference Manual](https://releases.llvm.org/9.0.0/docs/LangRef.html) describes each LLVM IR instruction.
+* The [Programmers Manual](https://releases.llvm.org/9.0.0/docs/ProgrammersManual.html) is a good place to start reading about coding in LLVM.
 
-\subsection{The LLVM Classes}
-\label{sec:llvm_classes}
+### The LLVM Classes
 
-LLVM is an object-oriented code base, with lots of inheritance.  In assignment 2, you used the {\tt Instruction} class.  You can find documentation on it at \url{http://llvm.org/docs/doxygen/html/classllvm_1_1Instruction.html}.  Usually the quickest way to find these documentation pages is a google search.
+LLVM is an object-oriented code base, with **lots** of inheritance.  You can find auto-generated documentation for each class.  For example, check out the [Instruction](http://llvm.org/doxygen/classllvm_1_1Instruction.html) class.  Usually the quickest way to find these documentation pages is a google search.
 
-Take a look at the illustrated class hierarchy on that webpage.  You will see that {\tt Instruction} inherits from {\tt User}, which in turn inherits from {\tt Value}.  \textbf{From LLVM programmers manual}: 
-\begin{itemize}
-  \item \textbf{Value:} The Value class is the most important class in the LLVM Source base. It represents a typed value that may be used (among other things) as an operand to an instruction. There are many different types of Values, such as Constants, Arguments. Even Instructions and Functions are Values.
-	\item \textbf{User:} The User class is the common base class of all LLVM nodes that may refer to Values. It exposes a list of “Operands” that are all of the Values that the User is referring to. The User class itself is a subclass of Value.
-	\item \textbf{Instruction:} The Instruction class is the common base class for all LLVM instructions. It provides only a few methods, but is a very commonly used class. The primary data tracked by the Instruction class itself is the opcode (instruction type) and the parent BasicBlock the Instruction is embedded into. To represent a specific type of instruction, one of many subclasses of Instruction are used.
-\end{itemize}
+Take a look at the illustrated class hierarchy on that webpage.  You will see that `Instruction` inherits from `User`, which in turn inherits from `Value`.  **From LLVM programmers manual**: 
+* `Value`: The Value class is the most important class in the LLVM Source base. It represents a typed value that may be used (among other things) as an operand to an instruction. There are many different types of Values, such as Constants, Arguments. Even Instructions and Functions are Values.
+* `User`: The User class is the common base class of all LLVM nodes that may _refer_ to other Values. It exposes a list of "Operands" that are all of the Values that the User is referring to. The User class itself is a subclass of Value.
+* `Instruction`: The Instruction class is the common base class for all LLVM instructions. It provides only a few methods, but is a very commonly used class. The primary data tracked by the Instruction class itself is the opcode (instruction type) and the parent BasicBlock the Instruction is embedded into. To represent a specific type of instruction, one of many subclasses of Instruction are used.
 
-In this assignment you will be frequently using the {\tt add} instruction.  This instruction is of type {\tt BinaryOperator} (a subclass of {\tt Instruction}), which is used by all instructions that operate on two pieces of data (thus Binary).  To check if it is an adder, you can call {\tt getOpcode()}, which for an adder will return the constant {\tt Instruction::Add}.
+In this assignment you will be frequently using the `add` instruction.  This instruction is of type `BinaryOperator` (a subclass of Instruction), which is used by all instructions that operate on two pieces of data (thus Binary).  To check if it is an adder, you can call `getOpcode()`, which for an adder will return the constant `Instruction::Add`.
 
-\subsection{Debugging}
+### Debugging
 
-In LLVM, you can use ``{\tt dbgs() <<}" to print out just about any class you want.  You can print Values, Users, Instructions, BasicBlocks, Functions, etc.  Just keep in mind that to print an object you should use the object itself, not a pointer to the object.  If you have a pointer, you should dereference it, such as:
-\begin{lstlisting}
+In LLVM, you can use ``outs() <<`` to print out just about any class you want.  You can print Values, Users, Instructions, BasicBlocks, Functions, etc.  Just keep in mind that to print an object you should use the object itself, not a pointer to the object.  If you have a pointer, you should dereference it, such as:
+```
 Instruction * I = ...;
-dbgs() << *I << "\n";
-\end{lstlisting}
+outs() << *I << "\n";
+```
 
-\subsection{Checking Instruction Types}
+You can also use `report_fatal_error("message")` to stop execution immediately and report an error.
 
-When iterating through the {\tt Instruction} objects in a basic block, you may need to check the type of Instruction.  This can be done a few different ways.  For example, here are a few ways to check if an {\tt Instruction} is a {\tt BinaryOperator}.
+### Checking Instruction Types
 
-\begin{lstlisting}
+When iterating through the `Instruction` objects in a BasicBlock, you may need to check the type of Instruction.  This can be done a few different ways.  For example, here are a few ways to check if an {\tt Instruction} is a {\tt BinaryOperator}.
+
+```
 Instruction * I;
 if (isa<BinaryOperator>(I)) {
    // I is a BinaryOperator
 }
-\end{lstlisting}
+```
 
-\begin{lstlisting}
+```
 Instruction * I;
 if (BinaryOperator * bo = dyn_cast<BinaryOperator>(I)) {
     dbgs() << "Instruction is a binary operator with opcode " << bo->getOpcode() << "\n";
 }
-\end{lstlisting}
+```
 
 
-##### Creating Instructions
+### Creating Instructions
 
 Generally to create new instructions, you do not call the constructor directly, but rather call a static class method.  For example, one way to create a new `add` instruction:
 
@@ -284,133 +200,60 @@ Value * in2 = ...
 BinaryOperator * bo = BinaryOperator::Create(BinaryOperator::Add, in1, in2, "myInsnName", (Instruction*) NULL);
 ```
 
-The last argument in this case in the {\tt Instruction} location where this new instruction should be inserted.  The new instruction is inserted before the instruction passed in.  If you pass in NULL, the new instruction is not inserted into the code, but you will need to do so later.
+The last argument in this case is a pointer to an existing `Instruction`, and the new Instruction will be inserted preceeding it. If you pass in NULL, the new instruction is not inserted into the code, but you will need to do so later.
 
-##### Inserting Instructions
-There are many ways to insert instructions into a basic block.  These are discussed in the [Programmers Manual](https://releases.llvm.org/9.0.0/docs/ProgrammersManual.html#creating-and-inserting-new-instructions)
+### Inserting Instructions
+There are many ways to insert instructions into a basic block.  These are discussed in the [Programmers Manual](https://releases.llvm.org/9.0.0/docs/ProgrammersManual.html#creating-and-inserting-new-instructions), although I have found this is somewhat out of date. In particular, the pages gives this example, but it is missing the required `->getIterator()` on the existing Instruction.
 
-Some commands you may find helpful:
-
-\begin{enumerate}
-
-\item {\tt (BasicBlock\&).getInstList().insert(Instruction * InsertBefore, Instruction * I);}
-	\begin{itemize}
-		\item Inserts instruction {\tt I} immediately preceeding instruction {\tt InsertBefore}.		
-	\end{itemize}
+### Replacing Instructions or Usage
 	
+If you want to swap out an Instruction for a different one, there are a few options:	
+```
+void ReplaceInstWithInst(Instruction *From, Instruction *To);
+```
+This adds the instruction `To` to a basic block, such that it is positioned immediately before `From`, replaces all uses of `From` with `To` and then removes `From.
 	
-	\item {\tt ReplaceInstWithInst()}
-	
-	
-	\begin{itemize}
-		\item Adds the instruction {\tt To} to a basic block, such that it is positioned immediately before {\tt From}
-		\item Replaces all uses of {\tt From} with {\tt To}
-		\item Removes {\tt From}
-	\end{itemize}
+```
+/// Replace all uses of an instruction (specified by BI) with a value, then
+/// remove and delete the original instruction.
+void ReplaceInstWithValue(BasicBlock::InstListType &BIL,
+                          BasicBlock::iterator &BI, Value *V);
+```						
+This replaces all uses of the instruction referenced by the iterator `BI` with the Value `V`, and then removes the instruction referenced by the iterator `BI`.	This is similar to `ReplaceInstWithInst`, except that it doesn't add `V` into the code anywhere -- it assumes this was already done.  It also requires you to pass in an interator to the old instruction, rather than a pointer to the instruction itself.  This can easily be done with code such as the following: 
 
-
-
-\begin{lstlisting}
-/// ReplaceInstWithInst - Replace the instruction specified by From with the
-/// instruction specified by To.
-///
-void llvm::ReplaceInstWithInst(Instruction *From, Instruction *To);
-\end{lstlisting}
-
-\item {\tt ReplaceInstWithValue()} 
-	\begin{itemize}
-		\item Replaces all uses of the instruction referenced by the iterator {\tt BI} with the Value {\tt V}
-		\item Removes the instruction referenced by the iterator {\tt BI}
-	\end{itemize}
-
-\begin{lstlisting}
-/// ReplaceInstWithValue - Replace all uses of an instruction (specified by BI)
-/// with a value, then remove and delete the original instruction.
-///
-void llvm::ReplaceInstWithValue(BasicBlock::InstListType &BIL,
-                                BasicBlock::iterator &BI, Value *V);
-\end{lstlisting}
-
-	This is similar to \#2, except that it doesn't add {\tt V} into the code anywhere -- it assumes this was already done.  It also requires you to pass in an interator to the old instruction, rather than a pointer to the instruction itself.  This can easily be done with code such as the following: 
-
-\begin{lstlisting}
+```
 BinaryOperator * oldAdder = ...;
 BinaryOperator * adderTree = ...;
 BasicBlock::iterator BI(oldAdder);
 ReplaceInstWithValue(BB.getInstList(), BI, adderTree);
-\end{lstlisting}
+```
 
 
 
-\end{enumerate}
+## Deliverables
+
+1. Submit your code on Github using the tag `lab2_submission`
+
+2. Include a 1-page PDF document (`lab_llvm/report.pdf`) that includes the following:
 
 
+For the `simple_unrolled_partitioned` program, obtain the missing results in the following tables (there are 8 cells to fill in), and include the completed tables in your report.  You can find the HLS schedule by looking at the `main.schedule.rpt` file, and the longest path by looking at the `main.timing.rpt` file, which lists the longest path for each BasicBlock.  The cycles per loop iteration can be obtained from the scheduling report (or Gantt chart PDF), by manually looking at how many states are created for the summation loop.  The total summation time is simply the product of the longest path, loop iteration latency, and number of iterations (20).
+
+#### CLOCK_PERIOD <= 20ns 
+
+|           | Longest Path (ns) | Loop iteration latency | Summation Time (ns) |
+|-----------|------------------:|-----------------------:|--------------------:|
+|WITHOUT TreeBalancer| 17.5     | 4                      |  1400               |
+|WITH TreeBalancer   |          |                        |                     |
+|Speedup             | -        | -                      | ?x                  |
 
 
+#### CLOCK_PERIOD <= 5ns 
 
+|           | Longest Path (ns) | Loop iteration latency | Summation Time (ns) |
+|-----------|-------------------|------------------------|---------------------|
+|WITHOUT TreeBalancer| 5.0      | 12                     | 1200                |
+|WITH TreeBalancer   |          |                        |                     |
+|Speedup             | -        | -                      | ?x                  |
 
-\section{Deliverables}
-\label{sec:deliverables}
-
-Create the code to perform adder tree balancing, and collect the results described in this section.
-
-%Remember to change the code in {\tt GenerateRTL.cpp} to use the build-in LegUp SDCScheduler, instead of the scheduler you created for Assignment 2.  If you want to test it out with your scheduler, by all means go for it!  But for the numbers you submit in the report, you should use the LegUp scheduler so that the scheduling is consistent between all class members.
-
-For the {\tt simple\_unrolled\_partitioned} program, obtain the missing results in the following table (there are 8 cells in the table to fill in), and include the completed table in your report.  You can find the HLS schedule by looking at the {\tt scheduling.legup.rpt} file, and the longest path by looking at the {\tt timingReport.legup.rpt} file, which lists the longest paths by function (when I used this it wasn't reporting the longest path correctly for the {\tt my\_rand()} function.  That's fine, just ignore that and use the timing from {\tt main}, which is all we care about).  The cycles per loop iteration can be obtained from the scheduling report, by manually looking at how many states are created for the summation loop.  The total summation time is simply the product of the longest path, loop iteration latency, and number of iterations (20).
-
-\begin{table}[h!]
-\centering
-\begin{tabular}{|l|r|r|r|} \hline
-\multicolumn{4}{|c|}{CLOCK\_PERIOD $\le$ 20ns} \\ \hline
-& Longest Path (ns) & Loop iteration latency & Summation Time (ns) \\ \hline
-WITHOUT TreeBalancer & 19.97 & 3 & 1198.2\\ \hline
-WITH TreeBalancer & & & \\ \hline
-Speedup & - & - & ?x \\ \hline
-\end{tabular}
-
-~~~
-
-\begin{tabular}{|l|r|r|r|} \hline
-
-\multicolumn{4}{|c|}{CLOCK\_PERIOD $\le$ 5ns} \\ \hline
-& Longest Path (ns) & Loop iteration latency & Summation Time (ns)  \\ \hline
-WITHOUT TreeBalancer & 4.99 & 6 &  598.8\\ \hline
-WITH TreeBalancer & &  &\\ \hline
-Speedup & - & - & ?x \\ \hline
-\end{tabular}
-\end{table}
-
-
-
-
-\begin{enumerate}
-\item Submit a report containing the following items:
-\begin{itemize}
-	  \item Your name
-		\item The table from \cref{sec:deliverables}.
-		\item Explain the approach you used for your code.
-		\item In this assignment we didn't worry about the order of operations of the additions.  Does this matter?  Could we use the same technique for other operations?  subtraction, multiplication, floating foint operations, etc?  Why or why not?  What considerations or work-around might you employ to support such operations?
-				
-		\item Feedback:
-		\begin{itemize}
-		\item How many hours you spent on the assignment?  
-		\item How challenging was the C++ coding?
-		\item Anything you liked?
-		\item Anything you didn't like? Or anything you would change?
-		\item Did you find the assignment worthwhile? Why or why not?	
-		\end{itemize}
-		
-		
-\end{itemize}
-
-\item Submit your source code.  If you only change the one .cpp file, then only submit that file.
-\end{enumerate}
-
-
-
-\section{Submission Instructions}
-Submit your report and source code to \href{mailto:jgoeders@byu.edu}{jgoeders@byu.edu} with the subject: 625 Asst2
-
-
-\end{document}
 
