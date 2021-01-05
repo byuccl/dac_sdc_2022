@@ -5,7 +5,7 @@ toc: true
 icon: fas fa-wrench
 ---
 
-## Prerequisite Skilss
+## Prerequisite Skils
 In this class you are expected to be familiar with the Linux command line, Git and Github.  If you haven't used these tools before, here are links to a few tutorials:
 
 * <https://ryanstutorials.net/linuxtutorial/>
