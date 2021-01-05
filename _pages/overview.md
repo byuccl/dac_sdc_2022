@@ -5,13 +5,7 @@ title: Overview
 icon: fas fa-chalkboard-teacher
 ---
 
-## Course Makeup
 
-This course is made up of three major components:
-
-- **Labs**. TBD
-
-- **Exams**. TBD
 
 ## Content
 
@@ -26,7 +20,7 @@ This course will investigate high-level automated compilation strategies for dig
 
 ## Prerequisites
 
-Students should have reasonable coding skills in RTL (Verilog or VHDL), and C++.  If you are unsure if you have the necessary experience, contact the instructor.
+Students should be familiar with RTL (Verilog or VHDL), and be comfortable writing C++.  If you are unsure if you have the necessary experience, contact the instructor.
 
 ## Textbook
 
@@ -35,14 +29,13 @@ Parallel Programming for FPGAs.  [http://kastner.ucsd.edu/hlsbook/]()
 
 ## Grade Breakdown
 
-| Component | % of Grade |
-|-----------|------------|
-| Class Participation      | 5         |
-| Mini-Lecture | 10         |
-| Labs  | 40         |
-| Project & Presentation     | 30         |
-| Exam     | 15         |
-
+| Component                 | % of Grade    |
+|---------------------------|---------------|
+| Class Participation       | 5             |
+| Mini-Lecture              | 10            |
+| Labs                      | 50            |
+| Project & Presentation    | 20            |
+| Exam                      | 15            |
 
 
 ## Class Participation
@@ -52,7 +45,7 @@ Active participation by all students is an essential component of learning in th
 Several classes will be spent on student-led lectures from the “Parallel Programming for FPGAs” textbook.   Each student will participate in one presentation, as part of a group of two.
 
 ## Labs
-A number of assignments will be given during the semester that involve implementing HLS concepts and using commercial HLS tools. The criteria used to grade each assignment will be posted with the assignment description on the course website.
+There are 5 labs.  While none of the labs require you to write a huge amount of code (most can be completed in ~100 lines), you may find the coding challenging as you will be working with new tools and C++ features you may not have used before. Start early and give yourself lots of time to debug and ask questions on Piazza.
 
 ## Mid-Term Exam
 One midterm examination will be given to test your understanding of the course material.  This examination will be closed book and taken at the testing center.  The test is scheduled for the following three days: March TBD. Make sure you complete the test during this time. No makeup examinations will be given.
