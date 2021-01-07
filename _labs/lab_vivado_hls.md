@@ -1,9 +1,9 @@
 ---
 layout: lab
 toc: true
-title: Vivado HLS
+title: Vitis HLS
 number: 4
-repo: lab_vivado_hls
+repo: lab_vitis_hls
 ---
 
 
@@ -28,6 +28,14 @@ In the assignment you are provided with a set of already classified handwritten 
 
 ## Getting Started
 
+### Install Dependencies
+
+
+```
+sudo apt install libc6-dev-i386
+
+```
+
 ### Code Organization
 You are provided the following files:
 * `digitrec.cpp`: an incomplete source file where you write your k-NN based digit recognition algorithm
@@ -46,145 +54,97 @@ the program to check results (enter `make`).
 (`vivado_hls -f run.tcl`). 
 
 
-### Setting up Vivado HLS
-For this assignment we will be using Vivado HLS. 
-You can install Vivado on your local machine (<https://www.xilinx.com/support/download.html>).  If you do this, I suggest you install Vivado 2019.2 Design or System Edition on an Ubuntu 18.04 machine.  
+### Setting up Vitis HLS
+For this assignment we will be using Vitis HLS. 
+You can install Vitis on your local machine (<https://www.xilinx.com/support/download.html>).  If you do this, you should install Vitis 2020.2 on an Ubuntu 18.04 (or newer) machine.  
 
 _Note: If you prefer, you can install Vivado on a Windows machine.  I haven't tested this.  It should work with the assignment, with a few extra considerations.  For example, the Makefile which has been provided to quickly compile and run your design may not work unless you have a build system setup.  You can still build and run within Vivado HLS, so it is not a big difference, but keep in mind you may run into problems such as this._
 
-Vivado HLS requires a license.  You can access the department Xilinx license server by setting the following environment variable.  This means you must either be on the university network, or connected to the CAEDM VPN.
+<!-- Vivado HLS requires a license.  You can access the department Xilinx license server by setting the following environment variable.  This means you must either be on the university network, or connected to the CAEDM VPN.
 
 ```
 export LM_LICENSE_FILE=2100@ece-xilinx.byu.edu
+``` -->
+
+To run the Vitis tools you should do the following:
+```
+source /opt/Xilinx/Vitis_HLS/2012.2/settings64.sh
+export LIBRARY_PATH=/usr/lib/x86_64-linux-gnu:$LIBRARY_PATH
+vitis_hls
 ```
 
-To run the Vivado tools you should first run the configuration script:
-```
-source /opt/Xilinx/Vivado/2019.2/settings64.sh
-```
-
-This will add the tools to your `PATH`.  If you don't want to setup your own machine, contact me and I can give you access to a server with Vivado 2019.2 installed.
+The first step will add the Xilinx binaries to your `PATH`. I second step was needed on my machine to solve a bug (might not be needed with different Ubuntu versions).  The last command runs Vitis HLS.  If you don't want to setup your own machine, contact me and I can give you access to a server with Vivado 2019.2 installed.
 
 
 ### Vivado GUI vs command line
 For this assignment you can use the Vivado HLS GUI, or you can work entirely via command line.  If you are using the GUI, create a new project with this configuration:
+* Design Files: 
+	* `digitrec.cpp` (Top Function: `digitrec`)
+* TestBench Files: 
+	* `digitrec_test.cpp`
+	* `data` _(this is a folder)_
+* Part: `xc7z020clg484-1`
 
-\begin{itemize}
-	\item Top Function: digitrec
-	\item Design Files: 
-	
-	\begin{itemize}
-		\item digitrec.cpp
-	\end{itemize}
-	\item TestBench Files:
-	
-	\begin{itemize}
-		\item digitrec\_test.cpp
-		\item data \emph{(this is a folder)}
-	\end{itemize}
-	\item Part: xc7z020clg484-1
-\end{itemize}
+When you are ready to collect results you can use the `run.tcl` script to automatically run C simulation and synthesis, and extract results for _k=1,2,3,4,5_.
 
-When you are ready to collect results you can use the \emph{run.tcl} script to automatically run C simulation and synthesis, and extract results for $k=1,2,3,4,5$.
+```
+vitis_hls -f run.tcl
+```
 
-\begin{lstlisting}
-vivado_hls -f run.tcl
-\end{lstlisting}
+If you look inside `run.tcl` you will see it creates five projects with the same properties as above, each with a different `k` value.
 
-If you look inside \emph{run.tcl} you will see it creates five projects with the same properties as above, each with a different $k$ value.
-
-\section{Design Overview}
+## Design Overview
 
 
-\begin{figure}[h!]
-	\centering
-	\begin{subfigure}[b]{0.3\textwidth}
-		\centering
-		\includegraphics[trim={6cm 11cm 25cm 2cm}, clip,width=.33\textwidth]{binary_strings.pdf}
-		\caption{Binary string in 2D array}
-		\label{fig:binary_string_1}
-	\end{subfigure}
-	~~~~~~~
-	\begin{subfigure}[b]{0.3\textwidth}
-	\centering
-		\includegraphics[trim={0cm 0cm 0cm 0cm}, clip,width=.6\textwidth]{img1.png}
-		\caption{Binary image}
-		\label{fig:binary_image_1}
-	\end{subfigure}
-	
-	\caption{Training instance for digit 0}
-	\label{fig:training_digit_0}
-\end{figure}
-
-\begin{figure}[h!]
-	\centering
-	\begin{subfigure}[b]{0.3\textwidth}
-		\centering
-		\includegraphics[trim={11.5cm 11cm 19.5cm 2cm}, clip,width=.33\textwidth]{binary_strings.pdf}
-		\caption{Binary string in 2D array}
-		\label{fig:binary_string_2}
-	\end{subfigure}
-	~~~~~~~
-	\begin{subfigure}[b]{0.3\textwidth}
-	\centering
-		\includegraphics[trim={0cm 0cm 0cm 0cm}, clip,width=.6\textwidth]{img2.png}
-		\caption{Binary image}
-		\label{fig:binary_image_2}
-	\end{subfigure}
-	
-	\caption{Training instance for digit 7}
-	\label{fig:training_digit_7}
-\end{figure}
-
-\textbf{You are given 10 training sets, each of which contains 1800 49-bit training instances for a
-different digit (0-9). Each hexadecimal string in \emph{training\_set\_\#} represents a 49-bit training
-instance for digit \#}. The 49 bits of each instance encodes a 7x7 matrix of binary values (i.e., a bitmap).
-For example, $e3664d8e00_{16}$ in \emph{training\_set\_0} is a training instance for digit 0 and translates into the binary 2D matrix in \cref{fig:binary_string_1}, whose 1 bits outline the digit 0. A binary image of the array is shown in \cref{fig:binary_image_1}. $41c0820410_{16}$ in training set 7 is a training instance for digit 7 and translates into the binary 2D matrix in \cref{fig:binary_string_2}, whose 1 bits approximately outline the digit 7. The corresponding binary image is shown in \cref{fig:binary_image_2}. As you can see, the resolution of the digit is limited by the number of bits (49 bits in our assignment) used to represent it. Typically, increasing the number of bits per instance would improve the resolution and possibly the accuracy of recognition. 
-
-We would like to devise an algorithm that takes in a binary string representing a handwritten digit (i.e. the testing instance) and classify it to a particular digit (0-9) by first identifying $k$ training instances that are closest to the testing instance (i.e., the nearest neighbors), and then determining the result based on the most common digit represented by these nearest neighbors. 
-
-You are encouraged to read through [1] to familiarize yourself with the basic concepts of the k-NN algorithm.
-\textbf{In this assignment, we define the distance between two instances as the number of corresponding bits that are different in the two binary strings.} For example, $1011_2$ and $0111_2$ differ in the two
-most significant bits and therefore have a distance of 2. $1011_2$ and $1010_2$ differ only in the least significant bit and have a distance of 1. As a result, $1011_2$ is closer to $1010_2$ than to $0111_2$.
-
-\section{Implementation}
-
-\subsection{Coding and Debugging}
-Your first task is to complete the digit recognition algorithm based on the code skeleton provided in \emph{ digitrec.cpp}. In particular, you are expected to fill in the code for the following functions:
-
-\begin{itemize}
-	\item \emph{update\_knn}: Given the testing instance and a (new) training instance, this function maintains/updates an array of $k$ minimum distances per training set.
-\item	\emph{knn\_vote}: Among $10 \times k$ minimum distance values, this function finds the $k$ nearest neighbors and determines the final output based on the most common digit represented by these nearest neighbors.
-\end{itemize}
-
-Note that the skeleton code takes advantage of arbitrary precision integer type \emph{ap\_uint}. \textbf{A useful reference of arbitrary precision integer data types can be found starting on p.212 and p.609 of the user guide~\cite{vivado_hls}}.
-
-How you choose to implement the algorithm may affect the resulting accuracy of your design as reported by the test bench. \textbf{We expect that your design would achieve an error of less than 10\% on the provided testing set}. You may use the console output or the generated \emph{out.dat} file to debug your code.
 
 
-\subsection{Design Exploration}
-\label{sec:design_exploration}
-The second part of the assignment is to explore the impact of the $k$ value on your digit recognition design. Specifically, you are expected to experiment with the $k$ values ranging from 1 through 5, and collect the performance and area numbers of the synthesized design for each specific $k$.
 
-\begin{itemize}
-	\item The actual $k$ value can be specified in \emph{Makefile} and/or \emph{run.tcl}. You can run simulation and synthesis in batch with \emph{run.tcl}. This script will also automatically collect important stats (i.e., accuracy, performance, and resource usage) from the Vivado HLS reports and generate a \emph{knn\_result.csv} file under the result folder.
-\item	In this assignment, you will use a fixed 10ns clock period targeting a specific Xilinx Zynq FPGA device. Clock period and target device have been specified in the run Tcl script.
-\end{itemize}
+**You are given 10 training sets, each of which contains 1800 49-bit training instances for a
+different digit (0-9). Each hexadecimal string in *training_set_#* represents a 49-bit training
+instance for digit #**. The 49 bits of each instance encodes a 7x7 matrix of binary values (i.e., a bitmap). For example, e3664d8e00<sub>16</sub> in *training_set_0* is a training instance for digit 0 and translates into the following binary 2D matrix and bitmap:
 
-\subsection{Design Optimization}
+<img src="{% link media/vitis/binary_string0.png %}" height="200">
+<img src="{% link media/vitis/img1.png %}" height="200" class="pixelated">
+
+ 41c0820410<sub>16</sub> in training set 7 is a training instance for digit 7 and translates into the binary 2D matrix and bitmap shown below:
+
+<img src="{% link media/vitis/binary_string1.png %}" height="200">
+<img src="{% link media/vitis/img2.png %}" height="200" class="pixelated">
+ 
+As you can see, the resolution of the digit is limited by the number of bits (49 bits in our assignment) used to represent it. Typically, increasing the number of bits per instance would improve the resolution and possibly the accuracy of recognition. 
+
+We would like to devise an algorithm that takes in a binary string representing a handwritten digit (i.e. the testing instance) and classify it to a particular digit (0-9) by first identifying *k* training instances that are closest to the testing instance (i.e., the nearest neighbors), and then determining the result based on the most common digit represented by these nearest neighbors. 
+
+You are encouraged to read through the links provided above to familiarize yourself with the basic concepts of the k-NN algorithm. **In this assignment, we define the distance between two instances as the number of corresponding bits that are different in the two binary strings.** For example, 1011<sub>2</sub> and 0111<sub>2</sub> differ in the two most significant bits and therefore have a distance of 2. 1011<sub>2</sub> and 1010<sub>2</sub> differ only in the least significant bit and have a distance of 1. As a result, 1011<sub>2</sub> is closer to 1010<sub>2</sub> than to 0111<sub>2</sub>.
+
+## Implementation
+
+### Coding and Debugging
+Your first task is to complete the digit recognition algorithm based on the code skeleton provided in `digitrec.cpp`. In particular, you are expected to fill in the code for the following functions:
+
+* `update_knn`: Given the testing instance and a (new) training instance, this function maintains/updates an array of *k* minimum distances per training set.
+* `knn_vote`: Among *10&middot;k* minimum distance values, this function finds the *k* nearest neighbors and determines the final output based on the most common digit represented by these nearest neighbors.
+
+Note that the skeleton code takes advantage of arbitrary precision integer type `ap_uint`. \textbf{A useful reference of arbitrary precision integer data types can be found starting on p.144 and p.485 of the [user guide](https://www.xilinx.com/support/documentation/sw_manuals/xilinx2020_2/ug1399-vitis-hls.pdf).
+
+How you choose to implement the algorithm may affect the resulting accuracy of your design as reported by the test bench. **We expect that your design would achieve an error of less than 10% on the provided testing set**. You may use the console output or the generated *out.dat* file to debug your code.
+
+### Design Exploration
+The second part of the assignment is to explore the impact of the *k* value on your digit recognition design. Specifically, you are expected to experiment with the *k* values ranging from 1 through 5, and collect the performance and area numbers of the synthesized design for each specific *k*.
+* The actual *k* value can be provided to the Makefile (`make K=4`) and changed in *run.tcl*. You can run simulation and synthesis in batch with *run.tcl*. This script will also automatically collect important stats (i.e., accuracy, performance, and resource usage) from the Vivado HLS reports and generate a \emph{knn\_result.csv} file under the result folder.
+* In this assignment, you will use a fixed 10ns clock period targeting a specific Xilinx Zynq FPGA device. Clock period and target device have been specified in the run Tcl script.
+
+
+### Design Optimization
 The third part of the assignment is to optimize the design with HLS pragmas or directives. In particular, we
 will focus on exploring the effect of the following optimizations in our design and apply them appropriately
-to \textbf{minimize the latency of the synthesized design}.}
-
-\begin{itemize}
-	\item \textbf{loop pipelining} Allows for overlapped execution of loop iterations by leveraging pipelining techniques.
-	\item \textbf{loop unrolling} unfolds a loop by creating multiple copies of its loop body and reducing its trip count accordingly. This technique is often used to achieve shorter latency when loop iterations can be executed in parallel.
-\item \textbf{array partitioning} partitions an array into smaller arrays, which may result in an RTL with multiple small memories or multiple registers instead of one large memory. This effectively increases the amount
+to **minimize the latency of the synthesized design**.
+* **loop pipelining**: Allows for overlapped execution of loop iterations by leveraging pipelining techniques.
+* **loop unrolling**: unfolds a loop by creating multiple copies of its loop body and reducing its trip count accordingly. This technique is often used to achieve shorter latency when loop iterations can be executed in parallel.
+* **array partitioning**: partitions an array into smaller arrays, which may result in an RTL with multiple small memories or multiple registers instead of one large memory. This effectively increases the amount
 of read and write ports for the storage.
-\end{itemize}
 
-Please refer to the following user guide for details on how to apply these optimization using Vivado HLS
-(v2016.4).
+Please refer to the [user guide](https://www.xilinx.com/support/documentation/sw_manuals/xilinx2020_2/ug1399-vitis-hls.pdf) for details on how to apply these optimizations.
 
 \begin{itemize}
 	\item Vivado Design Suite User Guide, High-Level Synthesis, UG902 (v2018.2) \cite{vivado_hls}
@@ -197,15 +157,10 @@ You may insert pragmas or set directives to apply optimizations. You can find co
 inserted pragmas throughout the user guide, and a full reference is given in Chapter 4 (p.415).
 \end{itemize}
 
-%\textbf{Other than the added pragmas/directives, your program should look the same with baseline.}
+**Your proposed solution must meet the clock period constraint, and must not exceed the resources available on the targeted FPGA (xc7z020clg484-1).**
 
-\textbf{Your proposed solution must meet the clock period constraint, and must not exceed the resources available on the targeted FPGA (xc7z020clg484-1).}
-
-
-%In this experiment, please avoid unrolling the outermost loop (i.e., the one that iterate 1800 times) so your design would not require excessive chip area. 
 For the sake of simplicity, please try to only use fixed-bound
-{\tt for} loop(s) in your program. Note that data-dependent {\tt for} and {\tt while} loops are synthesizable but may lead to a variable-latency
-design that would complicate your reporting (\emph{You will need to enable C-RTL co-simulation to get the actual cycle count for a design with data-dependent loop bounds}).
+*for* loop(s) in your program. Note that data-dependent *for* and *while* loops are synthesizable but may lead to a variable-latency design that would complicate your reporting (*You would need to perform C-RTL co-simulation to get the actual cycle count for a design with data-dependent loop bounds*).
 
 \section{Class Results}
 On Piazza I will post a link to a Google Sheets document where you should post the results of your best solution.  There will be two categories for rankings:
