@@ -14,9 +14,14 @@ In this class you are expected to be familiar with the Linux command line, Git a
 
 ## Environment
 
-The assignments assume you are running an Ubuntu 18.04 Linux Operating System.  You may be able to complete some assignments on other Linux variants; however, for the assignments that use the Xilinx Vivado tools, you will likely need Ubuntu 18 LTS, but Ubuntu 16 or 20 LTS may work as well.
+The assignments assume you are running an Ubuntu 20.04 Linux Operating System.  You may be able to complete some assignments on other Linux variants; however, for the assignments that use the Xilinx Vivado tools, you will need a supported operating system (Ubuntu 18 LTS may work as well).
 
-If you don't yet have a Linux OS environment set up, I would suggest doing so for use in this assignment, and subsequent assignments. VMWare Workstation is available for free to BYU students through [CAEDM](https://caedm.et.byu.edu/wiki/index.php/Free_Software). You can also install a full Ubuntu image (including Xilinx tools) in Windows using [WSL2](https://docs.microsoft.com/en-us/windows/wsl/install-win10).  **Alternatively, I have a machine available that you can ssh into -- if you want to go this route, please email me your desired username and I will create a login for you.**
+If you don't yet have a Linux OS environment set up, I would suggest doing so for use in this assignment, and subsequent assignments.  A few options:
+* VMWare Workstation is available for free to BYU students through [CAEDM](https://caedm.et.byu.edu/wiki/index.php/Free_Software). It's very easy to set up your own Ubuntu virtual machine.
+* You can run Ubuntu from a USB drive or external hard drive.
+* You install a full Ubuntu image (including Xilinx tools) in Windows using [WSL2](https://docs.microsoft.com/en-us/windows/wsl/install-win10).  
+* You can set up a computer with Linux, or even dual-boot Linux and Windows/MacOS (dual-boot is a bit more complicated than these other options).
+* Alternatively, I have a server available that you can ssh into.  You will have to be connected to the CAEDM VPN to use this, so if you choose this option, make sure you have a good internet connection. If you want to go this route, please email me your desired username and I will create a login for you.
 
 ## Tools
 You are welcome to use whatever development tools you like, but a few things I suggest you look into:

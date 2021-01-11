@@ -1,24 +1,25 @@
 <!-- Sidebar -->
-<div class="bg-light border-right" id="sidebar-wrapper">
+<div class="border-right sidebar-color" id="sidebar-wrapper">
     <div class="sidebar-sticky">
         <div class="sidebar-heading-big">
             <a href="{% link index.html %}">
                 {{ site.class_number }}</a>
         </div>
         <!-- <div class="sidebar-heading">Pages</div> -->
-        <div class="list-group list-group-flush">
+        <div class="list-group list-group-flush sidebar-color">
             {% for item in site.pages %}
-            <a href="{% link {{ item.path }} %}" class="list-group-item list-group-item-action bg-light sidebar-item">
+            <a href="{% link {{ item.path }} %}"
+                class="sidebar-color list-group-item list-group-item-action sidebar-item ">
                 {% if item.icon %}
                 <i class="{{ item.icon }}"></i>
                 {% endif %}
                 {{ item.title }}
             </a>
             {% endfor %}
-            <a href="https://piazza.com/byu/winter2021/ecen625"
-                class="list-group-item list-group-item-action bg-light sidebar-item" target="_blank"><i
+            <a href="https://slack.com/app_redirect?team=T01J887F8MU&channel=C01JF1N6TH8"
+                class="list-group-item list-group-item-action sidebar-item" target="_blank"><i
                     class="fa fa-question-circle"></i>
-                Piazza</a>
+                Slack</a>
             <!-- <a href="https://learningsuite.byu.edu/.qD2F/cid-B84_MqETGWke/calendar"
                 class="list-group-item list-group-item-action bg-light sidebar-item" target="_blank">
                 <i class="far fa-calendar"></i>

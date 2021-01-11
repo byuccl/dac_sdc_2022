@@ -160,6 +160,10 @@ code {
     padding: 1px 5px;
 }
 
+code {
+    color: $code-color;
+}
+
 pre {
     padding: 8px 12px;
     overflow-x: auto;
@@ -220,4 +224,12 @@ pre {
 
 .pixelated {
     image-rendering: pixelated;
+}
+
+.sidebar-color {
+    background-color: $sidebar-color;
+}
+
+.navbar {
+    background-color: $nav-color;
 }
