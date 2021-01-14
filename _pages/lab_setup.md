@@ -16,7 +16,7 @@ In this class you are expected to be familiar with the Linux command line, Git a
 
 The assignments assume you are running an Ubuntu 20.04 Linux Operating System.  You may be able to complete some assignments on other Linux variants; however, for the assignments that use the Xilinx Vivado tools, you will need a supported operating system (Ubuntu 18 LTS may work as well).
 
-If you don't yet have a Linux OS environment set up, I would suggest doing so for use in this assignment, and subsequent assignments.  A few options:
+You will need a Linux OS environment set up to complete the assignments.  A few options:
 * VMWare Workstation is available for free to BYU students through [CAEDM](https://caedm.et.byu.edu/wiki/index.php/Free_Software). It's very easy to set up your own Ubuntu virtual machine.
 * You can run Ubuntu from a USB drive or external hard drive.
 * You install a full Ubuntu image (including Xilinx tools) in Windows using [WSL2](https://docs.microsoft.com/en-us/windows/wsl/install-win10).  

@@ -66,7 +66,7 @@ The provided main function can be run in two modes:
 ```
 ./main 1 7 1300
 ```
-For each graph this will perform topological sorting and print the sorted list of nodes, find the longest path, and generate a DOT file and PDF.  Statistics are printed to a `results.txt` file.
+For each graph this will perform topological sorting and print the sorted list of nodes, find the longest path, and generate a DOT file and PDF.  Statistics are printed to a `results.txt` file. _Note: Generating PDF files may not be possible for large graphs, and the program will stall._
 	
 * **Mode 2: All graphs**: If you provide no arguments, all graphs will be processed.  The sorted graph nodes won't be printed, and no DOT files will be generated.
 
