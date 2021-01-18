@@ -78,12 +78,12 @@ Look through the LLVM IR file and try to understand how it implements the `simpl
 
 While you could download the LLVM source code, and add your pass code to it, compiling LLVM from source can take 20-30 minutes.  Instead, we are going to develop your pass _out-of-tree_.  Above you should have installed the LLVM 9 binaries using the Ubuntu package manger.  We are going to compile your pass code into a shared library object (.so) file, than can be loaded by LLVM at runtime.
 
-Your pass code and [CMakeLists.txt](https://github.com/byu-cpe/ecen625_student/blob/main/lab_llvm/src/CMakeLists.txt) file are provided in the `src` directory. For this assignment we will be using a {\tt BasicBlockPass} in LLVM.  That is, it is a transformation pass that modifies code contained with a single basic block.  
+Your pass code and [CMakeLists.txt](https://github.com/byu-cpe/ecen625_student/blob/main/lab_llvm/src/CMakeLists.txt) file are provided in the `src` directory. For this assignment we will be using a `BasicBlockPass` in LLVM.  That is, it is a transformation pass that modifies code contained with a single basic block.  
 
 Take a look at [AdderTreeBalancer.cpp](https://github.com/byu-cpe/ecen625_student/blob/main/lab_llvm/src/AdderTreeBalancer.cpp), specifically these lines:
 
 ```
-char Scheduler625::ID = 0;
+char AdderTreeBalancer::ID = 0;
 static RegisterPass<AdderTreeBalancer> X("ATB_625", "Adder Tree Balancer Pass");
 
 bool AdderTreeBalancer::runOnBasicBlock(BasicBlock &BB) {
@@ -136,13 +136,13 @@ Some tips with this approach:
 * When recursively visiting adders, you need to make sure the output of an intermediate node is not used elsewhere in the code.  You can do this by checking that the number of uses is one (`Value.getNumUses()`).  The reason for this is that all of these instructions will be deleted and replaced by your adder tree; only the final output of the adder tree can be used multiple places in the code.
 * The inputs to your adder tree may be instructions, constants, function arguments, etc.  You should use the LLVM `Value` to keep track of the inputs.
 * You will need to add all of your newly created addition instructions to the BasicBlock.  Make sure you add them in a valid position, and order (ie. the final addition in your tree should be located before any uses, and adder nodes in your tree should be in a valid ordering).  If you are smart in how you create your adder tree, you can build a list of add instructions that are already in the correct order.  You can then add all of these add instructions immediately before instruction `I` (as described in Step 3 of the technique above).
-* You don't need to delete the adder instructions you are replacing with your tree.  As long as you complete Step 3, these additions will become dead code.  Since dead code elimination is performed after your pass, these instructions will automatically be removed. Likewire, if you only complete Step 1 and 2, and never use your new adder tree, dead code elimination will remove it. 
+* You don't need to delete the adder instructions you are replacing with your tree.  As long as you complete Step 3, these additions will become dead code.  Since dead code elimination is performed after your pass, these instructions will automatically be removed. Likewise, if you only complete Step 1 and 2, and never use your new adder tree, dead code elimination will remove it. 
 * In Step 1 you are iterating over the BasicBlock.  However, if you end up inserting an adder tree, you are modifying the very data structure you are iterating over.  You cannot continue iterating at this point.  Either exit out of the iteration and start over, or keep a track of pending changes and wait until the iteration is complete before actually making the changes. 
 * You will probably want to keep track of which additions are part of your balanced adder trees, and then skip over them in Step 1.  Otherwise you can end up in an endless loop of replacing your balanced adder trees with new identical adder trees.  **The other benefit of this approach is that you don't need to check whether existing adder networks in the user's code are balanced or not.  Simply replace them with a balanced adder tree regardless of whether the existing structure is already optimal.**
 
 
 ## LLVM Coding Tips
-Here are a few suggestions to help you with the LLVM API.  If you are still unsure how you do something in LLVM, please post on Piazza and I would be happy to help you out.
+Here are a few suggestions to help you with the LLVM API.  If you are still unsure how you do something in LLVM, please post on Slack and I would be happy to help you out.
 
 ### Resources
 
@@ -173,7 +173,7 @@ You can also use `report_fatal_error("message")` to stop execution immediately a
 
 ### Checking Instruction Types
 
-When iterating through the `Instruction` objects in a BasicBlock, you may need to check the type of Instruction.  This can be done a few different ways.  For example, here are a few ways to check if an {\tt Instruction} is a {\tt BinaryOperator}.
+When iterating through the `Instruction` objects in a BasicBlock, you may need to check the type of Instruction.  This can be done a few different ways.  For example, here are a few ways to check if an `Instruction` is a `BinaryOperator`.
 
 ```
 Instruction * I;
