@@ -57,7 +57,7 @@ The above code will end up creating a cascading adder tree as shown in the left 
 
 ### Required Packages
 ```
-sudo apt install llvm-9 libclang-common-9-dev clang-9 liblpsolve55-dev texlive-latex-base texlive-pictures
+sudo apt install llvm-9 llvm-9-dev libclang-common-9-dev clang-9 liblpsolve55-dev texlive-latex-base texlive-pictures
 ```
 
 ### Running LLVM 
