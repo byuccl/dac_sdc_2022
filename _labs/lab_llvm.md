@@ -243,7 +243,7 @@ For the `simple_unrolled_partitioned` program, obtain the missing results in the
 
 |           | Longest Path (ns) | Loop iteration latency | Summation Time (ns) |
 |-----------|------------------:|-----------------------:|--------------------:|
-|WITHOUT TreeBalancer| 17.5     | 4                      |  1400               |
+|WITHOUT TreeBalancer| 17.5     | 4                      | 700                 |
 |WITH TreeBalancer   |          |                        |                     |
 |Speedup             | -        | -                      | ?x                  |
 
@@ -252,7 +252,7 @@ For the `simple_unrolled_partitioned` program, obtain the missing results in the
 
 |           | Longest Path (ns) | Loop iteration latency | Summation Time (ns) |
 |-----------|-------------------|------------------------|---------------------|
-|WITHOUT TreeBalancer| 5.0      | 12                     | 1200                |
+|WITHOUT TreeBalancer| 5.0      | 12                     | 600                 |
 |WITH TreeBalancer   |          |                        |                     |
 |Speedup             | -        | -                      | ?x                  |
 
