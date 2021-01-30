@@ -251,7 +251,7 @@ For the `simple_unrolled_partitioned` program, obtain the missing results in the
 #### CLOCK_PERIOD <= 5ns 
 
 |           | Longest Path (ns) | Loop iteration latency | Summation Time (ns) |
-|-----------|-------------------|------------------------|---------------------|
+|-----------|------------------:|-----------------------:|--------------------:|
 |WITHOUT TreeBalancer| 5.0      | 12                     | 600                 |
 |WITH TreeBalancer   |          |                        |                     |
 |Speedup             | -        | -                      | ?x                  |
