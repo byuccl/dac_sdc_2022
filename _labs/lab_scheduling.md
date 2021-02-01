@@ -22,57 +22,40 @@ sudo apt install llvm-9 libclang-common-9-dev clang-9 liblpsolve55-dev texlive-l
 ```
 
 ### How this lab works
-In this lab you are going to write an HLS scheduler that operates on LLVM intermediate representation (assembly-like code).  You are going to formulate a schedule (ie, pick a cycle number for each instruction), such that the schedule completes are soon as possible.  But you can't just run all the instructions at once! You need to respect data and memory dependencies, as well as respecting functional unit limits (ie. you can't read unlimited things from memory at once). 
+In this lab you are going to write an HLS scheduler that operates on LLVM intermediate representation (assembly-like code).  You are going to formulate a schedule (ie, pick a cycle number for each instruction), such that the schedule completes are soon as possible.  But you can't just run all the instructions at once! You need to respect data and memory dependencies, as well as respecting functional unit limits (ie. you can't read unlimited things from memory at once), and the critical path constraint.
 
 This provided code isn't part of a real HLS tool (your schedule won't be used to produce any RTL), but the concepts and techniques are very similar to what is done in commerical HLS tools.
 
-### Running an LLVM Pass
-Your scheduler is going to run as an LLVM pass.  This mean that after you compile a C program to LLVM IR, you are doing to run your pass on the LLVM IR. 
+Like the last lab, you will be writing an LLVM pass.  Your pass won't be changing the LLVM code, but rather reading the LLVM IR for a basic block (DAG), and using information about the hardware units for each instructions in order to determine a good HLS schedule.
 
-You are given a few different C programs in the `benchmarks` directory.  You can `cd` into these benchmark directories, and run `make` to compile them.  The provided [Makefile](https://github.com/byu-cpe/ecen625_student/blob/main/lab_scheduling/benchmarks/Makefile.common) will first run `clang` (C front-end compiler) to compile your C code into LLVM IR, and then run `opt` which is used to run analysis and optimization passes on IR.  Specifically the Makefile is set up to run your scheduling pass (`-sched625`).
-
-Try this out for the `simple` benchmark:
+### Compiling your LLVM pass
+Your pass code and [CMakeLists.txt](https://github.com/byu-cpe/ecen625_student/blob/main/lab_scheduling/src/CMakeLists.txt) file are provided in the `src` directory. Your LLVM pass will be a `FunctionPass`, and will be run via the `runOnFunction()` function:
 ```
-cd benchmarks/simple
-make
-```
-
-You will see an error:
-```
-.../scheduler_625.so: cannot open shared object file: No such file or directory
-```
-
-This is because we haven't compiled your compiler pass yet.  But you can still browse the LLVM IR produced by clang.  Look through the `simple.clang.ll` file and try to understand how it implements the `simple.c` program.
-
-### Compiling an LLVM pass
-
-While you could download the LLVM source code, and add your pass code to it, compiling LLVM from source can take 20-30 minutes.  Instead, we are going to develop your pass _out-of-tree_.  Above you should have installed the LLVM 9 binaries using the Ubuntu package manger.  We are going to compile your pass code into a shared library object (.so) file, than can be loaded by LLVM at runtime.
-
-Your pass code and [CMakeLists.txt](https://github.com/byu-cpe/ecen625_student/blob/main/lab_scheduling/src/CMakeLists.txt) file are provided in the `src` directory.
-
-Take a look at [Scheduler625.cpp](https://github.com/byu-cpe/ecen625_student/blob/main/lab_scheduling/src/Scheduler625.cpp), specifically these lines:
-
-```
-char Scheduler625::ID = 0;
-static RegisterPass<Scheduler625> X("sched625", "HLS Scheduler for ECEN 625",
-                                    false /* Only looks at CFG? */,
-                                    true /* Analysis pass? */);
-
 bool Scheduler625::runOnFunction(Function &F) {
   ...
 }
 ```
+The code for this function is already given to you.   You can look through it and see that it will call `scheduleASAP()` and `scheduleILP()` to perform the scheduling, and then generate the reports that you should have already used last lab.
 
-The `RegisterPass` registers your pass with LLVM and specifies that it can be called using the `-sched625` flag.  The `Scheudler625` class is a subclass of `llvm::FunctionPass`, meaning this pass should be called for every function in the code.  Specifically, the `runOnFunction()` function will be called for each function in the IR.
-
-Go ahead and compile the provided code:
+You can compile this pass in the same manner as last lab:
 ```
 cd build
 cmake ../src
 make
 ```
 
-This will produce your library `scheduler_625.so`.  You can now go back and try re-compiling the `simple` benchmark.  You should now see an "Invalid schedule" error, since you haven't coded up the scheduler yet!
+This will produce your library `scheduler_625.so`.  
+<!-- You can now go back and try re-compiling the `simple` benchmark.  You should now see an "Invalid schedule" error, since you haven't coded up the scheduler yet! -->
+
+
+### Running Your Scheduler
+You can run your scheduler the same way you ran the provided scheduler in the last lab, except you should define ` MYSCHEDULER=1`.  For example, you can schedule the  `simple` benchmark:
+```
+cd benchmarks/simple
+make schedule MYSCHEDULER=1
+```
+
+You don't need to run your ATB pass from last lab, so just always run `make schedule` and not `make atb_schedule` when gathering your results.  (Of course you're always welcome to try your scheduler out on your ATB-generated IR code if you want to try it out.)
 
 ### How Scheduling Works
 
@@ -112,7 +95,7 @@ for (auto & I : bb) {
 
 ### Debugging
 
-I've given you a few aids to help you debug your code.  You will see that after calling your scheduling functions I will print the schedule out, and then validate it.  The validation checks that the schedule is functionally correct, that is, it checks that you have assigned all instructions to states, that data dependencies are met, that available functional units are not exeeded. If you specify a target period (discussed later), it will also check that the critical path is within the constraint.  It does not check that your solution is optimal!  You could create a very bad schedule that simply executed each instruction in a different cycle, which may pass validation, but will not get you a very good grade on the assignment.
+I've given you a few aids to help you debug your code.  You will see that after calling your scheduling functions I will print the schedule out, and then validate it.  The validation checks that the schedule is functionally correct, that is, it checks that you have assigned all instructions to states, that data dependencies are met, that available functional units are not exeeded. If you specify a target period (discussed later), it will also check that the critical path is within the constraint.  It does not check that your solution is good!  You could create a very bad schedule that simply executed each instruction in a different cycle, which may pass validation, but will not get you a very good grade on the assignment.
 
 ### Getting the Info You Need
 
@@ -181,14 +164,14 @@ The code to execute the ILP solver and extract the schedule is provided to you.
 
 Once you have this implemented, test out the `simple_unrolled` example to see that a valid schedule is obtained.  Run your design like so:
 ```
-make ILP=1
+make schedule MYSCHEDULER=1 ILP=1 
 ```
 
 ### Part 3: Adding timing constraints (20% of grade)
 
 You can apply a 10ns clock period constraint to the schedule like so:
 ```
-make ILP=1 period=10.0
+make MYSCHEDULER=1 ILP=1 period=10.0
 ```
 
 This will cause the Schedule validation code to also check that the delay of each combinational path is within the target period.  If you run this on the `simple` or `simple_runrolled` benchmarks, you should see that your scheduler now fails.
@@ -196,42 +179,11 @@ This will cause the Schedule validation code to also check that the delay of eac
 Add additional constraints to your ILP formulation to prevent long combinational chaining.  It's up to you to come up with a solution for this.  In my solutions I use a recursive function to search for all combinational paths that exist from one Instruction (I<sub>1</sub>) to another (I<sub>2</sub>) that exceed the target period, and esure that S(I<sub>2</sub>) > S(I<sub>1</sub>).  This will be challenging, and I don't expect everyone to finish this part, which is why it is worth less points than the previous section.
 
 
-##  Report (10% of grade)
+## Submission and Report (10% of grade)
+  1. Submit your code on Github using the tag `lab3_submission`
+  2. Include a short PDF report, located at `lab_scheduling/report.pdf`.  Include the following items:
+    * Why did we need to include the terminating NOP instruction in our problem formulation?
+	  * Given an example of something else you could use ILP for.  Try to come up with something relating to your research.		
+	  * If you completed Part 3, explain in a paragraph the approach you took.
 
-# TBD
-
-\begin{enumerate}
-\item Submit a report containing the following items:
-\begin{itemize}
-	  \item Your name
-		\item Why did we need to include the terminating NOP instruction in our problem formulation?
-		\item Given an example of something else you could use ILP for.  
-		Try to come up with something relating to your research.		
-		\item Include the {\tt scheduling.legup.rpt} for the {\tt simple} and {\tt simple\_unrolled} programs.
-		
-		\item If you completed Part 3, explain in a paragraph the approach you took.
-		
-		
-		\item Feedback:
-		\begin{itemize}
-		\item How many hours you spent on the assignment?  
-		\item How challenging was the C++ coding?
-		\item Anything you liked?
-		\item Anything you didn't like? Or anything you would change?
-		\item Did you find the assignment worthwhile? Why or why not?	
-		\end{itemize}
-		
-		
-\end{itemize}
-
-\item Submit your source code.  If you only change the one .cpp file, then only submit that file.
-\end{enumerate}
-
-
-
-\section{Submission Instructions}
-Submit your report and source code to \href{mailto:jgoeders@byu.edu}{jgoeders@byu.edu} with the subject: 625 Asst3
-
-
-\end{document}
 
