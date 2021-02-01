@@ -10,7 +10,7 @@ icon: fas fa-calendar-alt
 |1 (Jan 11)     |           |Course Overview, Graphs                |                                                   |Specialized Computing                                  |           |
 |2 (Jan 18)     |**HOLIDAY**|Compilers                              |**Asst 1 Due, 11:59pm**                            |Assignment 2, LLVM Tutorial                            |           |
 |3 (Jan 25)     |           |HLS Flow, Arch. Exploration            |                                                   |Scheduling                                             |           |   
-|4 (Feb 1)      |           |Scheduling                             |**Asst 2 Due, 11:59pm**                            |Assignment 3, ILP                                      |           |
+|4 (Feb 1)      |           |ILP                                    |**Asst 2 Due, 11:59pm**                            |SDC Scheduling, Assignment 3                           |           |
 |5 (Feb 8)      |           |Pipelining                             |                                                   |Modulo Scheduling                                      |           |
 |6 (Feb 15)     |           |**NO CLASS (Monday Instruction)**      |**Asst 3 Due, 11:59pm**                            |Assignment 4, Vivado HLS                               |           | 
 |7 (Feb 22)     |           |Resource Sharing and Binding           |                                                   |**Midterm Exam**                                       |           | 
