@@ -10,48 +10,27 @@ repo: lab_vitis
 # !!! This Lab is a Work in Progress !!!
 
 
-\input{../../../Academic/latex/asst_template.tex}
 
-
-\class{ECEN 625}
-\term{Winter 2019}
-\assttitle{Assignment 4B -- HLS in an SoC Environment}
-\duedate{Tuesday, March 12, 2019 11:59pm}
-
-
-\setuppage
-
-\makeatletter
-\@ifpackageloaded{biblatex}{\addbibresource{references.bib}}{\bibliography{references}}
-\makeatother
-
-\begin{document}
-
-\maketitle
-\thispagestyle{fancy}
-
-\section{Learning Outcomes}
+## Learning Outcomes
 The goals of this assignment are to:
-\begin{itemize}
-	\item Test your HLS hardware from the last lab, and implement it on an SoC platform.
-	\item Learn how to connect Vivado HLS cores in a larger Vivado hardware project.
-	\item Learn how to call HLS accelerators from software in an SoC environment.
-	\item Measure performance of your HLS accelerator.
-\end{itemize}
+* Test your HLS hardware from the last lab, and implement it on an SoC platform.
+* Learn how to connect Vivado HLS cores in a larger Vivado hardware project.
+* Learn how to call HLS accelerators from software in an SoC environment.
+* Measure performance of your HLS accelerator.
 
-\section{Implementation}
+## Implementation
 
-\subsection{Interfacing with HLS from software}
-\textbf{Step 1: } Export your HLS IP to RTL, include it in an SoC Vivado project, and write software to run your accelerator.
+### Interfacing with HLS from software
+**Step 1:** Export your HLS IP to RTL, include it in an SoC Vivado project, and write software to run your accelerator.
 
 There is a tutorial posted on the course website that walks through configuring a Xilinx SoC device in Vivado and writing ``Hello World'' software to run on the device using Xilinx SDK.  The tutorial also describes how to include your HLS IP in a Vivado project and how to communicate with it from software running on the embedded ARM processor.
 
 
-\subsection{Measuring Execution Time}
+### Measuring Execution Time
 
-\textbf{Step 2:} Run your baseline C code using the ARM processor, and measure execution time.
+**Step 2:** Run your baseline C code using the ARM processor, and measure execution time.
 
-\textbf{Step 3:} Run your lowest latency accelerator created in HLS, and measure execution time.
+**Step 3:** Run your lowest latency accelerator created in HLS, and measure execution time.
 
 There are a few different ways you can perform high-resolution timing on your board.  A few alternatives:
 \begin{enumerate}

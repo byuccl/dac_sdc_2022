@@ -6,9 +6,6 @@ number: 4
 repo: lab_vitis_hls
 ---
 
-
-# !!! This Lab is a Work in Progress !!!
-
 ## Learning Outcomes
 The goals of this assignment are to:
 * Gain experience using a commerical HLS tool, Xilinx's Vivado HLS tool.
@@ -32,8 +29,7 @@ In the assignment you are provided with a set of already classified handwritten 
 
 
 ```
-sudo apt install libc6-dev-i386
-
+sudo apt install libc6-dev-i386 libtinfo5
 ```
 
 ### Code Organization
@@ -58,7 +54,7 @@ the program to check results (enter `make`).
 For this assignment we will be using Vitis HLS. 
 You can install Vitis on your local machine (<https://www.xilinx.com/support/download.html>).  If you do this, you should install Vitis 2020.2 on an Ubuntu 18.04 (or newer) machine.  
 
-_Note: If you prefer, you can install Vivado on a Windows machine.  I haven't tested this.  It should work with the assignment, with a few extra considerations.  For example, the Makefile which has been provided to quickly compile and run your design may not work unless you have a build system setup.  You can still build and run within Vivado HLS, so it is not a big difference, but keep in mind you may run into problems such as this._
+_Note: If you prefer, you can install Vitis on a Windows machine.  I haven't tested this.  It should work with the assignment, with a few extra considerations.  For example, the Makefile which has been provided to quickly compile and run your design may not work unless you have a build system setup.  You can still build and run within Vitis HLS, so it is not a big difference, but keep in mind you may run into problems such as this._
 
 <!-- Vivado HLS requires a license.  You can access the department Xilinx license server by setting the following environment variable.  This means you must either be on the university network, or connected to the CAEDM VPN.
 
@@ -68,12 +64,12 @@ export LM_LICENSE_FILE=2100@ece-xilinx.byu.edu
 
 To run the Vitis tools you should do the following:
 ```
-source /opt/Xilinx/Vitis_HLS/2012.2/settings64.sh
+source /tools/Xilinx/Vitis_HLS/2020.2/settings64.sh
 export LIBRARY_PATH=/usr/lib/x86_64-linux-gnu:$LIBRARY_PATH
 vitis_hls
 ```
 
-The first step will add the Xilinx binaries to your `PATH`. I second step was needed on my machine to solve a bug (might not be needed with different Ubuntu versions).  The last command runs Vitis HLS.  If you don't want to setup your own machine, contact me and I can give you access to a server with Vivado 2019.2 installed.
+The first step will add the Xilinx binaries to your `PATH`. I second step was needed on my machine to solve a bug (might not be needed with different Ubuntu versions).  The last command runs Vitis HLS.  If you don't want to setup your own machine, contact me and I can give you access to a server with Vitis 2020.2 installed.
 
 
 ### Vivado GUI vs command line
@@ -94,10 +90,6 @@ vitis_hls -f run.tcl
 If you look inside `run.tcl` you will see it creates five projects with the same properties as above, each with a different `k` value.
 
 ## Design Overview
-
-
-
-
 
 **You are given 10 training sets, each of which contains 1800 49-bit training instances for a
 different digit (0-9). Each hexadecimal string in *training_set_#* represents a 49-bit training
@@ -144,63 +136,31 @@ to **minimize the latency of the synthesized design**.
 * **array partitioning**: partitions an array into smaller arrays, which may result in an RTL with multiple small memories or multiple registers instead of one large memory. This effectively increases the amount
 of read and write ports for the storage.
 
-Please refer to the [user guide](https://www.xilinx.com/support/documentation/sw_manuals/xilinx2020_2/ug1399-vitis-hls.pdf) for details on how to apply these optimizations.
-
-\begin{itemize}
-	\item Vivado Design Suite User Guide, High-Level Synthesis, UG902 (v2018.2) \cite{vivado_hls}
-
-\begin{itemize}
-	\item Loops, p.317
- \item Arrays, p.325
-\end{itemize}
-You may insert pragmas or set directives to apply optimizations. You can find code snippets with
-inserted pragmas throughout the user guide, and a full reference is given in Chapter 4 (p.415).
-\end{itemize}
+Please refer to the [user guide](https://www.xilinx.com/support/documentation/sw_manuals/xilinx2020_2/ug1399-vitis-hls.pdf) for details on how to apply these optimizations.  You may insert pragmas or set directives to apply optimizations. You can find code snippets with inserted pragmas throughout the user guide, and a full reference is given in Chapter 4.
 
 **Your proposed solution must meet the clock period constraint, and must not exceed the resources available on the targeted FPGA (xc7z020clg484-1).**
 
 For the sake of simplicity, please try to only use fixed-bound
 *for* loop(s) in your program. Note that data-dependent *for* and *while* loops are synthesizable but may lead to a variable-latency design that would complicate your reporting (*You would need to perform C-RTL co-simulation to get the actual cycle count for a design with data-dependent loop bounds*).
 
-\section{Class Results}
-On Piazza I will post a link to a Google Sheets document where you should post the results of your best solution.  There will be two categories for rankings:
-\begin{enumerate}
-	\item \textbf{Minimum Latency.} Minimum latency provided the design fits within the resources constraints of the chip, and achieves $10\%$ error rate. 
-	\item \textbf{Most ``resource efficient".} The goal in this category is to minimize the expression $r^2 \cdot L$, where $r$ is the resource usage and $L$ is the total latency.  The resource usage will be defined as the maximum fraction of resource usage for any given resource type (BRAM, DSP, FF, LUT).
-\end{enumerate}
+## Class Results
+On Slack I will post a link to a Google Sheets document where you should post the results of your best solution.  There will be two categories for rankings:
+* **Minimum Latency:** Minimum latency provided the design fits within the resources constraints of the chip, and achieves 90% accuracy. 
+* **Most resource efficient:**  The goal in this category is to minimize the expression _r<sup>2</sup> &#xb7; L_, where _r_ is the resource usage and _L_ is the total latency.  The resource usage will be defined as the maximum fraction of resource usage for any given resource type (BRAM, DSP, FF, LUT).
  
-\section{Report}
 
+## Report
 
-\begin{enumerate}
-\item Submit a report containing the following items:
-\begin{itemize}
-	  \item Your name
-		\item Describe how you implement the \emph{update\_knn} and \emph{knn\_vote} functions.
-		\item Compare different $k$ values with a table that summarizes the key stats
-including the error rate (accuracy), area in terms of resource utilization (number of BRAMs, DSP48s,
-LUTs, and FFs), and and performance in latency in number of clock cycles.  Use the csv file generated by the script, or manually inspect \emph{knn.prj/solution1/syn/report/}.  
-		\item Describe how you added HLS pragmas/directives to minimize the latency of the synthesized design. Please contrast the performance and area of your most optimized design (i.e., with smallest latency) with the baseline design. For this comparison, you only need to set $k$ to 3.
-		\item Use charts, snippets of code, or any other presentation techniques to communicate your design decisions and results.
+Include a short report located as `lab_vitis_hls/report.pdf` with the following:
+* Describe how you implemented the *update_knn* and *knn_vote* functions.
+* Compare different _k_ values with a table that summarizes the key statistics including the error rate (accuracy), area in terms of resource utilization (number of BRAMs, DSP48s, LUTs, and FFs), and and performance in latency in number of clock cycles. Use the csv file generated by the script, or manually inspect _knn.prj/solution1/syn/report/_.  
+* Describe how you added HLS pragmas/directives to minimize the latency of the synthesized design. Please contrast the performance and area of your most optimized design (i.e., with smallest latency) with the baseline design. For this comparison, you only need to set _k_ to 3.
+* Use charts, snippets of code, or any other presentation techniques to communicate your design decisions and results.
 			
-		\item Any feedback you want to share.
-		
-		
-\end{itemize}
+## Submission
 
-\item Submit your source code.  If you only change the one .cpp file, then only submit that file.
-\end{enumerate}
+Submit your code using tag `lab4_submission`.
 
-
-
-\section{Submission Instructions}
-Submit your report and source code to \href{mailto:jgoeders@byu.edu}{jgoeders@byu.edu} with the subject: 625 Asst4
-
-\section{Acknowledgement}
+## Acknowledgement
 This assignment was originally written by Professor Zhiru Zhang from Cornell University.  I have modified it slightly for our class.  The design was originally created by Professor Zhang's students, Ackerley Tng and Edgar Munoz.
-
-\renewcommand*{\bibfont}{\footnotesize}
-\printbibliography[heading=bibintoc]
-
-\end{document}
 
