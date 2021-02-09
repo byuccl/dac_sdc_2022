@@ -178,12 +178,13 @@ This will cause the Schedule validation code to also check that the delay of eac
 
 Add additional constraints to your ILP formulation to prevent long combinational chaining.  It's up to you to come up with a solution for this.  In my solutions I use a recursive function to search for all combinational paths that exist from one Instruction (I<sub>1</sub>) to another (I<sub>2</sub>) that exceed the target period, and esure that S(I<sub>2</sub>) > S(I<sub>1</sub>).  This will be challenging, and I don't expect everyone to finish this part, which is why it is worth less points than the previous section.
 
-
-## Submission and Report (10% of grade)
-  1. Submit your code on Github using the tag `lab3_submission`
-  2. Include a short PDF report, located at `lab_scheduling/report.pdf`.  Include the following items:
+### Report (10% of grade) 
+ Include a short PDF report, located at `lab_scheduling/report.pdf`.  Include the following items:
     * Why did we need to include the terminating NOP instruction in our problem formulation?
 	  * Given an example of something else you could use ILP for.  Try to come up with something relating to your research.		
 	  * If you completed Part 3, explain in a paragraph the approach you took.
 
 
+## Submission 
+Submit your code on Github using the tag `lab3_submission`
+ 
