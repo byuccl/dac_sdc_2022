@@ -1,77 +1,98 @@
 ---
 layout: page
 toc: false
-title: Vivado Tutorial
+title: Vivado & Vitis Tutorials
 ---
 
-# Setup
+## Setup
 
-Make sure you have Vivado/Vitis 2020.2 installed on your machine.  See instructions [here]({% link _other_pages/install_vitis.md %})
+Make sure you have Vivado/Vitis 2020.2 installed on your machine.  This can be done in your Windows/Linux host OS, or in a virtual machine.  See instructions [here]({% link _other_pages/install_vitis.md %}).
 
-You can install Vivado on your local machine (\url{https://www.xilinx.com/support/download.html}).  If you do this, I suggest you install Vivado 2018.2 Design or System Edition on an Ubuntu 16.04 machine.  If you prefer, you can install Vivado on a Windows machine.  I haven't tested this.  
+### Installing Boards
+If you are using a Digilent board, such as the Zedboard, you need to setup the board files in Vivado.  See <https://github.com/Digilent/vivado-boards/>.
 
-Vivado HLS requires a license.  You can access the department Xilinx license server by setting the following environment variable.  This means you must either be on the university network, or connected to the CAEDM VPN.
-
-\begin{lstlisting}
-export LM_LICENSE_FILE=2100@ece-xilinx.byu.edu
-\end{lstlisting}
-
-\subsection{Installing Boards}
-If you are using a Digilent board, such as the Zedboard, you need to setup the board files in Vivado.  See \url{https://github.com/Digilent/vivado-boards/}.
-
-\subsection{Running Vivado}
+### Running Vivado
 Before you can run the Vivado tools you should first run the configuration script:
-\begin{lstlisting}
-source /opt/Xilinx/Vivado/2018.2/settings64.sh
-\end{lstlisting}
+```
+source /tools/Xilinx/Vivado/2020.2/settings64.sh
+```
 
-This will add the tools to your {\tt PATH}.  If you don't want to setup your own machine, contact me and I can give you access to a server with Vivado 2018.2 installed.
+This will add the tools to your _PATH_.  
 
-To run Vivado, simply type
-\begin{lstlisting}
-vivado
-\end{lstlisting}
+To run Vivado, simply run `vivado`.
 
 
-\section{Hello World (Hardware)}
-\subsection{Creating the Project}
+
+
+## Hello World in Vivado (Hardware)
+
+### Creating the Project
 After launching Vivado, follow these steps to create a hardware project:
-\begin{enumerate}
-\item Create new project..., and choose a project name and location.  Next.  Choose an RTL project. Next.  
-\item On the next screen, click \emph{Boards} at the top, and choose your board (ie. Zedboard).  Click Finish.
-\end{enumerate}
+1. _Create Project_..., and choose a project name and location.  You can name your project whatever you want, but make sure you place the project in it's own directory.  For example, my project was named *625_lab5* and located at *lab_vitis/hw/vivado_proj*. (Note that I chose to add a _hw_ subdirectory and then created a project directory within this.  You will see why this is useful when you get to the section on _Committing to Git_). Click Next.  Choose an RTL project. Click _Next_.  
+2. You don't need to add any sources or constraints yet, just click _Next_.
+2. On the next you will be asked to choose an FPGA part.  Click _Boards_ at the top, and choose your board (ie. Zedboard).  Click Finish to create your project.
 
-\subsection{Creating a Base Design}
+### Creating a Base Design
 In these steps we will create a basic system, containing only the Zynq processing system (PS).
-\begin{enumerate}
-	\item Click \emph{Create Block Design}, and click \emph{OK} on the popup.
-	\item Add the \emph{ZYNQ7 Processing System} IP to the design (right-click, Add IP).
-	\item A green banner should appear with a link to \emph{Run Block Automation}.  Run this. This will configure the ZYNQ for your board.
-	\item The \emph{FCLK\_CLK0} output of the PS will serve as your system clock.  It is set to 100MHz by default.  Connect it to the \emph{M\_AXI\_GP0\_ACLK} input.	
-	\item Generate a top-level module: In the \emph{Sources} window, right-click on your block design (\emph{design\_1.bd}) and select \emph{Create HDL Wrapper}. Use the option to \emph{Let Vivado manager wrapper and auto-update}.
-\end{enumerate}
+1. Click _Create Block Design_, and click _OK_ on the popup.
+2. Add the _ZYNQ7 Processing System_ IP to the design (right-click, Add IP).
+3. A green banner should appear with a link to _Run Block Automation_.  Run this. This will configure the ZYNQ for your board.
+4. The `FCLK_CLK0` output of the _Zynq Processing System_ will serve as your system clock.  It is set to 100MHz by default.  Connect it to the `M_AXI_GP0_ACLK` input.	
+5. Generate a top-level module: In the _Sources_ window, expand _Design Sources_ and right-click on your block design (_design_1.bd_) and select _Create HDL Wrapper_. Use the option to _Let Vivado manager wrapper and auto-update_.
 
-\subsection{Synthesizing the hardware}
-\begin{enumerate}
-	\item Run \emph{Generate Bitstream}.
-	\item Once the bitstream generation is complete, export the hardware.  File$\rightarrow$Export$\rightarrow$Export Hardware.  Check \emph{Include Bitstream}, and choose a location to store the Hardware Description File (.hdf). 
-\end{enumerate}
+### Committing to Git
+Want to commit your project to Git? Don't try and commit your actual project files, as this won't work.  Instead, we will instruct Vivado to create a single Tcl script that can be used to re-create our project from scratch:
+* Select _File->Project->Write Tcl_. 
+* Make sure to check the box _Recreate Block Designs using Tcl_.  
+* Those choose a file location.  This should be outside your project directory, since your project directory is temporary and not committed to Git.  My script is located at `lab_vitis/hw/create_hw_proj.tcl`.  Commit this Tcl script to Git.
+* Now, feel free to delete your Vivado project folder, and then you can simply recreate it using `vivado -source create_hw_proj.tcl`.  I typically create a simple _Makefile_ such as this:
+
+```
+proj:
+	vivado -source create_hw_proj.tcl
+
+clean:
+	rm -rf 625_lab5
+```
+
+### Synthesizing the hardware
+1. Run _Generate Bitstream_.
+2. Once the bitstream generation is complete, export the hardware:
+ *  _File->Export Hardware_.  
+ * Chose the _Include Bitstream_ option, and choose a location to store the Xilinx Shell Archive (.xsa). Mine is placed at `lab_vitis/hw/625_lab5_hw.xsa`.  This file will be provided to the software tools in the next section to tell the software tools all about our hardware system configuration.
+3. You should commit this _.xsa_ file to Git.
+
+## Hello World in Vitis (Software)
+
+Run Vitis (`vitis`), and choose a workspace location. I used _lab_vitis/sw_ for my workspace location.
+
+### Create Vitis Projects
+1. Create the platform project.  This project generates the _standalone_ operating system code, which is support software and drivers for a bare-metal environment.
+  * _File->New->Platform Project_.  
+  * Chose a _Platform Project name_.  I chose *625_hw*.  
+  * Browse to your _.xsa_ file name. 
+<img src = "{% link media/tutorials/hw_platform.png %}" width="800">
+  
+
+2. Change the _stdout_ output.  By default, the output from your program will be sent over the physical UART pins present on the board.  But instead of having to connect a UART to the board, we will use the option that allows us to send stdout over an virtual UART using the JTAG (USB) connection.
+  * Expand your platform project, and double click on the _platform.spr_ file.  Select the *standalone on ps7_cortexa9_0->Board Support Package*, and click _Modify BSP Settings_.
+<img src = "{% link media/tutorials/open_bsp.png %}" width="800">
+  * In the _Board Support Package Settings_ popup, go to the _standalone_ menu, and change _stdout_ to use *coresight_comp_0*.  
+<img src = "{% link media/tutorials/bsp_stdout.png %}" width="800">
+  * Click _OK_ to close the window and save the BSP settings.
+
+3. Build the BSP code.  Right click on your platform project and choose _Build Project_. 
+
+4. Create your application project.
+  *  _File->New->Application Project_. 
+  * Chose your platform that you created in the last step.
+<img src = "{% link media/tutorials/vitis_application.png %}" width="800">
+  * Choose an application name (ie. HelloWorld), and continue through the next screens.
+  * On the _Templates_ screen, choose _Hello World_, and then click _Finish_.
+  * After you complete the wizard, build your application.  Right click on your application project and choose _Build Project_. 
 
 
-\section{Hello World (Software)}
-
-Run the Xilinx SDK (\texttt{xsdk}), and choose a workspace location.
-
-\subsection{Create SDK Projects}
-\begin{enumerate}
-	\item Create the hardware project.  New Project$\rightarrow$Xilinx$\rightarrow$Hardware Platform Specification.  Chose a project name, and indicate the location of your exported .hdf file.
-	\item Create the board support package project.  This will includes all of the system support software (drivers, etc.).  New Project$\rightarrow$Xilinx$\rightarrow$Board Support Package.  Indicate the hardware platform project you created in the last step, and choose the \emph{standalone} OS. 
-	\item In the \emph{Board Support Package Settings} popup, go to the \emph{standalone} menu, and change \emph{stdout} to use \emph{coresight\_comp\_0}.  This ensures that when your application prints to stdout, it will be sent over the virtual console over the JTAG, and not on the physical UART pins present on the board.  
-	\item Create your application project.  New Project$\rightarrow$Xilinx$\rightarrow$Applicaton Project.  Choose an application name (ie. HelloWorld), and configure the project to use the Board Support Package project you created in the last step.
-	\item Open and inspect the code found in \texttt{src/helloworld.c}.
-\end{enumerate}
-
-\subsection{Run the Applicaton on the Board}
+### Run the Applicaton on the Board
 \begin{enumerate}
 	\item Configure the FPGA with the \inlinegraphics{configure_fpga.png} menu button.
 	\item Right-click on your application project, choose Run As$\rightarrow$Launch on Hardware (System Debugger).

@@ -29,7 +29,7 @@ In the assignment you are provided with a set of already classified handwritten 
 
 
 ```
-sudo apt install libc6-dev-i386 libtinfo5
+sudo apt install libc6-dev-i386 libtinfo5 libswt-gtk-4-java
 ```
 
 ### Code Organization
