@@ -8,6 +8,7 @@
         <!-- <div class="sidebar-heading">Pages</div> -->
         <div class="list-group list-group-flush sidebar-color">
             {% for item in site.pages %}
+            {% if item.sidebar %}
             <a href="{% link {{ item.path }} %}"
                 class="sidebar-color list-group-item list-group-item-action sidebar-item ">
                 {% if item.icon %}
@@ -15,6 +16,7 @@
                 {% endif %}
                 {{ item.title }}
             </a>
+            {% endif %}
             {% endfor %}
             <a href="https://slack.com/app_redirect?team=T01J887F8MU&channel=C01JF1N6TH8"
                 class="list-group-item list-group-item-action sidebar-item" target="_blank"><i

@@ -1,6 +1,7 @@
 ---
 title: Schedule
 layout: page
+sidebar: true
 toc: false
 icon: fas fa-calendar-alt
 ---

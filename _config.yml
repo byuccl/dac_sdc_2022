@@ -41,10 +41,6 @@ collections:
       - overview.md
       - goals.md
       - lab_setup.md
-  other_pages:
-    output: true
-    permalink: /:name/
-    
 
 exclude:
   - icon.ai

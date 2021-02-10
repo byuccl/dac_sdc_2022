@@ -6,7 +6,7 @@ title: Vivado & Vitis Tutorials
 
 ## Setup
 
-Make sure you have Vivado/Vitis 2020.2 installed on your machine.  This can be done in your Windows/Linux host OS, or in a virtual machine.  See instructions [here]({% link _other_pages/install_vitis.md %}).
+Make sure you have Vivado/Vitis 2020.2 installed on your machine.  This can be done in your Windows/Linux host OS, or in a virtual machine.  See instructions [here]({% link _pages/install_vitis.md %}).
 
 ### Installing Boards
 If you are using a Digilent board, such as the Zedboard, you need to setup the board files in Vivado.  See <https://github.com/Digilent/vivado-boards/>.

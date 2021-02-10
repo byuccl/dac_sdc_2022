@@ -2,6 +2,7 @@
 layout: page
 toc: true
 title: Overview
+sidebar: true
 icon: fas fa-chalkboard-teacher
 ---
 

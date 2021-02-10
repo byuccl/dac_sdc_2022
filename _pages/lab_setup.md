@@ -2,6 +2,7 @@
 title: Lab Setup
 layout: page
 toc: true
+sidebar: true
 icon: fas fa-wrench
 ---
 
