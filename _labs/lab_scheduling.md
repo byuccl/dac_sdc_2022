@@ -49,7 +49,7 @@ This will produce your library `scheduler_625.so`.
 
 
 ### Running Your Scheduler
-You can run your scheduler the same way you ran the provided scheduler in the last lab, except you should define ` MYSCHEDULER=1`.  For example, you can schedule the  `simple` benchmark:
+You can run your scheduler the same way you ran the provided scheduler in the last lab, except you should define `MYSCHEDULER=1`.  For example, you can schedule the  `simple` benchmark:
 ```
 cd benchmarks/simple
 make schedule MYSCHEDULER=1
@@ -171,7 +171,7 @@ make schedule MYSCHEDULER=1 ILP=1
 
 You can apply a 10ns clock period constraint to the schedule like so:
 ```
-make MYSCHEDULER=1 ILP=1 period=10.0
+make MYSCHEDULER=1 ILP=1 PERIOD=10.0
 ```
 
 This will cause the Schedule validation code to also check that the delay of each combinational path is within the target period.  If you run this on the `simple` or `simple_runrolled` benchmarks, you should see that your scheduler now fails.
@@ -182,7 +182,7 @@ Add additional constraints to your ILP formulation to prevent long combinational
 Include a short PDF report, located at `lab_scheduling/report.pdf`.  Include the following items:
 * Why did we need to include the terminating NOP instruction in our problem formulation?
 * Given an example of something else you could use ILP for.  Try to come up with something relating to your research.		
-* Report the number of constraints you used for the `simple_runrolled` benchmark.  You can get this by keeping track yourself as you add the constraints, or printing the entire ILP formulation after you are done. There is no need to perform any optimizations to try and minimize the number of constraints; this is only included so that you can get a feel for the size of the ILP problem you are formulating. 
+* Report the number of constraints you used for the `simple_unrolled` benchmark.  You can get this by keeping track yourself as you add the constraints, or printing the entire ILP formulation after you are done. There is no need to perform any optimizations to try and minimize the number of constraints; this is only included so that you can get a feel for the size of the ILP problem you are formulating. 
 * If you completed Part 3, explain in a paragraph the approach you took.
     
 
