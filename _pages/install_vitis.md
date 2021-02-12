@@ -55,3 +55,6 @@ If you are using Windows, your cable driver will have been installed during the 
 cd /tools/Xilinx/Vivado/2020.2/data/xicom/cable_drivers/lin64/install_script/install_drivers
 sudo ./install_drivers
 ```
+
+
+### Next:  [Vivado Tutorial]({% link _pages/vivado_tutorial.md %})
