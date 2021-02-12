@@ -1,21 +1,25 @@
 ---
 layout: page
 toc: false
-title: Vivado Tutorial
+title: Vitis Tutorial
 ---
 
 ### Previous: [Vivado Tutorial]({% link _pages/vivado_tutorial.md %})
 
-## Hello World in Vitis (Software)
+
+## Create Vitis Projects
 
 Run Vitis (`vitis`), and choose a workspace location. I used _lab_vitis/sw_ for my workspace location.
 
-### Create Vitis Projects
-1. Create the platform project.  This project generates the _standalone_ operating system code, which is support software and drivers for a bare-metal environment.
-  * _File->New->Platform Project_.  
-  * Chose a _Platform Project name_.  I chose *625_hw*.  
-  * Browse to your _.xsa_ file name.  
+
+### Create the platform project
+
+The platform project generates the _standalone_ software layer code, which provides a software layer to access hardware and processor features (timers, interrupts, etc) in a bare-metal environment.
+  1. _File->New->Platform Project_.  
+  2. Chose a _Platform Project name_.  I chose *625_hw*.  
+  3. Browse to your _.xsa_ file name.  
 <img src = "{% link media/tutorials/hw_platform.png %}" width="800">
+  4. Click *Finish*.
   
 
 2. Change the _stdout_ output.  By default, the output from your program will be sent over the physical UART pins present on the board.  But instead of having to connect a UART to the board, we will use the option that allows us to send stdout over an virtual UART using the JTAG (USB) connection.
@@ -27,16 +31,16 @@ Run Vitis (`vitis`), and choose a workspace location. I used _lab_vitis/sw_ for 
 
 3. Build the BSP code.  Right click on your platform project and choose _Build Project_. 
 
-4. Create your application project.
-  *  _File->New->Application Project_. 
-  * Chose your platform that you created in the last step.  
+### Create the application project
+  1.  _File->New->Application Project_. 
+  2. Chose your platform that you created in the last step.  
 <img src = "{% link media/tutorials/vitis_application.png %}" width="800">
-  * Choose an application name (ie. HelloWorld), and continue through the next screens.
-  * On the _Templates_ screen, choose _Hello World_, and then click _Finish_.
-  * After you complete the wizard, build your application.  Right click on your application project and choose _Build Project_. 
+  3. Choose an application name (ie. HelloWorld), and continue through the next screens.
+  4. On the _Templates_ screen, choose _Hello World_, and then click _Finish_.
+  5. After you complete the wizard, build your application.  Right click on your application project and choose _Build Project_. 
 
 
-### Run the Applicaton on the Board
+## Run Your Applicaton on the Board
 *  Right-click on your executable folder (down one level from the *_system* project created in the last step -- see image below), choose *Run As->Launch on Hardware (Single Application Debug*.  
 <img src = "{% link media/tutorials/run_program.png %}" width="800">
 
