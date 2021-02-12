@@ -171,7 +171,7 @@ make schedule MYSCHEDULER=1 ILP=1
 
 You can apply a 10ns clock period constraint to the schedule like so:
 ```
-make MYSCHEDULER=1 ILP=1 PERIOD=10.0
+make schedule MYSCHEDULER=1 ILP=1 PERIOD=10.0
 ```
 
 This will cause the Schedule validation code to also check that the delay of each combinational path is within the target period.  If you run this on the `simple` or `simple_runrolled` benchmarks, you should see that your scheduler now fails.

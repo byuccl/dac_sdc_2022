@@ -1,11 +1,11 @@
 build:
-	jekyll build
+	bundle exec jekyll build
 
 serve:
-	jekyll serve
+	bundle exec jekyll serve
 
 deploy:
-	jekyll build
+	bundle exec jekyll build
 	ssh byu-domains "rm -rf public_html/courses/ecen625/*"
 	scp -r _site/* byu-domains:public_html/courses/ecen625/
 
