@@ -10,11 +10,10 @@ title: Vitis HLS Integration Tutorial
 ## Exporting your HLS as IP
 This section discusses how you can export your IP from Vivado HLS to be used in a Vivado project.  Since our goal is to communicate with the HLS IP from software, we will add a Slave AXI connection to our HLS IP core so that it can be connected to the ARM AXI bus.
 
-\begin{enumerate}
-	\item Run Vivado HLS and open your project from the last assignment.
-	\item In Vivado HLS, add a directive to your top-level hardware function.  Choose the \emph{INTERFACE} directive type, and change the mode to an AXI4-Lite Slave (\emph{s\_axilite}).
-	\item Run C Synthesis.
-	\item Click the Export RTL button \inlinegraphics{export_rtl.png}, and make sure the Format Selection is set to \emph{IP Catalog}.
+* Run Vitis HLS and open your project from the last assignment.
+* Add a directive to your top-level hardware function.  Choose the *INTERFACE* directive type, and change the mode to an AXI4-Lite Slave (*s_axilite*).
+	* Run C Synthesis.
+	* Click the Export RTL button \inlinegraphics{export_rtl.png}, and make sure the Format Selection is set to \emph{IP Catalog}.
 	\item Close Vivado HLS.
 \end{enumerate}
 
