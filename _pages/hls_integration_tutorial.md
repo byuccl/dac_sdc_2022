@@ -19,41 +19,28 @@ This section discusses how you can export your IP from Vivado HLS to be used in 
 
 
 ### Adding your IP to Vivado
-\begin{enumerate}
-	\item Launch Vivado, open your existing project, and open the block design.
-	\item If you do not already have a \emph{Processor System Reset} IP, add one to your design.  This will use the reset signal output by the processing system to reset IP in the FPGA fabric.  
-	
-	\begin{enumerate}
-		\item Connect the system clock (\emph{FCLK\_CLK0} from PS) to the \emph{slowest\_sync\_clk} input.
-		\item Connect the processor reset output (\emph{FCLK\_RESET0\_N}) to the \emph{ext\_reset\_in} input.		
-	\end{enumerate}
-	\item If you do not already have a \emph{AXI Interconnect} IP, add one to your design.  This is the bus that will allow the ARM CPU to communicate with the IP implemented in the FPGA fabric.
-	
-	\begin{enumerate}
-		\item Configure the bus to have 1 Slave Interface and 1 Master Interface.
-		\item Connect the PS bus master (\emph{M\_AXI\_GP0} from PS) to the \emph{S00\_AXI} slave port.
-		\item Connect your clock (\emph{FCLK\_CLK0} from PS) to all the clock inputs (\emph{*ACLK})
-		\item Connect your interconnect reset (\emph{interconnect\_aresetn} from \emph{Processor System Reset}) to the \emph{ARESETN} input.
-		\item Connect your peripheral reset (\emph{peripheral\_aresetn} from \emph{Processor System Reset}) to the other reset inputs (\emph{*\_ARESETN})
-	\end{enumerate}
+* Run Vivado, open your existing project, and open the block design.
+* If you do not already have a `Processor System Reset` IP, add one to your design.  This will use the reset signal output by the processing system to reset IP in the FPGA fabric.  
+	* Connect the system clock ( `FCLK_CLK0` from *ZYNQ7 Processing System*) to the *slowest_sync_clk* input.
+	* Connect the processor reset output (*FCLK_RESET0_N*) to the *ext_reset_in* input.		
+* If you do not already have an *AXI Interconnect* IP, add one to your design.  This is the bus that will allow the ARM CPU to communicate with the IP implemented in the FPGA fabric.
+	* Configure the bus to have 1 Slave Interface and 1 Master Interface.
+	* Connect the PS bus master (*M_AXI_GP0* from *ZYNQ7 Processing System*) to the *S00_AXI* slave port.
+	* Connect your clock (*FCLK_CLK0* from *ZYNQ7 Processing System*) to all the clock inputs (_*ACLK_)
+	* Connect your interconnect reset (*interconnect_aresetn* from *Processor System Reset*) to the *ARESETN* input.
+	* Connect your peripheral reset (*peripheral_aresetn* from *Processor System Reset*) to the other reset inputs (_*ARESETN_)
 
 
-	\item {Add your HLS IP:}
+* Add your HLS IP:
+	* Open the IP catalog
+		* Right-click, *Add Repository*
+		* Navigate to the *ip* folder that contains your HLS IP extracted in the earlier step, and add this directory.
+	* Go back to your block design and add the HLS IP to your design.
 	
-	\begin{enumerate}
-		\item Open the IP catalog
-		\item Right-click, \emph{Add Repository}
-		\item Navigate to your HLS IP found in \texttt{your\_hls\_project/your\_solution/impl/ip}.
-		\item Go back to your block design and add the HLS IP to your design.
-	\end{enumerate}
-	
-	\item{Connect up your HLS IP:}
-	
-	\begin{enumerate}
-		\item  Connect the clock (\emph{FCLK\_CLK0} from PS) to the clock input (\emph{ap\_clk})
-		\item  Connect the reset (\emph{peripheral\_aresetn} from \emph{Processor System Reset}) to the reset input (\emph{ap\_rst\_n})
-		\item Connect the bus (\emph{M00\_AXI} from the \emph{AXI Interconnect}) to the bus slave port (\emph{s\_axi\_AXILiteS})
-	\end{enumerate}
+* Connect up your HLS IP:
+	* Connect the clock (*FCLK_CLK0*) to the clock input (*ap_clk*)
+	* Connect the reset (*peripheral_aresetn*) to the reset input (*ap_rst_n*)
+	* Connect the bus (*M00_AXI* from the *AXI Interconnect*) to the bus slave port (*s_axi_control*)
 	
 	\item Assign an address to your HLS IP.  Open the \emph{Address Editor}, find your IP, right-click \emph{Assign Addresses}.
 	
