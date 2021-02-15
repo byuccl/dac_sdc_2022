@@ -148,7 +148,13 @@ A few pieces of advice:
 schedule[bb.getTerminator()] = getMaxCycle(bb);
 ```
 
-Try this scheduler out on the `simple` benchmark.  This program is simple enough that you should end up with a valid scheduling, even when ignoring resource constraints.  You can then test out the `simple_unrolled` example, to see that this scheduling technique fails on a more complicated design.
+Try this scheduler out on the `simple` benchmark:
+```
+cd benchmarks/simple
+make schedule MYSCHEDULER=1 ASAP=1
+```
+
+This program is simple enough that you should end up with a valid scheduling, even when ignoring resource constraints.  You can then test out the `simple_unrolled` example, to see that this scheduling technique fails on a more complicated design.
 
 Look at the design and make sure you understand why it introduces issues with resource usage.
 
