@@ -7,17 +7,18 @@ title: Vitis HLS Integration Tutorial
 ### Previous: [Vitis Tutorial]({% link _pages/vitis_tutorial.md %})
 
 
-## Exporting your HLS as IP
+### Exporting your HLS as IP
 This section discusses how you can export your IP from Vivado HLS to be used in a Vivado project.  Since our goal is to communicate with the HLS IP from software, we will add a Slave AXI connection to our HLS IP core so that it can be connected to the ARM AXI bus.
 
 * Run Vitis HLS and open your project from the last assignment.
 * Add a directive to your top-level hardware function.  Choose the *INTERFACE* directive type, and change the mode to an AXI4-Lite Slave (*s_axilite*).
-	* Run C Synthesis.
-	* Click the Export RTL button \inlinegraphics{export_rtl.png}, and make sure the Format Selection is set to \emph{IP Catalog}.
-	\item Close Vivado HLS.
-\end{enumerate}
+* Run C Synthesis.
+* Click *Solution->Export RTL*, and make sure the Format Selection is set to * Vivado IP (.zip)*.
+* Close Vivado HLS.
+* Unzip your IP to a folder, for example, I used `unzip digitrec.zip -d lab_vitis/ip/digitrec/`
 
-\section{Adding your IP to Vivado}
+
+### Adding your IP to Vivado
 \begin{enumerate}
 	\item Launch Vivado, open your existing project, and open the block design.
 	\item If you do not already have a \emph{Processor System Reset} IP, add one to your design.  This will use the reset signal output by the processing system to reset IP in the FPGA fabric.  
