@@ -6,16 +6,22 @@ title: Vitis HLS Integration Tutorial
 
 ### Previous: [Vitis Tutorial]({% link _pages/vitis_tutorial.md %})
 
+This page discusses how you can export your IP from Vitis HLS to be used in a Vivado project, and ultimately to communicate with the HLS accelerator from a Vitis software proj ect.
+
+## Modifying Your Hardware
 
 ### Exporting your HLS as IP
-This section discusses how you can export your IP from Vivado HLS to be used in a Vivado project.  Since our goal is to communicate with the HLS IP from software, we will add a Slave AXI connection to our HLS IP core so that it can be connected to the ARM AXI bus.
+  Since our goal is to communicate with the HLS IP from software, we will add a Slave AXI connection to our HLS IP core so that it can be connected to the ARM AXI bus.
 
 * Run Vitis HLS and open your project from the last assignment.
 * Add a directive to your top-level hardware function.  Choose the *INTERFACE* directive type, and change the mode to an AXI4-Lite Slave (*s_axilite*).
+* Set the *INTERFACE* of the *input* parameter to also be the AXI4-Lite bus.
 * Run C Synthesis.
 * Click *Solution->Export RTL*, and make sure the Format Selection is set to * Vivado IP (.zip)*.
 * Close Vivado HLS.
 * Unzip your IP to a folder, for example, I used `unzip digitrec.zip -d lab_vitis/ip/digitrec/`
+
+**Bug fix**: I ran into a bug in Vitis 2020.2 that I had to fix.  Look in your *\<ip_dir\>/drivers/digitrec_v1_0/src/Makefile* and look for **three** commented out lines that start with '#echo'.  Remove these lines from the Makefile.  See <https://forums.xilinx.com/t5/High-Level-Synthesis-HLS/Bug-HLS-2020-2-generated-makefile-compilation-error-in-vitis/td-p/1206772>
 
 
 ### Adding your IP to Vivado
@@ -42,29 +48,38 @@ This section discusses how you can export your IP from Vivado HLS to be used in 
 	* Connect the reset (*peripheral_aresetn*) to the reset input (*ap_rst_n*)
 	* Connect the bus (*M00_AXI* from the *AXI Interconnect*) to the bus slave port (*s_axi_control*)
 	
-	\item Assign an address to your HLS IP.  Open the \emph{Address Editor}, find your IP, right-click \emph{Assign Addresses}.
+* Assign an address to your HLS IP:
+	* Open the *Address Editor*, find your IP, right-click *Assign*.
+	* Save the block design.
 	
-	\item Run \emph{Generate Bitstream.}
+* Run *Generate Bitstream*.
 	
-	\item Export the hardware with bitstream, and be sure to choose the same location as last time, overwritting the existing hardware description file.
+* Export the new XSA file and overwrite your old one.  
 
-	\item Close Vivado
-\end{enumerate}
-
-
-\section{Communicating with your HLS IP from Software}
-\begin{enumerate}
-	\item Launch Xilinx SDK and reopen your existing workspace.
-	\item You should see a prompt indicating that the hardware has changed.  Click \emph{Yes} to update your software libraries to support the new hardware system.
-	\item Right-click on your BSP project and click \emph{Re-generate BSP sources}. 
-	\item Right-click on your BSP project, click \emph{Board Support Package Settings}, go to drivers and make sure you can find your IP core listed.  For the in-class demo, my IP core was called \emph{sum\_array}, so I can find the IP named \emph{sum\_array\_0} in the list and verify that the driver called \emph{sum\_array} is selected. Click OK to close the settings window.
-	\item In your BSP project, you can look in \emph{ps7\_coretexa9\_0/include} to find the header files for your driver.  Mine are called \emph{xsum\_array.h} and \emph{xsum\_array\_hw.h}.
-	\item Include the necessary header file in your application code and write software to test that you can start your IP, wait for it to complete, and retrieve the return value.  As with most Xilinx drivers, you will need to call the initialization function first (\emph{XSum\_array\_Initialize}).  The first argument is a struct variable that you should define and pass in by pointer, the second is the device ID (\emph{ XPAR\_XSUM\_ARRAY\_0\_DEVICE\_ID}), that can be used by including \emph{xparameters.h}.
-\end{enumerate}
+* Close Vivado
 
 
-\renewcommand*{\bibfont}{\footnotesize}
-\printbibliography[heading=bibintoc]
+## Communicating with your HLS IP from Software
 
-\end{document}
+### Updating Platform Project
+* Launch Vitis and reopen your existing workspace.
+* Right-click on your platform project, and choose *Update Hardware Specifiction*. Make sure you select your new XSA file.
+* If done correctly, you should see your HLS driver located at *ps7_cortexa9_0/standalone_ps7_cortexa9_0/bsp/ps7_cortexa9_0/libsrc/digitrec_v1_0/src.  Inspect the source code and locate:
+	* *xdigitrec_hw.h* has register offsets for your IP core.  If you followed the steps correctly, you should have:
+	  * control register (*XDIGITREC_CONTROL_ADDR_AP_CTRL*)
+	  * interrupt registers
+	  * return value register (*XDIGITREC_CONTROL_ADDR_AP_RETURN*)
+	  * function argument register (*XDIGITREC_CONTROL_ADDR_INPUT_R_DATA*) and more.
+	* *xdigitrec.h* provides a higher-level driver interface, with functions for starting your accelerator, checking if it's done, setting argument inputs, etc.
+* Build your platform project.
 
+### Using the Driver in Your Code
+* Include the necessary header file in your application code and write software to test that you can start your IP, wait for it to complete, and retrieve the return value.  
+* You will need to initialize the HLS device driver before you can call any of the function.  As with most Xilinx drivers, this is done by calling *_LookupConfig*, providing the device ID from *xparameters.h*, and then calling *_CfgInitialize*:
+```
+XDigitrec digitrec;
+XDigitrec_Config* digitrec_config = XDigitrec_LookupConfig(XPAR_DIGITREC_0_DEVICE_ID);
+XDigitrec_CfgInitialize(&digitrec, digitrec_config);
+```
+
+* Try running the HLS accelerator and waiting for it to complete.  Provide a test value and check the return value.

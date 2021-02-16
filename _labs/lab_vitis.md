@@ -7,7 +7,6 @@ repo: lab_vitis
 ---
 
 
-# !!! This Lab is a Work in Progress !!!
 
 
 
@@ -18,33 +17,40 @@ The goals of this assignment are to:
 * Learn how to call HLS accelerators from software in an SoC environment.
 * Measure performance of your HLS accelerator.
 
+## Preliminary
+
+In this lab you will export your HLS accelerator as an IP to include in a Vivado project on the FPGA.  You will then create an embedded software application in Vitis (different from Vitis HLS), that will communicate with your accelerator.  
+
+Most of the direction for this lab are included in a set of tutorial pages.  Depending on your experience you may need to complete some or all of these tutorials in order to complete this lab:
+* [Vivado Tutorial]({% link _pages/vivado_tutorial.md %}): Tutorial on creating a block-design Vivado project with the ARM processor.
+* [Vitis Tutorial]({% link _pages/vitis_tutorial.md %}): Running a bare-metal *Hello World* application in Vitis.
+* [HLS Integration Tutorial]({% link _pages/hls_integration_tutorial.md %}): Exporting your HLS accelerator as an AXI4 IP and integrating it into your hardware and software projects.
+
 ## Implementation
 
-### Interfacing with HLS from software
-**Step 1:** Export your HLS IP to RTL, include it in an SoC Vivado project, and write software to run your accelerator.
+### Part 1: System Setup
+As described in the tutorials, export your HLS IP to RTL, include it in an SoC Vivado project, and write software to run your accelerator.  You can use any version of your HLS IP from the last lab (ie, unoptimized, min area, min latency, etc.)
+  * Add your Vivado project Tcl file to your Git repo in the *lab_vitis/hw* folder.
+  * Add your IP files to your Git repo in the *lab_vitis/ip* folder.
 
-There is a tutorial posted on the course website that walks through configuring a Xilinx SoC device in Vivado and writing ``Hello World'' software to run on the device using Xilinx SDK.  The tutorial also describes how to include your HLS IP in a Vivado project and how to communicate with it from software running on the embedded ARM processor.
+### Part 2: Measuring Execution Time
 
-
-### Measuring Execution Time
-
-**Step 2:** Run your baseline C code using the ARM processor, and measure execution time.
-
-**Step 3:** Run your lowest latency accelerator created in HLS, and measure execution time.
+You are provided with an incomplete [main.cpp](https://github.com/byu-cpe/ecen625_student/blob/main/lab_vitis/sw/main.cpp) that is similar to the test program used in the last lab.  It will test the accuracy of your accelerator with the same set of test data.  Complete the rest of the program and measure the runtime of your accelerator.
 
 There are a few different ways you can perform high-resolution timing on your board.  A few alternatives:
-\begin{enumerate}
-	\item For the 7-series ZYNQ, the ZYNQ global timer (xtime\_l.h) 
-	\item For the 7-series ZYNQ, the per-core private timer (xscutimer.h)
-	\item Adding an AXI Timer to the FPGA fabric (\url{https://www.xilinx.com/support/documentation/ip_documentation/axi_timer/v2_0/pg079-axi-timer.pdf})
-	
-	If you are using an MPSoC platform, the A53 also has public/privates timers that can be used.  Be sure you understand the API for these timers so that you know you are measuring time accurately. 
-\end{enumerate}
+* For the 7-series ZYNQ, the ZYNQ global timer *xtime_l.h*
+* For the 7-series ZYNQ, the per-core private timer *xscutimer.h*
+* Adding an AXI Timer to the FPGA fabric (\url{https://www.xilinx.com/support/documentation/ip_documentation/axi_timer/v2_0/pg079-axi-timer.pdf})
+* If you are using an MPSoC platform, the A53 also has public/privates timers that can be used.  Be sure you understand the API for these timers so that you know you are measuring time accurately. 
 
-\subsection{Exploring Interfaces}
+In order to minimize the time spent in software, you should disable any printing while timing your code (set `logging` to `false`), and you should set compiler optimizations to *O2* or *O3*.  You can enable compiler optimizations in Vitis by right-clicking your application project (ie, *625_lab5*, not *625_lab5_system*), selecting *Properties*, and in the popup navigate to *C/C++ Build->Settings->Tool Settings->ARM v7 g++ compiler->Optimization*.
+
+
+### Part 3: Exploring Interfaces 
 The way your kNN accelerator is currently configured, the training samples are stored within the accelerator, which means they are implemented using the FPGA fabric, likely using the BRAMs.
 
-\textbf{Step 4:} Modify your design in order to build a system where the training data is stored within main memory.  To do this, the training arrays should be declared in your software code, not in the code that is synthesized to hardware.
+Modify your design in order to build a system where the training data is stored within main memory.  To do this, the training arrays should be declared in your software code, not in the code that is synthesized to hardware.
+# Work in progress
 
 The Vivado HLS manual contains descriptions of how you can alter the interfaces to your IP block (\emph{Managing Interfaces}, p.85).  At this point you should have already changed the \emph{Block-Level Interface Protocol}, when you add the interface directive to control your HLS core using an AXILite slave connection.
 

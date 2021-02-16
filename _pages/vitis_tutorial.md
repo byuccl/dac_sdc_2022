@@ -33,11 +33,19 @@ The platform project generates the _standalone_ software layer code, which provi
 
 ### Create the application project
   1.  _File->New->Application Project_. 
-  2. Chose your platform that you created in the last step.  
+  1. Chose your platform that you created in the last step.  
 <img src = "{% link media/tutorials/vitis_application.png %}" width="800">
-  3. Choose an application name (ie. HelloWorld), and continue through the next screens.
-  4. On the _Templates_ screen, choose _Hello World_, and then click _Finish_.
-  5. After you complete the wizard, build your application.  Right click on your application project and choose _Build Project_. 
+  1. Choose an application name (ie. HelloWorld), and continue through the next screens.
+  1. On the _Templates_ screen, choose _Empty Application (C++)_, and then click _Finish_.
+  1. After you complete the wizard, find the _src_ directory, and right click *New->File*, and create a *main.cpp*.  
+  1. Create a simple application:  
+```
+#include <stdio.h>  
+int main() {
+  printf("Hello World\n");
+}
+```
+  1. Build your application.  Right click on your application project and choose _Build Project_. 
 
 
 ## Run Your Applicaton on the Board
