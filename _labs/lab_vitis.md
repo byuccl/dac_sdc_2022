@@ -61,6 +61,7 @@ In order for your HLS core to receive the training data, you will have to add a 
 
 If you're not sure where to start, try something like this:
 1. Add a pointer or array argument to your function to provide the training data.
+2. Pass in this data from your test function and make sure your solution still passes *C Simulation*.
 2. Choose between a memory-mapped or streaming interface:
 	* Memory Mapped:
 		*  Configure the interface for this port to be an memory-mapped AXI Master (*m_axi*)
