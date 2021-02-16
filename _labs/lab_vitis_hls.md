@@ -38,10 +38,8 @@ You are provided the following files:
 in C++.
 * `digitrec.h`: the header file that defines the interface for the core functions `update_knn` and `knn_vote`.
 * `typedefs.h`: the header file that defines the key data types used in the design.
-* `data/training_set_#.dat`: training set for digit #, where # = 0, 1, 2, ..., 9.
-* `training data.h`: the header file that combines all the training data sets (i.e., `data/testing_set.dat`) into a constant array.
-* `data/testing_set.dat`: a set of testing instances with corresponding expected values to help you test your
-design.
+* `training_data.h`: the header file that contains all the training data.
+* `test_data.h`: a set of test data with golden values for testing your prediction accuracy.
 * `digitrec_test.cpp`: a test bench (only useful for simulation) that helps verify your code and perform
 experiments with various handwritten input digits.
 * `Makefile`: a makefile for you to easily compile source code into an executable named digitrec and execute
