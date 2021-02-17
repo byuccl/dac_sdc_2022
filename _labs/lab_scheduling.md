@@ -188,7 +188,7 @@ Add additional constraints to your ILP formulation to prevent long combinational
 Include a short PDF report, located at `lab_scheduling/report.pdf`.  Include the following items:
 * Why did we need to include the terminating NOP instruction in our problem formulation?
 * Given an example of something else you could use ILP for.  Try to come up with something relating to your research.		
-* Report the number of constraints you used for the `simple_unrolled` benchmark.  You can report the total for all you ILP forumlations (across each BasicBlock), or just the maximum of any BasicBlock.  Either is fine, just state in your report what you chose.  You can get this by keeping track yourself as you add the constraints, or printing the entire ILP formulation after you are done. There is no need to perform any optimizations to try and minimize the number of constraints; this is only included so that you can get a feel for the size of the ILP problem you are formulating. 
+* Report the number of constraints you used for the `simple_unrolled` benchmark.  You can report the total for all you ILP forumlations (across all BasicBlocks), or just the maximum of any BasicBlock.  Either is fine, just state in your report what you chose.  You can get this by keeping track yourself as you add the constraints, or printing the entire ILP formulation after you are done. There is no need to perform any optimizations to try and minimize the number of constraints; this is only included so that you can get a feel for the size of the ILP problem you are formulating. 
 * If you completed Part 3, explain in a paragraph the approach you took.
     
 
