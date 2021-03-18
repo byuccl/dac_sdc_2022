@@ -92,7 +92,11 @@ Include a short PDF report, located at `lab_vitis/report.pdf`.  Include the foll
 	* What are the advantages and disadvantages of storing the data in the hardware accelerator versus in main memory?
 
 ## Submission 
-Submit your code on Github using the tag `lab5_submission`
+Submit your code on Github using the tag `lab5_submission`.
+
+Be sure your Git repo contains at minimum:
+  * The .tcl file that can be used to create your project in Vivado.  I'll run this when grading, so please make sure it works.  This means that you need to have your HLS IP committed into your repo or it won't work.  This should be committed to the [hw](https://github.com/byu-cpe/ecen625_student/tree/main/lab_vitis/hw) directory.
+  * The C/C++ source file that you use to run your accelerator and collect runtimes.  This should be committed to the [sw](https://github.com/byu-cpe/ecen625_student/tree/main/lab_vitis/sw) directory.
  
 	
 

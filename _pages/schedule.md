@@ -18,7 +18,8 @@ icon: fas fa-calendar-alt
 |8 (Mar 1)      |           |Memory Partitioning                    |**Asst 4 Due, 11:59pm**                            |Assignment 5                                           |           | 
 |9 (Mar 8)      |           |Final Project Discussion               |                                                   |Student Lectures                                       |           | 
 |10 (Mar 15)    |           |Student Lectures                       |**Asst 5 Due, 11:59pm**                            |Student Lectures                                       |           | 
-|11 (Mar 22)    |           |Vitis/OpenCL                           |                                                   |                                                       |           |
+|11 (Mar 22)    |           |Vitis/OpenCL                           |                                                   |                                                       |**Project Proposal Due**           |
 |12 (Mar 29)    |           |Research Paper                         |                                                   |Research Paper                                         |           |
 |13 (Apr 5)     |           |Research Paper                         |                                                   | _Project Presentations_                               |           |
-|14 (Apr 12)    |           | _Project Presentations_               |**Final Project Due, 11:59pm**                     | **NO CLASS**                                          |           |
+|14 (Apr 12)    |           | _Project Presentations_               |**BYU Last Day of Class**                          |                                                       |           |
+|15 (Apr 19)    |           |                                       |**Final Project Report Due, 11:59pm**              |                                                       |           |
