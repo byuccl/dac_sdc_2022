@@ -3,6 +3,7 @@ layout: page
 toc: false
 title: Software Stack
 indent: 0
+number: 10
 ---
 
 <img src = "{% link media/software_stack.png %}" width="1100">
