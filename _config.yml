@@ -20,7 +20,7 @@ email: jgoeders@byu.edu
 description: >-
   Class website for BYU's ECEn 625: Compilation Strategies for High-Performance Systems.
 baseurl: "/ecen427"
-url: "http://byu-cpe.github.io"
+url: "https://byu-cpe.github.io"
 
 permalink: pretty
 
