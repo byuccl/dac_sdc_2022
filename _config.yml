@@ -13,14 +13,15 @@
 # you will see them accessed via {{ site.title }}, {{ site.email }}, and so on.
 # You can create any custom variable you would like, and they will be accessible
 # in the templates via {{ site.myvariable }}.
-title: "ECEn 625: Compilation Strategies for High-Performance Systems"
-class_name: Computer Networking
-class_number: ECEn 625
+title: "ECEn 427"
+class_name: Embedded Linux Systems
+class_number: ECEn 427
 email: jgoeders@byu.edu
 description: >-
   Class website for BYU's ECEn 625: Compilation Strategies for High-Performance Systems.
-baseurl: "/courses/ecen625"
-url: "http://goeders.net"
+baseurl: "/ecen427"
+url: "http://byu-cpe.github.io"
+
 permalink: pretty
 
 markdown: kramdown
@@ -30,10 +31,10 @@ collections:
     output: true
     permalink: /:collection/:name/
     sort_by: number
-  homeworks:
+  documentation:
     output: true
     permalink: /:collection/:name/
-    sort_by: chapter
+    sort_by: number
   pages:
     output: true
     permalink: /:name/
