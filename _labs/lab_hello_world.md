@@ -41,12 +41,12 @@ After you have completed these steps, do the following:
 
  
 
-## Pass-Off / Submission
+##  Submission
 
 <span style="color:red">Fix to Github URL</span>.
 We need to know your Github username.  Complete the Learning Suite "quiz" titled "Github username".  (Don't worry, it's easy to get 100% on this quiz).  **Don't forget to do this!**
 
-Follow the instructions on the [Pass-Off/Submission]({% link _other/submission.md %}) page.
+Follow the instructions on the [/Submission]({% link _other/submission.md %}) page.
 
 ## Resources
   * [Official PYNQ documentation](http://pynq.readthedocs.io/en/latest/getting_started.html)
