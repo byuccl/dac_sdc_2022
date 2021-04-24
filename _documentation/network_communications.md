@@ -13,7 +13,7 @@ Once you have the PYNQ set up you can connect to it using SSH.
 
 If you are working in the lab, you can access the PYNQ board in the lab using:
 
-    ssh xilinx@pynq03.ee.byu.edu
+    ssh byu@pynq03.ee.byu.edu
         
 where the "03" is replaced with the number of the PYNQ board you are using.  **The default password is `byu`.**  
 
