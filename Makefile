@@ -1,6 +1,9 @@
 build:
 	bundle exec jekyll build
 
+check_links: build
+	bundle exec htmlproofer ./_site
+
 serve:
 	bundle exec jekyll serve
 

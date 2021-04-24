@@ -2,7 +2,7 @@
 <div class="border-right sidebar-color" id="sidebar-wrapper">
     <div class="sidebar-sticky">
         <div class="sidebar-heading-big">
-            <a href="{% link index.html %}">
+            <a href="{% link index.md %}">
                 {{ site.class_number }}</a>
         </div>
         <!-- <div class="sidebar-heading">Pages</div> -->
@@ -34,7 +34,7 @@
             {% for item in site.labs %}
             <a href="{% link {{ item.path }} %}" class="list-group-item list-group-item-action bg-light sidebar-item">
                 <span class="badge badge-pill badge-dark-grey">{{ item.number }}</span>
-                {{ item.title }}
+                {{ item.short_title }}
             </a>
             {% endfor %}
             <a href="{% link _pages/final_project.md %}"
@@ -44,8 +44,16 @@
             </a>
         </div>
 
-        <div class="list-group list-group-flush">
+        <div class="sidebar-heading">Documentation</div>
 
+        <div class="list-group list-group-flush">
+            {% for item in site.documentation %}
+            <a href="{% link {{ item.path }} %}"
+                class="list-item-narrow list-group-item list-group-item-action bg-light sidebar-item">
+                <span class="badge badge-pill badge-dark-grey">{{ item.number }}</span>
+                {% for i in (1..{{item.indent}}) %}&emsp;{% endfor %}{{ item.title }}
+            </a>
+            {% endfor %}
         </div>
 
         <!-- <div class="sidebar-heading">Homeworks</div>
