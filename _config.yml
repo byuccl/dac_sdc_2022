@@ -21,6 +21,8 @@ description: >-
   Class website for BYU's ECEn 625: Compilation Strategies for High-Performance Systems.
 baseurl: "/ecen427"
 url: "https://byu-cpe.github.io"
+github:
+  url: https://github.com/byu-cpe/ecen427
 
 permalink: pretty
 
