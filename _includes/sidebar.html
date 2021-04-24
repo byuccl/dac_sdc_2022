@@ -10,7 +10,7 @@
             {% for item in site.pages %}
             {% if item.sidebar %}
             <a href="{% link {{ item.path }} %}"
-                class="sidebar-color list-group-item list-group-item-action sidebar-item ">
+                class="sidebar-color list-item-normal list-group-item list-group-item-action sidebar-item ">
                 {% if item.icon %}
                 <i class="{{ item.icon }}"></i>
                 {% endif %}
@@ -19,7 +19,7 @@
             {% endif %}
             {% endfor %}
             <a href="https://slack.com/app_redirect?team=T01J887F8MU&channel=C01JF1N6TH8"
-                class="list-group-item list-group-item-action sidebar-item" target="_blank"><i
+                class="list-item-normal list-group-item list-group-item-action sidebar-item" target="_blank"><i
                     class="fa fa-question-circle"></i>
                 Slack</a>
             <!-- <a href="https://learningsuite.byu.edu/.qD2F/cid-B84_MqETGWke/calendar"
@@ -32,7 +32,8 @@
         <div class="sidebar-heading">Labs</div>
         <div class="list-group list-group-flush">
             {% for item in site.labs %}
-            <a href="{% link {{ item.path }} %}" class="list-group-item list-group-item-action bg-light sidebar-item">
+            <a href="{% link {{ item.path }} %}"
+                class="list-item-normal list-group-item list-group-item-action bg-light sidebar-item">
                 <span class="badge badge-pill badge-dark-grey">{{ item.number }}</span>
                 {{ item.short_title | default: item.title }}
 
