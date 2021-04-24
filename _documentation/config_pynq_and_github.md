@@ -60,7 +60,7 @@ This will fix the current time of the PYNQ, but if you have your PYNQ off for so
 ## Create SSH Key on the PYNQ 
 
   - Connect to your PYNQ board via SSH
-  - Create an SSH key on the PYNQ using `ssh-keygen`.  **This is different than the key you created on your workstation**.  You can go back to the section on [SSH Keys]({% link _documentation/network_communications.md %}#ssh_keys) if you need to to review how to do this, but it's as simple as calling `ssh-keygen` and hitting *Enter* a bunch of times.
+  - Create an SSH key on the PYNQ using `ssh-keygen`.  **This is different than the key you created on your workstation**.  You can go back to the section on [SSH Keys]({% link _documentation/network_communications.md %}#ssh-keys) if you need to to review how to do this, but it's as simple as calling `ssh-keygen` and hitting *Enter* a bunch of times.
   - Go to <https://github.com/settings/keys>, and add your public key to your Github account using the *New SSH key* button.  Remember you can view your newly created key using `cat ~/.ssh/id_rsa.pub`, then simply copy and paste into Github.
   - This will allow you to commit to your Github repo without needing to enter a password each time.
 

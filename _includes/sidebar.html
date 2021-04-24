@@ -61,6 +61,21 @@
             {% endfor %}
         </div>
 
+        <div class="sidebar-heading">Other</div>
+
+        <div class="list-group list-group-flush">
+            {% for item in site.other %}
+            <a href="{% link {{ item.path }} %}"
+                class="list-item-narrow list-group-item list-group-item-action bg-light sidebar-item">
+                <!-- <span class="badge badge-pill badge-dark-grey">{{ item.number }}</span> -->
+                {% for i in (1..{{item.indent}}) %}&emsp;{% endfor %}
+
+                {{ item.short_title | default: item.title }}
+
+            </a>
+            {% endfor %}
+        </div>
+
         <!-- <div class="sidebar-heading">Homeworks</div>
         <div class="list-group list-group-flush">
             {% for item in site.homeworks %}

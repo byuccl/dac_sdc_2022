@@ -2,15 +2,14 @@ name: Build and deploy Jekyll site to GitHub Pages
 
 on:
   push:
-    branches:
-      - master
+    branches: *
 
 jobs:
-  github-pages:
+  link-checker:
     runs-on: ubuntu-latest
     steps:
       - uses: actions/checkout@v2
-      - uses: helaili/jekyll-action@2.0.5
-        env:
-          JEKYLL_PAT: ${{ github.actor }}:${{ github.token }}
+
+      - name: Check links
+        run: make check
         

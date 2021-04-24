@@ -2,7 +2,7 @@ build:
 	bundle exec jekyll build
 
 check_links: build
-	bundle exec htmlproofer --empty_alt_ignore --url-swap "^\/ecen427:" ./_site
+	bundle exec htmlproofer --empty_alt_ignore --url-swap "^\/ecen427:" --url-ignore "/www.newark.com/" ./_site
 
 serve:
 	bundle exec jekyll serve
