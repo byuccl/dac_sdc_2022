@@ -3,7 +3,7 @@ layout: page
 toc: false
 title: Lab Pass-Off / Submission
 short_title: Pass-Off/Submission
-indent: 1
+indent: 0
 number: 2
 ---
 
