@@ -1,10 +1,10 @@
 ---
 layout: page
 toc: false
-title: Lab Pass-Off / Submission
-short_title: Pass-Off/Submission
+title: Lab Submission
+short_title: Lab Submission
 indent: 0
-number: 2
+number: 1
 ---
 
 Lab pass-offs will not be done in person.  Instead, you will create a *tag* in your Git repository that points to your submission for the lab.
