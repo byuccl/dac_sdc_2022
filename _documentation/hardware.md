@@ -13,6 +13,8 @@ A few things to note about the hardware system that we have provided to you:
   * **AXI GPIO** [Documentation](https://www.xilinx.com/support/documentation/ip_documentation/axi_gpio/v2_0/pg144-axi-gpio.pdf):  There are several physical I/O pins on the FPGA chip that connect to the RGB LEDs, LEDs, switches and buttons on the PYNQ board. The GPIO modules provides an interface between the processor bus and these physical pins.  Each group of pins are connected to their own *AXI GPIO* module.  
   * **Fixed Interval Timer (FIT)** [Documentation](https://www.xilinx.com/support/documentation/ip_documentation/fit_timer/v2_0/pg110-fit-timer.pdf): *fit_timer_0* has been configured to generate an interrupt every **10ms**.
   * **AXI Interrupt Controller** [Documentation](https://www.xilinx.com/support/documentation/ip_documentation/axi_intc/v4_1/pg099-axi-intc.pdf) As you can see, *user_intc* has three interrupt **inputs**, *fit_timer_0*, *btns_gpio* and *switches_gpio*. The interrupt controller generates an interrupt **output**, which is connected to an interrupt line of the CPU. 
+  * **Audio**:
+  * **Video**:
   <!-- Note that the interrupt controller does not contain any of registers noted as optional in the interrupt controller documentation. -->
 
 [system.pdf]({% link media/system.pdf %})
