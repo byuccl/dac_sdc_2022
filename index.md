@@ -17,7 +17,7 @@ This course covers the "full stack" of embedded systems, including developing so
 
 The class is hands-on; learning is primarily accomplished by completing a series of lab assignments and reading/studying online documentation.
 
-It is worth noting that modern Linux-based device-driver development is a bit of an art form and that there seems to be no current textbooks or online documentation that describes how to develop device drivers for modern Linux kernels. As such, this class attempts to bring together a lot of information to enable students to learn how to develop and to debug Linux kernel device drivers.
+It is worth noting that modern Linux-based device-driver development is a bit of an art form and that there seems to be no current comprehensive textbooks or online documentation that describes how to develop device drivers for modern Linux kernels. As such, this class attempts to bring together a lot of information to enable students to learn how to develop and to debug Linux kernel device drivers.
 
 We will be using the Xilinx PYNQ board for this class. Though the board is typically outfitted with a Python-based productivity environment, we won't be using that for this class. The boards that we are using will be setup to use Ubuntu so that you can develop directly on these systems.
 
