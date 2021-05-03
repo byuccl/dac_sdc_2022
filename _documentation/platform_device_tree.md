@@ -19,7 +19,7 @@ You can read more about platform devices here:
 ## Linux Device Tree 
 Since platform devices cannot be automatically detected, we must inform Linux what platform devices are present in the system, and their properties (address, interrupt number, etc).  This is done using the Linux **device tree**.
 
-The Linux Device Tree files for the hardware system we will use in this class can be found the [device_tree](https://github.com/byu-cpe/ecen427_solns/tree/master/device_tree) folder of your repo. These files are referenced in the remainder of this page.
+The Linux Device Tree files for the hardware system we will use in this class can be found the [device_tree](https://github.com/byu-cpe/ecen427_student/tree/master/device_tree) folder of your repo. These files are referenced in the remainder of this page.
 
 ### Device Tree Source Code 
 
@@ -39,7 +39,7 @@ ecen427_leds {
   * It is possible to specify custom data fields in a device tree entry that can be read by the kernel driver.  The exercise is left to the interested student to go look at the device tree entry and driver for the HDMI hardware as an example of this.
 
 ### Compiling the device tree 
-If you modify the hardware on the board and add new devices (as you will do in Lab 5), you will need to modify the device tree.  Read through the [README](https://github.com/byu-cpe/ecen427_student/tree/master/device_tree/Readme.md) for instructions on recompiling the device tree and installing the new overlay and hardware. 
+If you modify the hardware on the board and add new devices (as you will do in Lab 5), you will need to modify the device tree.  Read through the [README](https://github.com/byu-cpe/ecen427_student/tree/master/device_tree/readme.md) for instructions on recompiling the device tree and installing the new overlay and hardware. 
 
 ## Resources 
 
