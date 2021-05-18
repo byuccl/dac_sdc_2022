@@ -1,87 +1,82 @@
 ---
 layout: page
 toc: false
-title: Compiling and Running Programs on the PYNQ Board
-short_title: Compiling Programs
+title: Setup VSCode
 indent: 1
-number: 9
+number: 8
 ---
 
 
-## Repo Structure 
-Look through the files provided to you in the Git repo.  There are some helpful explanations in the README.md <https://github.com/byu-cpe/ecen427_student>.  
+## Install VS Code 
 
-## Writing Code
+VSCode is already installed on the lab computers.  If you are using your personal computer, install it from <https://code.visualstudio.com/download>
 
-Open your Git repo directory in VSCode using the folder view, with the Remote SSH extension, as described previously.  This will allow you to create and edit files directly on your PYNQ.
+Next, Install the *Remote - SSH* extension from *Microsoft*. 
 
-## Build System
+<img src="{% link media/setup/vscoderemoteextensionssh.jpg %}" width="400">
 
-### CMake 
+## SSH Config and SSH Keys
+Before proceeding, make sure you set up your SSH config file (`~/.ssh/config`) and SSH keys (`~/.ssh/id_rsa` and `~/.ssh/id_rsa.pub`) as described on an earlier [page]({% link _documentation/network_communications.md %}#ssh-keys).  
 
-To build your user space programs, you are required to use CMake.  CMake is a tool that will automatically create Makefiles for you, based on a configuration file called `CMakelists.txt`.  CMake is already set up in the provided repo. 
+*Note:* If you are using Windows on your personal computer, VSCode will look for your SSH config file and SSH keys in your Windows home directory (not the WSL home directory).
 
-You can look at the top-level [CMakeLists.txt](https://github.com/byu-cpe/ecen427_student/blob/master/userspace/CMakeLists.txt) file provided to you.  *Note:* This file is located in your `userspace` folder.  For the first few labs of the class you will be writing code that runs in Linux user space, so all of your code will be placed within this folder.  Later, beginning in Lab 4, you will write kernel code that will be located in the `kernel` folder, but this will not be built using the CMake system.
+<!-- 
+  - Create a .ssh folder if you don't have one: ''mkdir /mnt/c/Users/<your windows username>/.ssh''
+  - Copy over the config file: ''cp ~/.ssh/config /mnt/c/Users/<your windows username>/.ssh/''
+  - Copy over the SSH keys: ''cp ~/.ssh/id_rsa* /mnt/c/Users/<your windows username>/.ssh/''  -->
 
-For Lab1, you are provided a *Hello, World* application, [main.c](https://github.com/byu-cpe/ecen427_student/blob/master/userspace/apps/lab1_helloworld/main.c).
+### SSH Config 
 
+Before proceeding to setup VSCode, you will need to create an SSH config file on your home computer.
+  * Click the green button in the bottom left of VSCode, and select *Remote-SSH: Open Configuration File...*.  Note: if there is no green button in the bottom left, you haven't installed the *Remote - SSH* extension (see above).
 
-Note that the top-level [CMakeLists.txt](https://github.com/byu-cpe/ecen427_student/blob/master/userspace/CMakeLists.txt) file has a `add_subdirectory(apps)` statement, which will instruct CMake to process the apps [CMakeLists.txt](https://github.com/byu-cpe/ecen427_student/blob/master/userspace/apps/CMakeLists.txt) file.  This in turn has a `add_subdirectory(lab1_helloworld)` statement that will process the lab1 [CMakeLists.txt](https://github.com/byu-cpe/ecen427_student/blob/master/userspace/apps/lab1_helloworld/CMakeLists.txt) file.  The contents of these files are explained below.
+  <img src="{% link media/setup/vscodegreenbutton.jpg %}" width="200">
 
-### Compiling Your Code 
+  * You will then be asked to select an SSH configuration file to open.  You should pick the one that is in your home directory (*~/.ssh/config*).
+  * This SSH configuration file is used to tell the SSH program about computers you can connect to, and to save settings for each computer.  This file may be empty right now, but you should add a new entry like this:
 
+```
+Host pynq13
+    Hostname pynq03.ee.byu.edu
+    User byu
+```
+   
+The SSH config serves as a shortcut for using SSH, and is required by VSCode for remote connections.  Keep in mind that as you switch seats and boards in the lab, you will need to add new entries to this file.
 
-To compile the Lab1 executable, you need to navigate to the build directory, and then run CMake and point it to the top-level CMakeLists.txt file, like so:
+<!-- If you are running Windows with WSL, VSCode will be using the ''.ssh/config'' file in your **Windows** home directory, but you may also choose to place an identical file in your **WSL** home directory (''~/.ssh/config'').  That way you can simply type:<code>
+ssh pynq
+</code>
+from the WSL terminal.  If you are using Mac or Linux, you don't need to create an extra config file, as the one created by VSCode should be sufficient.
+ -->
 
-    cd userspace/build
-    cmake ..
+### Connecting via SSH 
+  - Click the green button in the bottom left of VSCode, and select *Remote-SSH: Connect to Host..*
+  - If your SSH config file is set up correctly, you should now be given a list of the machines available in your SSH config file.  Select your *pynq13* board.
+  - A new VSCode window should pop up, and the VSCode server will be installed on your PYNQ board.  This can take a few minutes.  If an error pops up, try clicking *Retry* a few times.
+  - Once connected, the green status bar in the lower left corner should read *SSH: pynq13*
+  - You can now click *File->Open Folder* and then select your *ecen427* repository folder that you cloned earlier.
 
-This will produce a Makefile in your build directory.  Run it to compile the *Hello, World* application.
+### Re-Connecting
 
-    make
+If the future, you can just press *Ctrl+R* to list all of the recent folders you have opened.  This can be used to quickly reconnect to the PYNQ board and open your repository.
 
+## Install VSCode Extensions 
+When you open the folder using VSCode, you should see a message indicating that there are recommended extensions for your code.  Click *Install All*.
 
-**Tip:** Although CMake takes a minute to run the first time, you won't need to run it ever again (unless you completely delete your build directory).  Once CMake has been run once and has set up the Makefile system, you can just re-run `make` for any future changes.  Even if you change the CMake files, the system is set up so that the generated Makefile will detect these updates, and automatically call CMake to update itself.
-
-<span style="color:blue">**IMPORTANT:**</span> Never run ''cmake'' from anywhere but your *build* directory.  It creates *many* temporary files that will clutter up your source files.
-
-### Running Your Code 
-From within the build directory you can run the following to execute the Lab 1 *Hello, World* program:
-
-    ./apps/lab1_helloworld/helloworld
-
-
-### Understanding the CMakeLists.txt files 
-
-The top-level [CMakeLists.txt](https://github.com/byu-cpe/ecen427_student/blob/master/userspace/CMakeLists.txt) file contains the following:
-
-    cmake_minimum_required(VERSION 3.4)
-
-The first line in the CMakeLists.txt file is found at the beginning of most CMake files and indicates the minimum version of CMake that your makefile supports.
-
-    set(CMAKE_BUILD_TYPE Release)
-
-This line instructs CMake to pass the debug flag (''-g'') to the GCC compiler.  This can help you track down the source of segmentation faults.
-
-    include_directories(drivers)
-
-The `include_directories` statement instructs CMake where to look for header (*.h*) files.  In Lab 2 you will create some drivers with associated header files that you will want to include in your application code.  This line ensures the compiler will find your driver header files.
-
-    add_subdirectory(drivers)
-    add_subdirectory(apps)
-
-These lines instruct CMake to look in these directories for additional CMakeLists.txt files and process them.
+<img src="{% link media/setup/vscode_recommendations.png %}" width="400">
 
 
-The Lab 1 [CMakeLists.txt](https://github.com/byu-cpe/ecen427_student/blob/master/userspace/apps/lab1_helloworld/CMakeLists.txt) file contains the following: 
-
-    add_executable(helloworld main.c)
-
-This directs CMake to create a new executable program.  The first argument is the name of the executable, which in this case is `helloworld`.  The remaining arguments to the command provide a list of source code files, which in this case is only main.c.
 
 
-## Backing up Your Code
+## Accessing the Terminal 
 
-You should commit your files and push them up to Github <ins>**OFTEN!!**</ins>.  **We will not make any special accommodations for students that lose their code because they were not pushing their code up to Github frequently.**. 
+Instead of using a separate terminal to SSH to your PYNQ, you may prefer to use the terminal integrated in VSCode.  Click *Terminal->New Terminal* (Ctrl+~) to open a remote terminal.
 
-
+## Committing Code via Git 
+From VSCode you can now directly edit your files and commit them to your Github repository.  Try it out:
+  - Create a new file called *README*.  You can do this by opening the *Explorer* view in VSCode (top button in left-hand pane), then in the file browser, right-click and select *New File*.
+  - Add the line *This is the ECEN427 repo for \<your name\>* to your file and save it.
+  - Open the *Source Control* view of VSCode (third button down in the left-hand pane).  Your new file should be listed in the *Changes* section.
+  - Click the **+** button next to your file to Stage it for commit.
+  - Add a commit message and click the check mark to commit (or Ctrl+Enter)
+  - Push this commit up to Github by clicking the three dots and selecting *Push*, or by clicking the Sync button in the bottom blue strip of VSCode (two buttons to the right of the green SSH button you used earlier).
