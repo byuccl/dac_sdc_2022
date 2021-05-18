@@ -59,7 +59,7 @@ The top-level [CMakeLists.txt](https://github.com/byu-cpe/ecen427_student/blob/m
 
 The first line in the CMakeLists.txt file is found at the beginning of most CMake files and indicates the minimum version of CMake that your makefile supports.
 
-    set(CMAKE_BUILD_TYPE Debug)
+    set(CMAKE_BUILD_TYPE Release)
 
 This line instructs CMake to pass the debug flag (''-g'') to the GCC compiler.  This can help you track down the source of segmentation faults.
 
