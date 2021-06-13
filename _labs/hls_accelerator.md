@@ -121,7 +121,7 @@ Or though Tcl:
 
 ### IP Export
 
-As you did in Lab 5, the next step is to package your Verilog into an IP module that you can include in your Vivado project.  Fortunately, you don't have to do this manually; Vitis HLS will automatically package your IP.  You can select *Export IP* from the menu, or from Tcl:
+As you did in Lab 5, the next step is to package your Verilog into an IP module that you can include in your Vivado project.  Fortunately, you don't have to do this manually; Vitis HLS will automatically package your IP.  You can select *Export RTL* from the run menu, and output your IP to the *hw/ip_repo* folder.  Or add this to the end of your proj.tcl:
 
     export_design -format ip_catalog -output ../../ip_repo/fill_bitmap_region.zip
 
@@ -135,10 +135,42 @@ And then commit these IP files to your repo.
 ### Attaching your IP in your Vivado Project
 
 Add your new IP to your Vivado project like you did in Lab 5.  Wiring up this IP will be slightly different, and more complicated, than your PIT.  Follow these steps:
-1. Connect the clock and reset input.  The clock input should come from TBD, and the reset input should come from TBD.
-2. Attach the AXI4-Lite slave interface to the bus. ...
-3. Attach the AXI4 master interface to this bus ...
+1. Connect the clock input.  This should come from the 100MHz clock of the ZYNQ7 Processing System (*FCLK_CLK0*).
+1. Connect the reset input.  This should come from the *peripheral_aresetn* output of the *rst_ps7_0_fclk0* block.  
+2. Attach the AXI4-Lite slave interface to the appropriate bus. In our system, the *axi_interconnect_0* block implements the bus for memory-mapped 100MHz devices.  Double click to reconfigure this bus and add another master port.  
+  * Connect the new master interface (*MXX_AXI*) to the slave port on your IP (*S00_AXI*).
+  * Connect the clock and reset inputs on the bus to the same clock and reset used above.
+  * Open the *Address Editor* and assign an address to your block (*/fill_bitmap_region_0/s_axi_control*)
+3. Next, we need to connect the AXI4 master interface to the system memory.  The DDR memory controller is actually internally part of the *ZYNQ7 Processing System*, so you won't see it on the diagram, but you can add slave connections to the processing system to allow master devices access to the system memory.  You will see that one such input, *S_AXI_HP0* already exists, which is connected to the *axi_mem_intercon_1* bus, which is used by the Video system.  This bus won't work for us, since the Video system is running at a different clock rate (142 MHz, *FCLK_CLK1*).  Instead, you will need to do the following:
+  * Double click to reconfigure the *ZYNQ7 Processing System*, go to *PS-PL Configuration* , expand *HP Slave AXI Interface*, and enable the *S AXI HP1* interface.
+  * Add a new *AXI Interconnect* IP to your design, with one master and one slave port.  
+    * Connect the master port of your HLS IP (*m_axi_gmem*) to the *S00_AXI* input.
+    * Connect the *M00_AXI* output to the newly added *S_AXI_HP1* port on the processing system.
+    * Connect all clock inputs on the bus to *FCLK_CLK0*.
+    * Connect the *ARESETN* bus reset to the *interconnect_aresetn* output of the *rst_ps7_0_fclk0* block.
+    * Connect the *S00_ARESETN* and *M00_ARESETN* resets to the *peripheral_aresetn* output of the *rst_ps7_0_fclk0* block.
+    * Open the *Address Editor* and assign an address to the */ps7_0/S_AXI_HP1* entry.  This should be at address 0, as shown below:
 
+<img src="{% link media/labs/maxi_address.png %}">
+
+If done correctly, it should look something like this:
+
+<img src="{% link media/labs/maxi_wiring.png %}">
+
+
+**Click the _Validate Design_ button (looks like a check mark) to ensure that your design is valid.**
+
+### Compiling and Committing the Hardware 
+
+As with lab5:
+1. Save your hardware project changes by generating a new *ecen427.tcl* file (and commit to Git).  
+1. Commit your new IP files to Git.  
+1. Generate a new bitstream, copy it to the *hw/ecen427.bit* and commit it to git.
+1. Add a new entry to the device tree, with a *compatible* field set to *generic-uio*, and a *reg* field that is the AXI slave address of your new IP.
+1. Go to the *device_tree* folder, run `make build` to generate new *ecen427.bit.bin* and *ecen427.dtbo* files, and commit them to git.
+1. Pull these changes down on your PYNQ board, and run `make install` in the *device_tree* folder to update the hardware bitstream and device tree on your board.  
+
+You are now ready to write software that uses your hardware accelerator.
 
 ## Running Your Accelerator from Software
 

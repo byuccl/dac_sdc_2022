@@ -46,7 +46,6 @@ When you are done making changes to the source HDL files for your IP, you can pa
     - For Lab 5 you will only need to add an interrupt port.  Make sure this port belongs to an interrupt bus. (You can right click, and select *Add Bus Interace*.  For the *Interface Definition* you should choose *signal*->*interrupt_rtl*, and for *Mode* chose *master*.)
   * Once you have green check marks for all of the *Packaging Steps*, choose *Review and Package* and then click the button to *Re-Package IP*.  This should save your IP and close the project.
 <img src="{% link media/vivado_ip.jpg %}" width="600">
-<!-- {{::mergechangesvivadoip.jpg?600|}} -->
 
 <!-- NOTE: I had better luck if I quit and restarted Vivado after repacking my IP but before adding the new IP to my design. In my case, I created the new IP using the initially provided 427 project. If I did not restart Vivado, my newly added irq pin did not show up when I inserted the IP. YMMV. (11/13/20 - BLH). -->
 
