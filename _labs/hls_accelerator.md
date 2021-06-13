@@ -117,7 +117,29 @@ Or though Tcl:
 
 **Now, re-run C Synthesis**.  Take a look again at the produced Verilog file.  If you added the interfaces correctly, the only top-level ports you should see are the clock, the reset, the AXI4-Lite slave bus, the AXI4 master bus, and an interrupt output (we won't be using this).
 
-## IP Export
+## Updating your Hardware in Vivado
+
+### IP Export
+
+As you did in Lab 5, the next step is to package your Verilog into an IP module that you can include in your Vivado project.  Fortunately, you don't have to do this manually; Vitis HLS will automatically package your IP.  You can select *Export IP* from the menu, or from Tcl:
+
+    export_design -format ip_catalog -output ../../ip_repo/fill_bitmap_region.zip
+
+After running this you should unzip the files:
+
+    cd hw/ip_repo
+    unzip fill_bitmap_region.zip -d fill_bitmap_region
+
+And then commit these IP files to your repo.
+
+### Attaching your IP in your Vivado Project
+
+Add your new IP to your Vivado project like you did in Lab 5.  Wiring up this IP will be slightly different, and more complicated, than your PIT.  Follow these steps:
+1. Connect the clock and reset input.  The clock input should come from TBD, and the reset input should come from TBD.
+2. Attach the AXI4-Lite slave interface to the bus. ...
+3. Attach the AXI4 master interface to this bus ...
 
 
-## Space Invaders Integration
+## Running Your Accelerator from Software
+
+### Space Invaders Integration
