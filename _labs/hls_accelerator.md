@@ -19,7 +19,7 @@ Fortunately, we are going to make use of a modern digital design technology, *Hi
 ## Describing Functionality in C Code
 HLS tools allow you to design hardware using C/C++ code (with some limitations; for example, code that uses dynamic memory allocation or recursion isn't supported).  To use HLS, you must write your hardware behavior as a C/C++ function, and then run the HLS tools to convert this into a Verilog module.  The function arguments will become top-level interfaces to your hardware block.
 
-For this lab, you will implement the the `fill_bitmap_region` function, defined in *bitmap_accelerator.h*:
+For this lab, you will implement the the `fill_bitmap_region` function, defined in [bitmap_accelerator.h](https://github.com/byu-cpe/ecen427_student/blob/master/hw/hls/bitmap_accelerator/bitmap_accelerator.h):
 
 ```
 // Draw a rectangular region of pixels at (dest_x, dest_y), of size (width, height).
