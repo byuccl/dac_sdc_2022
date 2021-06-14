@@ -17,7 +17,7 @@ Fortunately, we are going to make use of a modern digital design technology, *Hi
 <img src="{% link media/labs/hls_bus.png %}" class="center"></p>
 
 ## Describing Functionality in C Code
-HLS tools allow you to design hardware using C/C++ code (with some limitations; for example, code that used dynamic memory allocation or recursion isn't supported).  To use HLS, you must write your hardware behavior as a C/C++ function, and then run the HLS tools to convert this into a Verilog module.  The function arguments will become top-level interfaces to your hardware block.
+HLS tools allow you to design hardware using C/C++ code (with some limitations; for example, code that uses dynamic memory allocation or recursion isn't supported).  To use HLS, you must write your hardware behavior as a C/C++ function, and then run the HLS tools to convert this into a Verilog module.  The function arguments will become top-level interfaces to your hardware block.
 
 For this lab, you will implement the the `fill_bitmap_region` function, defined in *bitmap_accelerator.h*:
 
@@ -41,8 +41,8 @@ Some test code is provided to you in *bitmap_accelerator_test.c* to ensure that 
 
 ## Vitis HLS
 
-### Creating Project
-Xilinx's high-level synthesis softwware is called *Vitis HLS*.  You can run this from the command-line using `vitis_hls` (after you have sourced the script to add the Xilinx tools to your PATH).  If you run it this way, you will be presented with a new project wizard, where you will provide your files, select a part, etc. (similar to how you have created projects in Vivado).
+### Creating a Project
+Xilinx's high-level synthesis software is called *Vitis HLS*.  You can run this from the command-line using `vitis_hls` (after you have sourced the script to add the Xilinx tools to your PATH).  If you run it this way, you will be presented with a new project wizard, where you will provide your files, select a part, etc. (similar to how you have created projects in Vivado).
 
 Instead, we will create a new project using the provided [proj.tcl](https://github.com/byu-cpe/ecen427_student/blob/master/hw/hls/bitmap_accelerator/proj.tcl) script.  Look through this script.  It starts by creating a project named *vitis_hls_proj*. You will see that it adds your *bitmap_accelerator.c* file to the project (*add_files*), specifies which function will be synthesized to hardware (*set_top*), and adds the *bitmap_accelerator_test.c* file as a test bench code (*add_files -tb*).  It also selects an FPGA part, and a target clock frequency.
 
@@ -58,14 +58,14 @@ Now open your project using:
 In the *Explorer* pane (top-left) expand the *Source* and *Test Bench* groups, and make sure you can see your *bitmap_accelerator.c* and *bitmap_accelerator_test.c* files.
 
 ### C Simulation
-The next step will be to make sure your *fill_bitmap_region* function works correctly.  In Vitis HLS, run *C Simulation* to verify that your function works correctly.  This tool simply uses GCC to compile your test bunch software, and runs the executable on your machine.  No harware is created yet.
+The next step will be to make sure your *fill_bitmap_region* function works correctly.  If you haven't already done so, write this function now.  Then, in Vitis HLS, run *C Simulation* to verify that your function works correctly.  This tool simply uses GCC to compile your test bench software, and runs the executable on your machine.  No hardware is created yet.
 
-The provided test bench, which you can inspect, runs your function four times, twice filling a region with a constant RGB value, and twice copying from another location in the frame buffer.  For each operation, the test bench has a *golden* frame buffer (ie a copy of exactly what the frame buffer should contain after the operation).  If you impelment the function incorrectly, it will print every byte that is mismatched with the golden copy.
+The provided test bench, which you can inspect, runs your function four times, twice filling a region with a constant RGB value, and twice copying from one location in the frame buffer to another.  For each operation the test bench has a *golden* frame buffer (ie a copy of exactly what the frame buffer should contain after the operation).  If you implement the function *incorrectly*, it will print every byte that is mismatched with the golden copy.
 
 ### C Synthesis
-The next step is to synthesize your C code into a Verilog module.  Run *C Synthesis*.  This should take less than a minute, and then produce a report of the result.  Look over the *Performance & Resource Estimates* section, and observe that the tool makes a prediction on how many FPGA resources will be used (LUT, FF, BRAM, DSP).  The tool will also report a *Latency* value; however, this is worst-case prediction, as the latency of your code depends on what values you pass in for *width* and *height*.  
+The next step is to synthesize your C code into a Verilog module.  Run *C Synthesis*.  This should take less than a minute, and then produce a report of the result.  Look over the *Performance & Resource Estimates* section, and observe that the tool makes a prediction on how many FPGA resources will be used (LUT, FF, BRAM, DSP).  The tool will also report a *Latency* value; however, this is worst-case prediction, as the latency of your code depends on what values you pass in for *width* and *height*.  (You will probably see a very large latency value because *width* and *height* are 16-bit values which would mean you could theoretically ask the function to copy 2^16*2^16=~4 billion pixels.  Of course we will never actually copy that many pixels.)
 
-*Note:* If you want to automatically run C Synthesis after you create your project, add the line `csynth_design` to the end of your *proj.tcl* file.
+*Note:* If you want to automatically run C Synthesis when creating your project, add the line `csynth_design` to the end of your *proj.tcl* file.
 
 ## Interfaces
 
