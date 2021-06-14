@@ -76,20 +76,20 @@ You don't need to understand all the Verilog that is produced, but look over the
 * Control inputs/outputs that allow us to start the module and know when it's done processing (*ap_start*, *ap_done*, *ap_idle*, *ap_ready*).
 * Data inputs for all of our function arguments.
 
-These simple inputs and outputs are useful if we want to connect this module to other hardware modules; however, this isn't what we want for our hardware system. Rather, we want to be able to control this module from software, isntead, we want these the top-level I/O to be an AXI interface, and the control and data signals to be hardware registers than we can access from software.
+These simple inputs and outputs are useful if we want to connect this module to other hardware modules (like you have done in ECEn 220); however, this isn't what we want for our hardware system. Rather, we want to be able to control this module from software.  This requires an AXI bus interface, with control and data signals accessed through hardware registers on the bus.
 
-Fortunately, Vitis HLS can automatically create Verilog with various interfaces, including both AXI4-Lite slave and AXI4 master interfaces.  Interfaces are one of many types of design directives that Vitis supports to guide how the Verilog is created.  To add interfaces, open your *bitmap_accelerator.c* file, and then open the *Directive* pane (top-right).  You should see different elements of your C code (functions, arguments, loops, etc) that you can apply directives to.
+Fortunately, Vitis HLS can automatically create Verilog with various interfaces, including both AXI4-Lite slave and AXI4 master interfaces.  Interfaces are one of many types of design directives that Vitis supports to guide how the Verilog is created.  To add interface directives, open your *bitmap_accelerator.c* file, and then open the *Directive* pane (top-right).  You should see different elements of your C code (functions, arguments, loops, etc) that you can apply directives to.
 
 We need to create three main interfaces:
-1. An AXI4-Lite slave interface to control the module.
+1. An AXI4-Lite slave interface to control (ie. start) the module.
 1. An AXI4-Lite slave interface to provide function arguments. (This will actually be the same bus interface as #1).
-1. An AXI4 master interface, that provides access to the frame buffer in system memory.
+1. An AXI4 master interface, that allows access to the frame buffer in system memory.
 
 ### Control Interface
 To add this interface:
-    * Select the top-level function (*fill_bitmap_region*) in the *Directives* pane, right-click and choose *Insert Directive*. 
-    * Choose the *INTERFACE* directive type.
-    * Change *mode* to *s_axilite* (slave, AXI4-Lite), and click *OK* to finish adding the directive.
+* Select the top-level function (*fill_bitmap_region*) in the *Directives* pane, right-click and choose *Insert Directive*. 
+* Choose the *INTERFACE* directive type.
+* Change *mode* to *s_axilite* (slave, AXI4-Lite), and click *OK* to finish adding the directive.
 
 *Note:* Directives can also automatically be applied through Tcl.  You could add the following line to your *proj.tcl* (before `csynth_design`):
 
@@ -97,7 +97,7 @@ To add this interface:
 
 
 ### Data Input Arguments
-For each input (excluding *frame_buffer*), select the input from the *Directives* pane and repeat the above steps to add it to the AXI4-Lite interface.  Or through Tcl:
+For each input (excluding *frame_buffer*), select the input from the *Directives* pane and repeat the above steps to add it to the AXI4-Lite interface.  Or through Tcl (for the *src_x* port):
 
     set_directive_interface -mode s_axilite fill_bitmap_region src_x 
 
@@ -105,9 +105,9 @@ For each input (excluding *frame_buffer*), select the input from the *Directives
 The *frame_buffer* input is unique.  Think about how your software code uses this argument.  It is an input in the sense that the caller of your function provides a pointer address to the frame buffer.  However, it is also used in your software through dereferencing to go out and read/write values in memory.  This requires a more complicated interface.
 
 To add this interface:
-* Again, select the *frame_buffer* input in the *Directives* pan, and add an *INTERFACE* directive.  
+* Again, select the *frame_buffer* input in the *Directives* pane, and add an *INTERFACE* directive.  
 * For the *mode*, select *m_axi* (master, AXI4).  This will create a master interface which will allow the hardware to initiate read/write operations on the bus.  
-* However, the hardware still needs to know the address of the frame buffer in memory.  This will be provided like the other inputs, as a AXI4-Lite slave register.  To indicate this, choose *slave* for the *offset* option (you may need to make the pop-up *Directive Editor* window larger to see this option).
+* However, the hardware still needs to know the address of the frame buffer in memory.  This will be provided like the other inputs, as an AXI4-Lite slave register.  To indicate this, choose *slave* for the *offset* option (you may need to make the pop-up *Directive Editor* window larger to see this option).
 * Click *OK* to finish adding this directive.
 
 Or though Tcl:
@@ -115,7 +115,7 @@ Or though Tcl:
     set_directive_interface -mode m_axi -offset slave fill_bitmap_region frame_buffer
 
 
-**Now, re-run C Synthesis**.  Take a look again at the produced Verilog file.  If you added the interfaces correctly, the only top-level ports you should see are the clock, the reset, the AXI4-Lite slave bus, the AXI4 master bus, and an interrupt output (we won't be using this).
+**Now, re-run C Synthesis**.  Take a look again at the produced Verilog file.  If you added the interfaces correctly, the only top-level ports you should see are the clock, the reset, the AXI4-Lite slave bus (comprised of several signals), the AXI4 master bus (comprised of several signals), and an interrupt output (we won't be using this).
 
 ## Updating your Hardware in Vivado
 
@@ -130,18 +130,18 @@ After running this you should unzip the files:
     cd hw/ip_repo
     unzip fill_bitmap_region.zip -d fill_bitmap_region
 
-And then commit these IP files to your repo.
+Then commit these IP files to your repo.
 
-### Attaching your IP in your Vivado Project
+### Connecting your IP in your Vivado Project
 
 Add your new IP to your Vivado project like you did in Lab 5.  Wiring up this IP will be slightly different, and more complicated, than your PIT.  Follow these steps:
-1. Connect the clock input.  This should come from the 100MHz clock of the ZYNQ7 Processing System (*FCLK_CLK0*).
+1. Connect the clock input.  This should come from the 100MHz clock output of the ZYNQ7 Processing System (*FCLK_CLK0*).
 1. Connect the reset input.  This should come from the *peripheral_aresetn* output of the *rst_ps7_0_fclk0* block.  
-2. Attach the AXI4-Lite slave interface to the appropriate bus. In our system, the *axi_interconnect_0* block implements the bus for memory-mapped 100MHz devices.  Double click to reconfigure this bus and add another master port.  
+2. Attach the AXI4-Lite slave interface to the appropriate bus (same as Lab 5). In our system, the *axi_interconnect_0* block implements the bus for memory-mapped 100MHz devices.  Double click to reconfigure this bus and add another master port.  
   * Connect the new master interface (*MXX_AXI*) to the slave port on your IP (*S00_AXI*).
   * Connect the clock and reset inputs on the bus to the same clock and reset used above.
   * Open the *Address Editor* and assign an address to your block (*/fill_bitmap_region_0/s_axi_control*)
-3. Next, we need to connect the AXI4 master interface to the system memory.  The DDR memory controller is actually internally part of the *ZYNQ7 Processing System*, so you won't see it on the diagram, but you can add slave connections to the processing system to allow master devices access to the system memory.  You will see that one such input, *S_AXI_HP0* already exists, which is connected to the *axi_mem_intercon_1* bus, which is used by the Video system.  This bus won't work for us, since the Video system is running at a different clock rate (142 MHz, *FCLK_CLK1*).  Instead, you will need to do the following:
+3. Next, we need to connect the AXI4 master interface to the system memory.  The DDR memory controller is actually internally part of the *ZYNQ7 Processing System*, so you won't see it on the diagram, but you can enable slave connections to the processing system to allow master devices access to the system memory.  You will see that one such input, *S_AXI_HP0* already exists, which is connected to the *axi_mem_intercon_1* bus and used by the Video system.  This bus won't work for us, since the Video system is running at a different clock rate (142 MHz, *FCLK_CLK1*).  Instead, you will need to do the following:
   * Double click to reconfigure the *ZYNQ7 Processing System*, go to *PS-PL Configuration* , expand *HP Slave AXI Interface*, and enable the *S AXI HP1* interface.
   * Add a new *AXI Interconnect* IP to your design, with one master and one slave port.  
     * Connect the master port of your HLS IP (*m_axi_gmem*) to the *S00_AXI* input.
@@ -149,7 +149,7 @@ Add your new IP to your Vivado project like you did in Lab 5.  Wiring up this IP
     * Connect all clock inputs on the bus to *FCLK_CLK0*.
     * Connect the *ARESETN* bus reset to the *interconnect_aresetn* output of the *rst_ps7_0_fclk0* block.
     * Connect the *S00_ARESETN* and *M00_ARESETN* resets to the *peripheral_aresetn* output of the *rst_ps7_0_fclk0* block.
-    * Open the *Address Editor* and assign an address to the */ps7_0/S_AXI_HP1* entry.  This should be at address 0, as shown below:
+    * Open the *Address Editor* and assign an address to the */ps7_0/S_AXI_HP1* entry.  This should automatically be set to address 0, as shown below:
 
 <img src="{% link media/labs/maxi_address.png %}">
 
@@ -164,14 +164,16 @@ If done correctly, it should look something like this:
 
 As with lab5:
 1. Save your hardware project changes by generating a new *ecen427.tcl* file (and commit to Git).  
-1. Commit your new IP files to Git.  
-1. Generate a new bitstream, copy it to the *hw/ecen427.bit* and commit it to git.
-1. Add a new entry to the device tree, with a *compatible* field set to *generic-uio*, and a *reg* field that is the AXI slave address of your new IP.
+1. Generate a new bitstream, copy it to *hw/ecen427.bit* and commit it to git.
+1. Add a new entry to the device tree, with a *compatible* field set to *generic-uio*, and a *reg* field that is the AXI slave address of your new IP.  
 1. Go to the *device_tree* folder, run `make build` to generate new *ecen427.bit.bin* and *ecen427.dtbo* files, and commit them to git.
 1. Pull these changes down on your PYNQ board, and run `make install` in the *device_tree* folder to update the hardware bitstream and device tree on your board.  
 
 You are now ready to write software that uses your hardware accelerator.
 
 ## Running Your Accelerator from Software
+
+### Testing Your Accelerator
+
 
 ### Space Invaders Integration
