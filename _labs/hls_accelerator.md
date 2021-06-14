@@ -7,9 +7,9 @@ number: 7
 ---
 
 ## Overview
-In this final lab, you will create another piece of custom digital hardware, which will be capable of modifying the graphics on the screen in an accelerated manner.  Rathen than relying on the processor to draw each pixel of the graphics, you will be able to issue a command to your hardware accelerator to do this for you.
+In this final lab, you will create another piece of custom digital hardware, which will be capable of modifying the graphics on the screen in an accelerated manner.  Rather than relying on the processor to draw each pixel of the graphics, you will be able to issue a command to your hardware accelerator to do this for you.
 
-Your harwdare accelerator will need the ability to change memory values in the pixel buffer.  This means that it will act as a *master* on the system bus, with the ability to initiate read and write operations.  This is also means that this hardware will be much more complex than your PIT device, which was a *slave* device, and could only wait and repond to requests initiated by a master device (the processor).
+Your hardware accelerator will need the ability to change memory values in the pixel buffer.  This means that it will act as a *master* on the system bus, with the ability to initiate read and write operations.  This is also means that this hardware will be much more complex than your PIT device, which was a *slave* device, and could only wait and respond to requests initiated by a master device (the processor).
 
 Fortunately, we are going to make use of a modern digital design technology, *High-Level Synthesis (HLS)*, which will automatically create our Verilog digital circuit from a far simpler C-code description.
 
@@ -190,7 +190,8 @@ These functions are quite simple, and just need to call the appropriate function
     you will provide a pointer to the *XFill_bitmap_region* struct you initialized earlier, as well as the data to set.
 
 
-Once you implement these functions correctly, we have provided a [frame_buffer_test](https://github.com/byu-cpe/ecen427_student/tree/master/userspace/apps/frame_buffer_test) application to test that it's working.  This application draws a red, green and blue square in the top-left of the screen, then copies these three squares to the middle fo the screen.
+Once you implement these functions correctly, we have provided a [frame_buffer_test](https://github.com/byu-cpe/ecen427_student/tree/master/userspace/apps/frame_buffer_test) application to test that it's working.  This application draws a red, green and blue square in the top-left of the screen, then copies these three squares to the middle fo the screen.  It looks like this:
+<img src="{% link media/labs/frame_buffer_test.jpg %}" width=600>
 
 This application is worth looking through as an example on how to use your accelerator.  One important thing to note: to use your accelerator, you need a pointer to the frame buffer.  As shown in this application, you can retrieve this by making an IOCTL call to the HDMI driver.  
 
