@@ -33,6 +33,7 @@ For later labs, update the tag name appropriately:
   * lab4_m3_submission
   * lab5_submission
   * lab6_submission
+  * lab7_submission
 
 <span style="color:red">**If you don't type the tag name correctly, it won't count as submitted.**.
 </span>
