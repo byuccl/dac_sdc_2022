@@ -179,7 +179,7 @@ Take a look at the *ip_repo/copy_bitmap_region/drivers/fill_bitmap_region_v1_0/s
 
 With this information you could write your own user space driver that accesses these registers via UIO (like you did in Lab 2).  However, there is no need to do so, since Vitis HLS automatically creates such a driver for you.  This driver is located in the various _xfill_bitmap_region*_ files.
 
-Copy these files to the [fill_bitmap_region](https://github.com/byu-cpe/ecen427_student/tree/master/userspace/drivers/fill_bitmap_region) driver folder.  This folder serves as a simple wrapper around the Xilinx-created driver.  You should create a *fill_bitmap_region.c* file, and implement the three functions listed in the *fill_bitmap_region.h* file.
+Copy these files to the [fill_bitmap_region](https://github.com/byu-cpe/ecen427_student/tree/master/userspace/drivers/fill_bitmap_region) driver folder.  This folder serves as a simple wrapper around the Xilinx-created driver.  You should create a *fill_bitmap_region.c* file, and implement the three functions listed in the [fill_bitmap_region.h](https://github.com/byu-cpe/ecen427_student/blob/master/hw/hls/bitmap_accelerator/bitmap_accelerator.h) file.
 
 These functions are quite simple, and just need to call the appropriate functions that are listed in *xfill_bitmap_region.h*:
   * To initialize the driver you will need to call *XCopy_bitmap_region_Initialize*.  The first argument is a pointer to a *XFill_bitmap_region* struct that will be initialized by this function. The second argument to this function is *InstanceName*, which is the name you chose for your accelerator in the Linux Device Tree.  Unlike the drivers you created in Lab 2 which used hard-coded */dev/* filenames, the Xilinx driver uses the device tree name to lookup the appropriate */dev/ file to use.
@@ -197,7 +197,7 @@ This application is worth looking through as an example on how to use your accel
 ### Space Invaders Integration
 
 Now that you have a working driver, you should make use of it in your Space Invaders game.  While you are free to use it extensively, for pass-off, you only need to do two things:
-1. When the game start, use your accelerator to clear the screen.  Add a *printf* message that states how long it took to fill the screen.
+1. When the game starts, use your accelerator to clear the screen.  Add a *printf* message that states how long it took to fill the screen.
 2. When you draw the five rows of aliens, use your accelerator to draw them quickly.  Again, add a single *printf* message that states how long it took to draw them.
 
 Your accelerator can be used to copy one alien to many different locations quickly.  However, you may be wondering the best way to do this; since aliens can be destroyed, and can move around, you can't always rely on one being at a specific location to copy from.  To make this easier, we have added 40 extra rows of pixels below the screen that you can use to temporarily store your sprites.  If you draw aliens to this "off-screen" region using the original software method, you can then reliably copy from these locations using your accelerator throughout gameplay.
