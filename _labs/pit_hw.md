@@ -67,4 +67,3 @@ Follow the [submission instructions]({% link _other/submission.md %}).  Make sur
   * Your PIT IP in the [ip_repo](https://github.com/byu-cpe/ecen427_student/tree/master/hw/ip_repo) directory.
   * Your new [ecen427.bit](https://github.com/byu-cpe/ecen427_student/blob/master/hw/ecen427.bit) bitstream.
   * Your bitstream packaged into the [ecen427.bit.bin](https://github.com/byu-cpe/ecen427_student/blob/master/device_tree/ecen427.bit.bin) format.
-
