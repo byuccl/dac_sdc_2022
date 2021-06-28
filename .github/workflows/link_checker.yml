@@ -8,20 +8,20 @@ jobs:
     steps:
       - uses: actions/checkout@v2
       - uses: ruby/setup-ruby@v1
+        with:
+          ruby-version: 2.6 
+          bundler-cache: true 
       - name: Build
-        run: |        
-          sudo gem install bundler
-          bundle update
-          make build
+        run: make build
           
   link-checker:
     runs-on: ubuntu-latest
     steps:
       - uses: actions/checkout@v2
       - uses: ruby/setup-ruby@v1
+        with:
+          ruby-version: 2.6 
+          bundler-cache: true 
       - name: Check links
-        run: |      
-          sudo gem install bundler
-          bundle install
-          make check_links
+        run: make check_links
         
