@@ -1,4 +1,4 @@
-name: Check links
+name: Build and check links
 
 on: [push, pull_request]
 
