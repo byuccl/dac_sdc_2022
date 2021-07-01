@@ -19,11 +19,11 @@ You can read more about platform devices here:
 ## Linux Device Tree 
 Since platform devices cannot be automatically detected, we must inform Linux what platform devices are present in the system, and their properties (address, interrupt number, etc).  This is done using the Linux **device tree**.
 
-The Linux Device Tree files for the hardware system we will use in this class can be found the [device_tree](https://github.com/byu-cpe/ecen427_student/tree/master/device_tree) folder of your repo. These files are referenced in the remainder of this page.
+The Linux Device Tree files for the hardware system we will use in this class can be found in the [device_tree](https://github.com/byu-cpe/ecen427_student/tree/master/device_tree) folder of your repo. These files are referenced in the remainder of this page.
 
 ### Device Tree Source Code 
 
-The full device tree that is loaded when by Linux early in the boot process is provided in [pynq.dts](https://github.com/byu-cpe/ecen427_student/tree/master/device_tree/pynq.dts).  We will not be modifying this, as it requires rebuilding the entire boot image, and modifying the bootloader files on the SD card.  Rather, we will use a *device tree overlay*, which allows us to make runtime additions to the base device tree.  This overlay is provided in [ecen427.dtsi](https://github.com/byu-cpe/ecen427_student/tree/master/device_tree/ecen427.dtsi).
+The full device tree that is loaded by Linux early in the boot process is provided in [pynq.dts](https://github.com/byu-cpe/ecen427_student/tree/master/device_tree/pynq.dts).  We will not be modifying this, as it requires rebuilding the entire boot image, and modifying the bootloader files on the SD card.  Rather, we will use a *device tree overlay*, which allows us to make runtime additions to the base device tree.  This overlay is provided in [ecen427.dtsi](https://github.com/byu-cpe/ecen427_student/tree/master/device_tree/ecen427.dtsi).
 
 If you look in this file you will see an entry for the LEDs:
 
