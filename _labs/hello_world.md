@@ -45,7 +45,7 @@ After you have completed these steps, do the following:
 
 We need to know your Github repository URL.  Complete the Learning Suite "quiz" titled "Github URL".  **Don't forget to do this!**
 
-Follow the instructions on the [/Submission]({% link _other/submission.md %}) page.
+Follow the instructions on the [Submission]({% link _other/submission.md %}) page.
 
 ## Resources
   * [Official PYNQ documentation](http://pynq.readthedocs.io/en/latest/getting_started.html)
