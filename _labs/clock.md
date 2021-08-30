@@ -82,7 +82,7 @@ Notes:
 
 ## Submission 
 
-Follow the instructions on the [/Submission]({% link _other/submission.md %}) page.
+Follow the instructions on the [Submission]({% link _other/submission.md %}) page.
 
 ## Suggested Approaches
 Interrupts can be extremely tricky and frustrating to deal with so I strongly suggest that you read the relevant documentation carefully and take an incremental approach. In particular, it is quite useful to write simple programs that indicate that the interrupts are working in the first place. Getting the interrupts to do anything at all is more than half the battle. I did the lab in the following order:
