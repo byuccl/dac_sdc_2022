@@ -20,8 +20,8 @@ Click the link below to leave the 427 website and be taken to the ECEN 330 codin
 The TAs will apply the following method  when evaluating your source code. The goal is to get you in the habit of writing, readable, reusable, high-quality code. As such the TAs will be quite strict when grading your code.
   * In general, the coding standard counts toward 30% of your lab grade (some labs don't apply).
   * Each lab has a set number of maximum points that represents how many infractions can be made before you earn 0% on the coding standard portion.
-  * You will lose a point for each infraction, not just each type of infraction.  For example, if your code has 5 magic numbers, you will lose 5 points.
-  * For example, in Lab 2, if you have 5 infractions, you will receive a coding standard score of 5/10, and thus 15%/30% on the coding standard portion of the lab.
+  * You will lose a point for each infraction, not just each type of infraction; however, the maximum number of points you can lose for each type of violation is 5.  For example, if your code has 8 magic numbers, you will lose 5 points. 
+  * For example, in Lab 2, if you lose 5 points, you will receive a coding standard score of 5/10, and thus 15%/30% on the coding standard portion of the lab.
  
 
 | Lab  |  Points | Notes on Lab |
