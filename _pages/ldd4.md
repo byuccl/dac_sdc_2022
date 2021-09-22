@@ -1,10 +1,14 @@
 ---
 layout: page
 toc: false
-title: Study Questions for Linux Device Drivers, Chapter 4
+title: Linux Device Drivers, Chapter 4
 ---
 
-## Pages 75-82, 90-93
+## Reading
+
+Pages 73-82, 93-98
+
+## Study Questions (Under construction)
 
 1. How do you classify messages with printk?
 

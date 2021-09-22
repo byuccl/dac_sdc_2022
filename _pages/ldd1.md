@@ -1,8 +1,14 @@
 ---
 layout: page
 toc: false
-title: Study Questions for Linux Device Drivers, Chapter 1
+title: Linux Device Drivers, Chapter 1
 ---
+
+## Reading
+
+All of Chapter 1
+
+## Study Questions
 
 1. What is the role of the device driver in the Linux kernel?
 1. What is the distinction between mechanism and policy?

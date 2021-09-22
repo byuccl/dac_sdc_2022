@@ -1,8 +1,14 @@
 ---
 layout: page
 toc: false
-title: Study Questions for Linux Device Drivers, Chapter 3
+title: Linux Device Drivers, Chapter 3
 ---
+
+## Reading
+
+All of Chapter 3
+
+## Study Questions (Under construction)
 
 1. (T or F) Character drivers are generally the most suitable class of drivers for most simple hardware devices.
 
