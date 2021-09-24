@@ -3,7 +3,7 @@ layout: page
 toc: false
 title: Fourteen Ways to Fool Your Synchronizer
 ---
-Please read this paper: [Fourteen Ways to Fool Your Synchronizer](https://linux427.groups.et.byu.net/wiki/lib/exe/fetch.php?media=fourteenwaystofoolyoursynchronizer.pdf)
+Please read this paper: [Fourteen Ways to Fool Your Synchronizer]({% link media/fourteenwaystofoolyoursynchronizer.pdf %})
 Study Questions
 
 1. When is it OK to use a 1-FF synchronizer?
