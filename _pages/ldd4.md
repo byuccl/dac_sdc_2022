@@ -6,7 +6,7 @@ title: Linux Device Drivers, Chapter 4
 
 ## Reading
 
-Pages 73-82, 93-98
+Pages Debugging by Printing (75-82), Debugging System Faults (93-98)
 
 ## Study Questions (Under construction)
 
