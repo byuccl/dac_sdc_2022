@@ -28,4 +28,4 @@ Pages Debugging by Printing (75-82), Debugging System Faults (93-98).  Also read
 
 9. How can you use Oops messages to determine where in your code the problem is located?
 
-10. When should you use the *dev_** and *pr_** functions?
+10. When should you use the *dev_\** and *pr_\** functions?
