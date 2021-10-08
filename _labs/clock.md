@@ -54,7 +54,7 @@ The drivers you write in this lab will run in user space; however, from user spa
 ### Part 2: Real-Time Clock 
 
 Complete the real-time clock application.  Some starting code is provided to you: [clock.c](https://github.com/byu-cpe/ecen427_student/blob/master/userspace/apps/clock/clock.c)
-  1. Time is printed to the terminal using ''printf'', in the following 24-hour format: **HH:MM:SS** 
+  1. Time is printed to the terminal using ''printf'', in the following 24-hour format (includes leading zero): **HH:MM:SS** 
   1. The time display in the terminal emulator is stationary; it does not scroll, etc. Scrounge the internet to see how to clear the terminal window between each print of the time in order to make the display stationary.
   1. The time display will be updated each second. 
   1. Use a combination of a slide-switch with the push-buttons to set the time as follows:
