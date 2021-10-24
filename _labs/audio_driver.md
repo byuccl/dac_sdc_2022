@@ -129,7 +129,8 @@ In this milestone you will add an *ioctl* interface to your driver to allow user
     - Turn on looping for the current audio clip.
     - Turn off looping for the current audio clip.  
   * Integrate sound into Space Invaders by generating the following sounds during game operation:
-    * the “marching” sound the aliens make as they move back and forth across the screen. There are 4 sounds (wave1, wave2, wave3, wave4 in the Box directory). You start with wave1 the first time an alien moves and then play the next sound in the sequence on each successive move, cycling back to wave1.
+    * WAVE files are provided [here](https://github.com/byu-cpe/ecen427_student/tree/master/resources/wavFiles).
+    * the "marching" sound the aliens make as they move back and forth across the screen is comprised of four separate walk1, walk2, walk3, and walk4 sounds.  You start with walk1 the first time an alien moves and then play the next sound in the sequence on each successive move, cycling back to wave1.
     * the sound that the red flying saucer makes as it flies across the screen (use your looping functionality for this)
     * the explosion noise that occurs when your tank is hit by an alien bullet,
     * the explosion noise that occurs when an alien is hit by a tank bullet,
