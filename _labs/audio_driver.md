@@ -233,7 +233,6 @@ Some resources to help you with the kernel function calls:
   * Read LDD3 chapter 6, the first section on *ioctl*.
   * Use `.unlocked_ioctl` in the `struct file_operations` (`.ioctl` as the text suggests is out of date). Even with this update, you still use the `ioctl()` system call in your user-space code for space invaders.
   * The *ioctl* interface must be implemented as described in LDD3.  Make sure the *ioctl* command values are created using the `_IO*` macros.  An example of these are given on pages 138-139 of LDD3.
-  * There are WAV files for the sound clips available on the course [Box site](https://byu.box.com/s/u1v4trpfpsu0f4xpnpw2tjfva6u1bi0m).  They are 16-bit, mono WAV files.
   * You probably want to read all of the WAVE files and store them in arrays at the startup of you game.  Then each time you want to play a sound effect you can pass the appropriate array buffer to the driver.  This avoids repeatedly reading the WAVE files each time you play a sound.
   * No sound mixing is required for this lab, simply play one sound at a time.
 
