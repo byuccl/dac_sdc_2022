@@ -21,7 +21,7 @@ Your PIT IP must include the following:
   - A 32-bit programmable control register that must be readable and writeable from the CPU. You will control the behavior of the PIT by programming specific bits in the control register, as follows:
     * bit 0: enables the counter to decrement if set to '1', holds the counter at its current value if set to a '0'.
     * bit 1: enables interrupts if set to a '1', disables interrupts if set to a '0'.
-    *You may use the remaining bits in the programmable control register as you see fit.
+    * You may use the remaining bits in the programmable control register as you see fit.
   - A 32-bit delay-value register that must be readable and writeable from the CPU. This value is loaded into the timer-counter as described above.
   - When the timer-counter is running, and it reaches 0, it should be reloaded based on the contents of the delay-value register, and continue decrementing.
   - If you disable the counter, and then re-enable it, it should just continue as if it had not been disabled.
