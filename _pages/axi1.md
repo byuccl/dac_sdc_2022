@@ -7,7 +7,7 @@ title: Reading Assignment, AXI Bus
 Please read the following sections from the [AMBA AXI and ACE Protocol Specification](http://www.gstitt.ece.ufl.edu/courses/fall15/eel4720_5721/labs/refs/AXI4_specification.pdf):
 * **Chapter A1**
 * **Chapter A2**, which is mostly about signal definitions. You don't need to understand what all of the signals do at this point, but make sure that you do understand what the VALID, READY, ADDR, LEN, and SIZE signals do within each of the channels. For example, ADDR refers to the AWADDR in the Write Address Channel, and ARADDR in the Read Address Channel, and so forth.
-* **Chapter A3**, which is largely about protocol. Make sure that you understand how the handshaking works in each channel.
+* **Chapter A3** (A3.1-A3.3), which is largely about protocol. Make sure that you understand how the handshaking works in each channel.
 
 ## Study Questions
 1. How many transaction channels are in the AXI architecture?
