@@ -8,7 +8,7 @@ title: Reading Assignment, AXI Bus, Part 2
 Please read the following sections from the AMBA AXI and ACE Protocol Specification (use link from previous reading assignment).
 
 * Write Transaction Dependencies: Pages A3-41 - A3-42
-* Transaction Structure: Pages A3-44 - A3-55.
+* Transaction Structure: Pages A3-44 - A3-55 (skip Byte invariance)
 * Multiple Transaction: Pages A5-75 - A5-82 (skip A5-81, and A5.3.3, these discuss * AXI-3 legacy issues).
 * Ordering Model: A6-84 - A6-88.
 * Chapter B1, AMBA AXI4-Lite: B1-121 - B1-126.
@@ -26,13 +26,10 @@ Please read the following sections from the AMBA AXI and ACE Protocol Specificat
 1. How many write strobes are there for a 512-bit bus? a 256-bit bus? an 8-bit bus?
 1. What is a byte lane?
 1. When does the master use different strobes for each beat of a transfer?
-1. Explain how byte invariance works in your own words.
-1. For a fixed-width, 32-bit, little-endian slave, connected to a 32-bit bus, how should the byte lanes be connected to the slave?
-1. For a fixed-width, 8-bit, big-endian slave, connected to a 32-bit bus, how should the byte lanes be connected to the slave?
 1. Assume a starting address of 0X4, a 64-bit bus, and a 32-bit transfer. Which bits of the data bus will be written during the first transfer? Is this an aligned access?
 1. How does the slave indicate the success or failure of a read or write transaction?
 1. (T or F) The slave terminates the bus transaction by transmitting an error response.
-1. (T or F) A slave can signal different responses for a burst write transaction.
+1. (T or F) A slave can signal different responses for different beats of a burst write transaction.
 1. The AXI bus is asymmetric with regard to read and write channels, e.g., reads can have a response per transfer and writes have a single response per transaction. Why do you think they did things this way?
 1. How does AXI control ordering of transactions?
 1. Why does performing transactions out of order potentially improve performance?
@@ -41,12 +38,9 @@ Please read the following sections from the AMBA AXI and ACE Protocol Specificat
 1. (T or F) Once the master has sent all of the write data, the write transaction is complete.
 1. Why do master transaction IDs vary in bit-width?
 1. (T or F) Transactions issued by multiple masters with the same IDs must be performed in order.
-1. What does this statement mean: Any write transaction for which it has issued a response must be observed by any subsequent write or read transaction, regardless of the transaction IDs (see Page A6-87).
 
 The questions below correspond to the section on AMBA AXI4-Lite.
 1. What is the burst length for a transaction?
 1. (T or F) All accesses must be 32 or 64 bits wide.
 1. (T or F) Masters don't have to support byte slaves.
 1. (T or F) AXI-Lite doesn't support multiple outstanding transactions because it does not support transaction IDs.
-1. Explain ID reflection.
-1. Why must you provide a bridge if the slave does not implement ID reflection?
