@@ -19,5 +19,5 @@ order: 2
 |4 (M2)         | 1 week    | Wed, Oct 27, 2021 |
 |4 (M3)         | 1 week    | Wed, Nov 3, 2021  | 
 |5              | 2 weeks   | Wed, Nov 17, 2021 |
-|6              | 1 week    | Sat, Nov 27, 2021 |
-|7              | 1.5 weeks   | Thu, Dec 9, 2021  |
+|6              | 2 week    | Wed, Dec 1, 2021 |
+|7              | 1 weeks   | Thu, Dec 9, 2021  |
