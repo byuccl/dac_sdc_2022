@@ -50,6 +50,8 @@ Your PIT IP must include the following:
 
 ## Pass-Off / Submission 
 
+Before pass-off and submission, make sure you compile a new bitstream.  See [Compiling a New Bitstream]({% link _documentation/vivado.md %}#compiling-a-new-bitstream ).
+
 ### Pass-Off
 For this lab, pass-off will be done in person with a TA.  
 
