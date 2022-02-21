@@ -13,35 +13,21 @@
 # you will see them accessed via {{ site.title }}, {{ site.email }}, and so on.
 # You can create any custom variable you would like, and they will be accessible
 # in the templates via {{ site.myvariable }}.
-title: "ECEn 427"
-class_name: Embedded Linux Systems
-class_number: ECEn 427
+title: "DAC SDC"
+class_name: DAC System Design Contest 2022
+class_number: DAC SDC
 email: jgoeders@byu.edu
 description: >-
   Class website for BYU's ECEn 625: Compilation Strategies for High-Performance Systems.
-baseurl: "/ecen427"
-url: "https://byu-cpe.github.io"
-github:
-  url: https://github.com/byu-cpe/ecen427
+baseurl: "/dac_sdc_2022"
+url: "https://byuccl.github.io"
 
 permalink: pretty
 
 markdown: kramdown
 
 collections:
-  labs:
-    output: true
-    permalink: /:collection/:name/
-    sort_by: number
-  documentation:
-    output: true
-    permalink: /:collection/:name/
-    sort_by: number
-  other:
-    output: true
-    permalink: /:collection/:name/
-    sort_by: number
-  pages:
+   pages:
     output: true
     permalink: /:name/
     order:

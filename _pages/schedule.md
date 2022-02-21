@@ -1,23 +1,21 @@
 ---
 layout: page
 toc: false
-title: Lab Schedule
+title: Contest Dates
+short_title: Dates
 sidebar: true
 icon: fa fa-calendar
-order: 2
+order: 1
 ---
 
 
-| Lab           | Time      |   Due Date          |
-|---------------|-----------|---------------------|
-|1              | 1 week    | Wed, Sep 8, 2021  |
-|2              | 2 weeks   | Wed, Sep 22, 2021 |
-|3 (M1)         | 1 week    | Wed, Sep 29, 2021 |
-|3 (M2)         | 1 week    | Wed, Oct 6, 2021  |
-|3 (M3)         | 1 week    | Wed, Oct 13, 2021 |
-|4 (M1)         | 1 week    | Wed, Oct 20, 2021 |
-|4 (M2)         | 1 week    | Wed, Oct 27, 2021 |
-|4 (M3)         | 1 week    | Wed, Nov 3, 2021  | 
-|5              | 2 weeks   | Wed, Nov 17, 2021 |
-|6              | 2 week    | Wed, Dec 1, 2021 |
-|7              | 1 weeks   | Thu, Dec 9, 2021  |
+* Contest announcement: January 2021
+* Registration deadline: March 18, 2022
+* Preliminary submissions: 
+    * Submission 1: March 31, 2022
+    * Submission 2: April 30, 2022
+    * Submission 3: May 31, 2022
+* **Final submission:** June 17, 2022
+* Finalist teams announced: June 21, 2022
+* Award presentation: DAC 2022, July 10-14
+

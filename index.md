@@ -4,21 +4,28 @@ toc: false
 title: 
 ---
 
-# {{ site.class_number }}: {{ site.class_name}}
+#  {{ site.class_name}}
 
-<p float="left">
-<img src="{% link media/full_stack.png %}" width="300">
-<img src="{% link media/pynq.jpg %}" width="500">
+The DAC System Design Contest focuses on low-power object detection on an embedded FPGA system. Contestants will receive a training dataset provided by DJI, and a hidden dataset will be used to evaluate the performance of the designs in terms of accuracy and power. Contestants will compete to create the best performing design on a Ultra 96 v2 FPGA board. Grand cash awards will be given to the top three teams. The award ceremony will be held at the 2022 IEEE/ACM Design Automation Conference.
+
+
+<p align="middle">
+    <img src="{% link media/object_detection_example.png %}" width="400" class="center">
+    <img src="{% link media/ultra96.png %}" width="400" class="center">
 </p>
 
-This course covers the "full stack" of embedded systems, including developing software applications, user space and kernel drivers, and custom digital hardware.  All of these pieces are integrated together in a semester-long project to implement the original Space Invaders game.
 
-<!-- This course has been updated to focus on Linux-based embedded systems and focuses on general programming in a Linux environment, with a focus on device drivers and hardware development.  -->
+## Links
 
-The class is hands-on; learning is primarily accomplished by completing a series of lab assignments and reading/studying online documentation.
+  * [Contest Dates]({% link _pages/schedule.md %})
+  * [Registration](https://docs.google.com/forms/d/e/1FAIpQLSdR_B5BpST4Y49ZJmp2Dbjb4mZJ_PC3l9bpBY8yWXB4egV-jw/viewform?usp=sf_link) (The contest is open to both industry and academia.)
+  * [Participant Info]({% link _pages/info.md %})
+  * [Evaluation Metrics]({% link _pages/evaluation.md %})
+  * [Submission Instructions]({% link _pages/submission.md %})
+  * [Contest Results]({% link _pages/results.md %})
 
-It is worth noting that modern Linux-based device-driver development is a bit of an art form and that there seems to be no current comprehensive textbooks or online documentation that describes how to develop device drivers for modern Linux kernels. As such, this class attempts to bring together a lot of information to enable students to learn how to develop and to debug Linux kernel device drivers.
 
-We will be using the Xilinx PYNQ board for this class. Though the board is typically outfitted with a Python-based productivity environment, we won't be using that for this class. The boards that we are using will be setup to use Ubuntu so that you can develop directly on these systems.
-
-*Important Note: This class relies on your ability to teach yourself and to find things out as you go. In most cases, the lab descriptions will provide only the background information that is difficult to find on the internet. Also, we will go over difficult concepts in class. However, in order to complete the lab exercises, you will need to be resourceful. You will need to carefully study the provided documentation and to find answers to your questions on your own by searching web-sites such as stack-overflow, etc. The TAs will try to help you when you are completely stuck but they generally won't answer questions that you should be able to answer for yourself. Also, try not to rely too much on other students. Try to become self-reliant. Ultimately, self-reliant engineers get paid more and have better job security.*
+## Organizing Committee
+  * Jeff Goeders - Brigham Young University
+  * Callie Hao - Georgia Institute of Technology
+  * Cheng Zhuo - Zhejiang University

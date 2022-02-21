@@ -20,11 +20,11 @@
             {% for item in pages_sorted %}
             {% if item.sidebar %}
             <a href="{% link {{ item.path }} %}"
-                class="sidebar-color list-item-normal list-group-item list-group-item-action sidebar-item ">
+                class="sidebar-color list-item-tall list-group-item list-group-item-action sidebar-item ">
                 {% if item.icon %}
                 <i class="{{ item.icon }}"></i>
                 {% endif %}
-                {{ item.title }}
+                {{ item.short_title | default: item.title }}
             </a>
             {% endif %}
             {% endfor %}
@@ -35,44 +35,5 @@
 
         </div>
 
-        <div class="sidebar-heading">Labs</div>
-        <div class="list-group list-group-flush">
-            {% for item in site.labs %}
-            <a href="{% link {{ item.path }} %}"
-                class="list-item-normal list-group-item list-group-item-action bg-light sidebar-item">
-                <span class="badge badge-pill badge-dark-grey">{{ item.number }}</span>
-                {{ item.short_title | default: item.title }}
-
-            </a>
-            {% endfor %}
-        </div>
-
-        <div class="sidebar-heading">Documentation</div>
-
-        <div class="list-group list-group-flush">
-            {% for item in site.documentation %}
-            <a href="{% link {{ item.path }} %}"
-                class="list-item-narrow list-group-item list-group-item-action bg-light sidebar-item">
-                {% for i in (1..{{item.indent}}) %}&emsp;{% endfor %}
-
-                {{ item.short_title | default: item.title }}
-
-            </a>
-            {% endfor %}
-        </div>
-
-        <div class="sidebar-heading">Other</div>
-
-        <div class="list-group list-group-flush">
-            {% for item in site.other %}
-            <a href="{% link {{ item.path }} %}"
-                class="list-item-narrow list-group-item list-group-item-action bg-light sidebar-item">
-                {% for i in (1..{{item.indent}}) %}&emsp;{% endfor %}
-
-                {{ item.short_title | default: item.title }}
-
-            </a>
-            {% endfor %}
-        </div>
     </div>
 </div>
