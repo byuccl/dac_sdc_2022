@@ -36,6 +36,7 @@ Link to download training dataset: <https://byu.box.com/s/hdgztcu12j7fij397jmd68
   * [FAQs]({% link _pages/faq.md %})
 
 ### Previous Contest Winning Designs
+  * 2021: <https://github.com/jgoeders/dac_sdc_2021_designs>
   * 2020: <https://github.com/jgoeders/dac_sdc_2020_designs>
   * 2019: <https://github.com/xyzxinyizhang/2019-DAC-System-Design-Contest>
   * 2018: <https://github.com/xyzxinyizhang/2018-DAC-System-Design-Contest>
