@@ -34,4 +34,4 @@ For the final submission, follow the instructions above. In addition:
 
 ## Submission Links
 
-TBD
+* Preliminary #1: https://forms.gle/TsHpkMgRSU5MFMN27

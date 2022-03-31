@@ -11,8 +11,8 @@ order: 1
 
 * Contest announcement: January 2021
 * Registration deadline: <del>March 18, 2022</del> April 15, 2022.
-* Preliminary submissions: 
-    * Submission 1: March 31, 2022
+* [Preliminary submissions]({% link _pages/submission.md %}): 
+    * Submission 1: <del>March 31, 2022</del> April 8, 2022
     * Submission 2: April 30, 2022
     * Submission 3: May 31, 2022
 * **Final submission:** June 17, 2022
