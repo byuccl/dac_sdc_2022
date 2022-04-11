@@ -43,4 +43,4 @@ Link to download training dataset: <https://byu.box.com/s/hdgztcu12j7fij397jmd68
 
 
 ## Q&A Platform
-We will be using Piazza as a Q&A platform for the contest. Sign up using this link: <piazza.com/dac_2018/summer2022/dacsdc2022>.
+We will be using Piazza as a Q&A platform for the contest. Sign up using this link: <https://piazza.com/dac_2018/summer2022/dacsdc2022>.
