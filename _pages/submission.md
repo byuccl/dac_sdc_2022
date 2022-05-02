@@ -34,5 +34,5 @@ For the final submission, follow the instructions above. In addition:
 
 ## Submission Links
 
-* March Submission (closed): <https://forms.gle/TsHpkMgRSU5MFMN27>
-* May Submission: <https://forms.gle/y8uWDDditrSHQRGJ9>
+* Preliminary Submission 1 (closed): <https://forms.gle/TsHpkMgRSU5MFMN27>
+* Preliminary Submission 2 (by May 8th): <https://forms.gle/y8uWDDditrSHQRGJ9>
