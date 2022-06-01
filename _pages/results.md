@@ -21,3 +21,22 @@ order: 6
 |8|Vienna EML|12.790|0.366|0.43|0.10|13,105.6|13.678|0.312|
 
 LU_CORPS: Kernel crashes after a long while (about 40-50k images). Tried 3 times.
+
+
+# May Submission Results
+
+|Rank|Team Name|FPS|IoU|FPS Penalty|IoU Penalty|Energy(J)|Energy Score|Total Score|
+|-----|-----|-----|-----|-----|-----|-----|-----|-----|
+|1|Monday|379.840|0.703|1.00|1.00|291.8|8.189|12.212|
+|2|TmpSEU|358.610|0.478|1.00|0.10|350.6|8.454|1.183|
+|3|ultrateam|360.140|0.478|1.00|0.10|401.8|8.650|1.156|
+|4|InvolutionNet|241.050|0.332|1.00|0.10|689.6|9.430|1.060|
+|5|SoutheastASIC|226.020|0.454|1.00|0.10|698.4|9.448|1.058|
+
+**Notes:**
+- **InvolutionNet**: Your team has some power measurement code that contained a bug, please make sure to remove first next time.
+- **BIT_gd**: Error "TypeError: __init__() got an unexpected keyword argument 'batch_size', OSError: libopencv_imgcodecs.so.3.2: cannot open shared object file: No such file or directory"
+- **mit_hanlab**: ModuleNotFoundError: No module named 'pynq_dpu'. We've installed the DPU using `pip3 install pynq-dpu` and it's still not working. Please advise.
+- **super-capacitor**: OSError: libopencv_imgcodecs.so.3.4: cannot open shared object file: No such file or directory. (We installed libopencv-imgcodecs4.2 but looks like your code relies on version 3.4
+- **UT-IS21**: Notebook crashes during 1st batch.
+
