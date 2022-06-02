@@ -36,3 +36,4 @@ For the final submission, follow the instructions above. In addition:
 
 * Preliminary Submission 1 (closed): <https://forms.gle/TsHpkMgRSU5MFMN27>
 * Preliminary Submission 2 (by May 8th): <https://forms.gle/y8uWDDditrSHQRGJ9>
+* Preliminary submission 3 (by June 6th): <https://forms.gle/gKM97ez6gYGiQbEV9>
