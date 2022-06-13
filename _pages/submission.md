@@ -35,5 +35,6 @@ For the final submission, follow the instructions above. In addition:
 ## Submission Links
 
 * Preliminary Submission 1 (closed): <https://forms.gle/TsHpkMgRSU5MFMN27>
-* Preliminary Submission 2 (by May 8th): <https://forms.gle/y8uWDDditrSHQRGJ9>
-* Preliminary submission 3 (by June 6th): <https://forms.gle/gKM97ez6gYGiQbEV9>
+* Preliminary Submission 2 (by May 8th - closed): <https://forms.gle/y8uWDDditrSHQRGJ9>
+* Preliminary submission 3 (by June 6th - closed): <https://forms.gle/gKM97ez6gYGiQbEV9>
+* Final submission (by June 17th 11:59pm AOE - no extension): <https://forms.gle/3BiBeiuxYCUMMPq87>
