@@ -29,3 +29,7 @@ The DAC System Design Contest focuses on low-power object detection on an embedd
   * Jeff Goeders - Brigham Young University
   * Callie Hao - Georgia Institute of Technology
   * Cheng Zhuo - Zhejiang University
+
+## Sponsors
+
+<img src="{% link media/AMD_Xilinx_logo.svg.png %}" width="400">
