@@ -6,6 +6,11 @@ sidebar: true
 icon: fas fa-medal
 order: 6
 ---
+
+## 2022 DAC Presentation
+
+[Slides]({% link media/2022_dac_sdc.pdf %})
+
 ## Final Results
 
 |Rank|Team Name|FPS|IoU|FPS Penalty|IoU Penalty|Energy(J)|Energy Score|Total Score|
